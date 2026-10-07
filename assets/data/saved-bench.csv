@@ -1,0 +1,15 @@
+Category,Task,# QAs,Baseline,Map-task,Partial-task,Partial-simple,Full-task,Full-simple
+Dynamic Relativity,Ego-to-Exo Direction,200,56.00,65.00,76.50,—,72.00,—
+Dynamic Relativity,Ego-to-Exo Distance · AbsMRA,200,34.30,34.55,47.90,41.10,45.90,43.20
+Dynamic Relativity,Exo-to-Ego Direction,200,32.00,50.50,50.50,56.00,53.50,58.00
+Dynamic Relativity,Exo-to-Ego Distance · AbsMRA,200,46.40,44.65,57.45,52.35,54.95,49.60
+Dynamic Relativity Overall,4-task average,800,42.18,48.68,58.09,—,56.59,—
+Regional,Visit History,392,86.73,92.35,89.80,87.76,97.19,93.88
+Regional,Location Awareness,200,92.00,94.50,96.00,95.50,96.50,96.00
+Regional Overall,2-task average,592,89.37,93.42,92.90,91.63,96.85,94.94
+Navigational,Line-Path Search (static),196,60.20,77.04,78.06,76.02,77.55,80.61
+Navigational,Line-Path Search (dynamic),200,73.00,78.00,87.50,85.00,91.00,89.50
+Navigational,Trajectory Distance · AbsMRA,200,16.85,25.00,24.98,27.18,28.18,29.60
+Navigational Overall,3-task average,596,50.02,60.01,63.51,62.73,65.58,66.57
+Overall,QA-weighted average,1988,58.30,65.26,69.75,—,71.28,—
+Overall,9-task average,1988,55.28,62.40,67.63,—,68.53,—

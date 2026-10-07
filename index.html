@@ -1,1 +1,1056 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="FloorSAV grounds spatial audio-visual reasoning in a synchronized 2D floormap. Explore real 20 fps video examples and SAVED-Bench results."
+    />
+    <title>FloorSAV — Spatial audio-visual reasoning with a 2D floormap</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/fonts/dm-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script defer src="assets/media-data.js"></script>
+    <script defer src="assets/site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="topbar">
+      <nav class="wrap nav" aria-label="Main navigation">
+        <a class="brand" href="#"
+          ><svg viewBox="0 0 28 28" aria-hidden="true">
+            <path d="M3 3h22v22H3zM3 14h10V3m0 22V14h12" />
+            <circle cx="18" cy="19" r="3" /></svg
+          >FloorSAV</a
+        >
+        <div class="nav-links">
+          <a href="#examples">Examples</a><a href="#approach">Method</a
+          ><a href="#benchmark">Benchmark</a><a href="#results">Results</a>
+        </div>
+        <a
+          class="nav-paper"
+          href="assets/figures/paper.pdf"
+          target="_blank"
+          rel="noopener"
+          >Paper <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="eyebrow hero-eyebrow">Spatial audio-visual reasoning</div>
+        <h1>Floor<span>SAV</span></h1>
+        <p class="hero-title">
+          Elucidating Spatial Audio-Visual Context<br class="desktop-break" />
+          with 2D Floormap for <span class="nowrap">AV-LLMs</span>
+        </p>
+        <div class="authors">
+          <a href="mailto:kimkyeongrae@kaist.ac.kr">Kyeong-Rae Kim</a
+          ><a href="mailto:ksn4397@kaist.ac.kr">Sungnyun Kim<sup>†</sup></a
+          ><a href="mailto:taehyun.oh@kaist.ac.kr">Tae-Hyun Oh<sup>†</sup></a>
+        </div>
+        <p class="affiliation">
+          <strong>KAIST</strong
+          ><span>Korea Advanced Institute of Science and Technology</span>
+        </p>
+        <p class="author-note">† Corresponding authors</p>
+        <div class="actions hero-actions">
+          <a
+            class="button primary"
+            href="assets/figures/paper.pdf"
+            target="_blank"
+            rel="noopener"
+            ><span aria-hidden="true">↗</span> Paper</a
+          ><a
+            class="button"
+            href="https://github.com/byulharang/FloorSAV"
+            target="_blank"
+            rel="noopener"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" />
+            </svg>
+            GitHub</a
+          ><a class="button" href="#examples"
+            ><span aria-hidden="true">▷</span> Watch examples</a
+          ><button class="button" data-cite>
+            <span aria-hidden="true">❞</span> BibTeX
+          </button>
+        </div>
+        <p class="hero-description">
+          Video, sound, and geometry. One shared map for spatial reasoning.<br
+            class="desktop-break"
+          />
+          <span class="training-note">No fine-tuning required.</span>
+        </p>
+        <div
+          class="paired-player hero-player"
+          id="hero-player"
+          aria-label="Synchronized egocentric and floormap video"
+        >
+          <div class="player-heading">
+            <span
+              ><i class="live-dot"></i> One scene. Two complementary
+              views.</span
+            ><span class="media-badge">20 fps · source footage</span>
+          </div>
+          <div class="paired-views">
+            <div class="video-pane">
+              <div class="pane-label">
+                <span>Egocentric video</span><small>What the camera sees</small>
+              </div>
+              <div class="media-square">
+                <video
+                  id="hero-ego"
+                  muted
+                  playsinline
+                  preload="metadata"
+                  poster="assets/media/viewpoint-poster.jpg"
+                  src="assets/media/viewpoint-ego.mp4"
+                  aria-label="Original first-person kitchen video"
+                ></video
+                ><span class="video-tag">RGB + Audio</span>
+              </div>
+            </div>
+            <div class="video-pane">
+              <div class="pane-label">
+                <span>FloorSAV map</span><small>Where things are</small>
+              </div>
+              <div class="media-square">
+                <video
+                  id="hero-map"
+                  muted
+                  playsinline
+                  preload="metadata"
+                  poster="assets/media/viewpoint-map-poster.jpg"
+                  src="assets/media/viewpoint-map.mp4"
+                  aria-label="Floormap synchronized to the first-person video"
+                ></video
+                ><span class="video-tag map-tag"
+                  >Geometry + Motion + Sound</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="player-controls">
+            <button
+              class="icon-button"
+              id="hero-play"
+              aria-label="Play overview"
+            >
+              ▶</button
+            ><button
+              class="sound-button"
+              id="hero-sound"
+              aria-label="Unmute overview"
+              aria-pressed="false"
+            >
+              Sound off</button
+            ><input
+              id="hero-seek"
+              type="range"
+              min="0"
+              max="20"
+              step="0.05"
+              value="0"
+              aria-label="Overview timeline"
+            /><span id="hero-clock" class="clock">01:00 / 01:20</span>
+          </div>
+        </div>
+        <div class="hero-caption">
+          <span
+            >Original RGB frames + maps redrawn from the same scene data.</span
+          >
+          <div class="map-legend">
+            <span><i class="red"></i>Camera</span
+            ><span><i class="green"></i>Sound estimate</span
+            ><span><i class="blue"></i>Trajectory</span>
+          </div>
+        </div>
+      </section>
+      <section class="section abstract-section">
+        <div class="wrap narrow">
+          <div class="eyebrow">The idea</div>
+          <h2>
+            A shared map for what you see,<br />hear, and where things are.
+          </h2>
+          <p class="large-copy">
+            A person can be heard without being seen. A nearby object may be far
+            from your path. FloorSAV brings camera motion, sound locations, and
+            object landmarks into one coordinate system—so an AV-LLM can reason
+            across views.
+          </p>
+          <details class="abstract">
+            <summary>Read the abstract <span>+</span></summary>
+            <p>
+              While 3D spatial reasoning in dynamic egocentric environments is
+              crucial for embodied intelligence, audio-visual large language
+              models (AV-LLMs) lack explicit mechanisms to process and
+              internalize global geometry directly from raw sensory streams.
+              Existing approaches either require costly fine-tuning or
+              underutilize the model’s cross-modal reasoning capacities. In this
+              paper, we propose FloorSAV, a novel framework that explicitly
+              grounds spatial audio-visual context by rendering a dynamic 2D
+              floormap. By integrating 3D point clouds, camera trajectories,
+              spatial audio cues, and semantically grounded object landmarks, we
+              inject this floormap into the AV-LLM as a synchronized stream with
+              an egocentric video. AV-LLMs utilize their multi-modal
+              capabilities to jointly reason over visual, auditory, and
+              geometric cues in a single inference with floormap interpretation
+              guidance. We further introduce SAVED-Bench (Spatial Audio-Visual
+              Egocentric Benchmark with Dynamic Agents), constructing essential
+              tasks of spatial capability in real-world scenarios: dynamic
+              relativity, regional, and path reasoning QAs. FloorSAV improves
+              AV-LLMs’ spatial reasoning on various tasks from both SAVED-Bench
+              and SAVVY-Bench. Studies with ground-truth floormaps demonstrate
+              the substantial potential of FloorSAV with accurate spatial
+              information.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="section examples-section" id="examples">
+        <div class="wrap">
+          <div class="section-heading">
+            <div class="eyebrow">01 / See it in action</div>
+            <h2>Follow the evidence.</h2>
+            <p class="lead">
+              Three questions. Real source video. A map that makes the
+              difference.<br class="desktop-break" />
+              Play a walkthrough or choose a step to inspect the evidence.
+            </p>
+          </div>
+          <div
+            class="case-tabs"
+            role="tablist"
+            aria-label="Qualitative examples"
+          >
+            <button
+              role="tab"
+              id="tab-region"
+              aria-selected="true"
+              aria-controls="case-panel"
+              data-case="0"
+            >
+              <span>01</span> An off-screen speaker</button
+            ><button
+              role="tab"
+              id="tab-path"
+              tabindex="-1"
+              aria-selected="false"
+              aria-controls="case-panel"
+              data-case="1"
+            >
+              <span>02</span> An imagined path</button
+            ><button
+              role="tab"
+              id="tab-viewpoint"
+              tabindex="-1"
+              aria-selected="false"
+              aria-controls="case-panel"
+              data-case="2"
+            >
+              <span>03</span> A different viewpoint
+            </button>
+          </div>
+          <div
+            class="case-panel"
+            id="case-panel"
+            role="tabpanel"
+            aria-labelledby="tab-region"
+          >
+            <div class="case-heading">
+              <div>
+                <div class="eyebrow" id="case-category">Regional reasoning</div>
+                <h3 id="case-title">Where is the off-screen speaker?</h3>
+              </div>
+              <div class="case-options">
+                <button
+                  id="mobile-layout"
+                  class="text-button"
+                  aria-pressed="false"
+                >
+                  Enlarge views</button
+                ><label class="annotation-toggle"
+                  ><input type="checkbox" id="annotations" checked />
+                  Highlights</label
+                >
+              </div>
+            </div>
+            <p class="case-question" id="case-question">When <mark>“I mean, I like beef rare”</mark> is spoken, which area of the home is the other person in?</p>
+            <div class="case-story-layout">
+              <div id="case-playback" class="case-playback">
+                <div class="paired-views case-views">
+                  <div class="video-pane">
+                    <div class="pane-label">
+                      <span>Egocentric video</span
+                      ><small id="case-source-time">Source 01:00</small>
+                    </div>
+                    <div class="media-square" id="ego-stage">
+                      <video
+                        id="case-ego"
+                        muted
+                        playsinline
+                        preload="none"
+                        poster="assets/media/region-poster.jpg"
+                        aria-label="Source video for the selected qualitative example"
+                      ></video
+                      ><svg
+                        class="evidence-overlay"
+                        id="ego-overlay"
+                        viewBox="0 0 100 100"
+                        aria-hidden="true"
+                      ></svg>
+                      <div class="event-caption" id="event-caption"></div>
+                    </div>
+                  </div>
+                  <div class="video-pane">
+                    <div class="pane-label">
+                      <span>Floormap</span><small>Same source time</small>
+                    </div>
+                    <div class="media-square" id="map-stage">
+                      <video
+                        id="case-map"
+                        muted
+                        playsinline
+                        preload="none"
+                        poster="assets/media/region-map-poster.jpg"
+                        aria-label="Floormap for the selected example"
+                      ></video
+                      ><svg
+                        class="evidence-overlay"
+                        id="map-overlay"
+                        viewBox="0 0 100 100"
+                        aria-hidden="true"
+                      ></svg>
+                      <div
+                        class="map-evidence-label"
+                        id="map-evidence-label"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="player-controls">
+                  <button
+                    class="icon-button"
+                    id="case-play"
+                    aria-label="Play example"
+                  >
+                    ▶</button
+                  ><button
+                    class="icon-button restart-button"
+                    id="case-restart"
+                    aria-label="Restart example"
+                  >
+                    ↺</button
+                  ><button
+                    class="sound-button"
+                    id="case-sound"
+                    aria-label="Unmute example"
+                    aria-pressed="false"
+                  >
+                    Sound off</button
+                  ><input
+                    id="case-seek"
+                    type="range"
+                    min="0"
+                    max="20"
+                    step=".05"
+                    value="0"
+                    aria-label="Example timeline"
+                  /><span class="clock" id="case-clock">00:00 / 00:20</span
+                  ><button
+                    class="speed-button"
+                    id="case-speed"
+                    aria-label="Playback speed, 1 times"
+                  >
+                    1×</button
+                  ><button
+                    class="icon-button expand-button"
+                    id="case-expand"
+                    aria-label="Expand example player"
+                    aria-pressed="false"
+                  >
+                    ⛶
+                  </button>
+                </div>
+                <div class="playback-intro" id="playback-intro">
+                  <button id="start-walkthrough">
+                    <span class="large-play" aria-hidden="true">▶</span
+                    ><span
+                      >Play walkthrough<small id="walkthrough-duration"
+                        >32 seconds · Highlights guide the way</small
+                      ></span
+                    >
+                  </button>
+                </div>
+              </div>
+              <aside
+                class="story-sidebar"
+                aria-label="Step-by-step explanation"
+              >
+                <p
+                  class="media-error"
+                  id="media-error"
+                  role="status"
+                  hidden
+                ></p>
+                <div class="evidence-steps" aria-label="Evidence steps">
+                  <button class="step-button" data-step="0" aria-current="step">
+                    <span class="step-number">01</span
+                    ><span class="step-name"></span
+                    ><span class="step-time"></span></button
+                  ><button class="step-button" data-step="1">
+                    <span class="step-number">02</span
+                    ><span class="step-name"></span
+                    ><span class="step-time"></span></button
+                  ><button class="step-button" data-step="2">
+                    <span class="step-number">03</span
+                    ><span class="step-name"></span
+                    ><span class="step-time"></span></button
+                  ><button class="step-button" data-step="3">
+                    <span class="step-number">04</span
+                    ><span class="step-name"></span
+                    ><span class="step-time"></span>
+                  </button>
+                </div>
+                <div class="insight">
+                  <span id="insight-number">01</span>
+                  <p id="case-insight" aria-live="off"></p>
+                </div>
+                <div class="answers">
+                  <div>
+                    <span class="answer-label">Egocentric baseline</span
+                    ><strong id="baseline-answer"></strong>
+                  </div>
+                  <div class="answer-ours">
+                    <span class="answer-label"
+                      >FloorSAV
+                      <span class="answer-status"
+                        >✓ Matches ground truth</span
+                      ></span
+                    ><strong id="floorsav-answer"></strong>
+                  </div>
+                </div>
+              </aside>
+            </div>
+            <div class="case-footer">
+              <details class="source-details">
+                <summary>Source details</summary>
+                <p id="case-reference"></p>
+              </details>
+              <div class="case-footer-actions">
+                <button class="text-button" id="original-figure">
+                  Paper example ↗</button
+                ><button class="text-button next-example" id="next-example">
+                  Next example →
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="small-note">
+            Selected explanation reruns from the paper’s source material; no new
+            model evaluation. Highlight overlays are presentation aids. Green
+            markers are sound-source estimates, not ground-truth person
+            locations.
+          </p>
+        </div>
+      </section>
+      <section class="section" id="approach">
+        <div class="wrap">
+          <div class="section-heading">
+            <div class="eyebrow">02 / Method</div>
+            <h2>A little geometry.<br />A clearer picture.</h2>
+            <p class="lead">
+              Project the scene into 2D. Add motion, sound, and semantics.<br
+                class="desktop-break"
+              />
+              Give the model both views in a single inference.
+            </p>
+          </div>
+          <div
+            class="render-player"
+            id="render-player"
+            role="region"
+            aria-label="Animated floormap rendering process"
+          >
+            <div class="render-head">
+              <span>Sensor inputs → Floormap video</span
+              ><span class="render-badge">Interactive illustration</span>
+            </div>
+            <div class="render-layout">
+              <div
+                class="sensor-inputs"
+                aria-label="Inputs used to build the floormap"
+              >
+                <div class="sensor-input" id="input-points">
+                  <span class="sensor-icon"
+                    ><svg viewBox="0 0 28 28" aria-hidden="true">
+                      <path
+                        d="m4 8 10-5 10 5v12l-10 5-10-5Z M4 8l10 6 10-6M14 14v11"
+                      /></svg
+                  ></span>
+                  <div>
+                    <strong>3D Point Cloud</strong
+                    ><small>Room and object structure</small>
+                  </div>
+                  <span class="input-check" aria-hidden="true">✓</span>
+                </div>
+                <div class="sensor-input" id="input-pose">
+                  <span class="sensor-icon"
+                    ><svg viewBox="0 0 28 28" aria-hidden="true">
+                      <rect x="6" y="6" width="16" height="16" rx="3" />
+                      <path
+                        d="M11 1v5m6-5v5m-6 16v5m6-5v5M1 11h5m-5 6h5m16-6h5m-5 6h5M10 17l4-8 4 8Z"
+                      /></svg
+                  ></span>
+                  <div>
+                    <strong>Camera + IMU</strong
+                    ><small>Position, direction, and motion</small>
+                  </div>
+                  <span class="input-check" aria-hidden="true">✓</span>
+                </div>
+                <div class="sensor-input" id="input-audio">
+                  <span class="sensor-icon"
+                    ><svg viewBox="0 0 28 28" aria-hidden="true">
+                      <rect x="10" y="3" width="8" height="15" rx="4" />
+                      <path
+                        d="M6 12v2a8 8 0 0 0 16 0v-2M14 22v4M9 26h10"
+                      /></svg
+                  ></span>
+                  <div>
+                    <strong>Microphone Array</strong
+                    ><small>Estimated sound position</small>
+                  </div>
+                  <span class="input-check" aria-hidden="true">✓</span>
+                </div>
+                <div class="sensor-input" id="input-labels">
+                  <span class="sensor-icon"
+                    ><svg viewBox="0 0 28 28" aria-hidden="true">
+                      <rect x="3" y="6" width="22" height="17" rx="3" />
+                      <path d="m8 6 2-3h8l2 3" />
+                      <circle cx="14" cy="14" r="5" /></svg
+                  ></span>
+                  <div>
+                    <strong>RGB Frames + VLM</strong
+                    ><small>Object names and locations</small>
+                  </div>
+                  <span class="input-check" aria-hidden="true">✓</span>
+                </div>
+                <div class="sensor-live">
+                  <div class="sensor-live-heading">
+                    <span id="sensor-live-label">3D Points</span
+                    ><span class="live-dot"></span>
+                  </div>
+                  <canvas
+                    id="sensor-canvas"
+                    width="500"
+                    height="110"
+                    aria-label="Illustrative sensor signals"
+                  ></canvas
+                  ><span id="sensor-live-detail">Geometry provided by AEA</span>
+                </div>
+              </div>
+              <div class="render-view">
+                <div class="render-view-head">
+                  <span id="render-view-label">3D POINT CLOUD</span
+                  ><span id="render-stage-count">01 / 05</span>
+                </div>
+                <canvas
+                  id="render-canvas"
+                  width="1280"
+                  height="880"
+                  role="img"
+                  aria-label="Room points project into a top-down map, followed by camera pose, sound location, object labels, and a sequence of map frames"
+                ></canvas>
+                <div class="map-key">
+                  <span><i class="key-pose"></i>Camera</span
+                  ><span><i class="key-fov"></i>Field of view</span
+                  ><span><i class="key-path"></i>Trajectory</span
+                  ><span><i class="key-sound"></i>Sound</span>
+                </div>
+              </div>
+            </div>
+            <div class="render-step-caption">
+              <span id="render-step-number">1</span>
+              <div>
+                <h3 id="render-step-title">Project the 3D points</h3>
+                <p id="render-step-description">
+                  Flatten the scene onto a top-down metric grid.
+                </p>
+              </div>
+            </div>
+            <div class="render-step-tabs" aria-label="Rendering steps">
+              <button data-render-step="0" aria-current="step">
+                1 · Base Map</button
+              ><button data-render-step="1">2 · Camera Pose</button
+              ><button data-render-step="2">3 · Sound</button
+              ><button data-render-step="3">4 · Object Labels</button
+              ><button data-render-step="4">5 · Map Video</button>
+            </div>
+            <div class="render-controls">
+              <button
+                class="icon-button"
+                id="render-play"
+                aria-label="Pause floormap rendering animation"
+              >
+                Ⅱ</button
+              ><button
+                class="icon-button"
+                id="render-restart"
+                aria-label="Restart floormap rendering animation"
+              >
+                ↺</button
+              ><input
+                type="range"
+                id="render-seek"
+                min="0"
+                max="19999"
+                value="0"
+                step="1"
+                aria-label="Floormap rendering progress"
+              /><span id="render-time">00:00 / 00:20</span>
+            </div>
+          </div>
 
+          <p class="small-note">
+            Illustration of the rendering pipeline. The videos above and below
+            use recorded scene data.
+          </p>
+          <details class="figure-details">
+            <summary>Explore the method figure <span>↗</span></summary>
+            <button
+              class="figure-button"
+              data-figure="framework"
+              data-title="FloorSAV framework"
+            >
+              <img
+                src="assets/figures/framework.png"
+                loading="lazy"
+                alt="FloorSAV framework: video and audio are grounded in a synchronized floormap and supplied to an AV-LLM"
+              />
+            </button>
+          </details>
+        </div>
+      </section>
+      <section class="section" id="benchmark">
+        <div class="wrap">
+          <div class="benchmark-heading">
+            <div class="section-heading">
+              <div class="eyebrow">03 / SAVED-Bench</div>
+              <h2>Spatial questions.<br />Dynamic people.</h2>
+              <p class="lead">
+                A benchmark for reasoning about viewpoints,<br
+                  class="desktop-break"
+                />
+                places, and movement in real egocentric scenes.
+              </p>
+            </div>
+            <div class="benchmark-numbers">
+              <div><strong>1,988</strong><span>Questions</span></div>
+              <div><strong>55</strong><span>Recordings</span></div>
+              <div><strong>9</strong><span>Tasks</span></div>
+            </div>
+          </div>
+          <div class="benchmark-cards">
+            <article>
+              <span class="category-icon viewpoint-icon" aria-hidden="true"
+                ><svg viewBox="0 0 48 48">
+                  <circle cx="12" cy="35" r="4" />
+                  <circle cx="36" cy="13" r="4" />
+                  <path d="m12 29 7-12 8 8M36 19l-7 12-8-8" />
+                  <path class="faint" d="m16 33 17-17" /></svg
+              ></span>
+              <div class="eyebrow">800 questions · 4 tasks</div>
+              <h3>Dynamic relativity</h3>
+              <p>
+                Reason about direction and distance across the camera wearer’s
+                and another person’s viewpoints.
+              </p>
+              <blockquote>
+                “From their viewpoint,<br />where is the object?”
+              </blockquote>
+            </article>
+            <article>
+              <span class="category-icon region-icon" aria-hidden="true"
+                ><svg viewBox="0 0 48 48">
+                  <path d="M7 7h34v34H7zM7 25h19V7m0 18h15" />
+                  <circle cx="16" cy="16" r="3" />
+                  <path class="faint" d="M34 34H16V20" /></svg
+              ></span>
+              <div class="eyebrow">592 questions · 2 tasks</div>
+              <h3>Regional reasoning</h3>
+              <p>
+                Identify a person’s location and the places they visited during
+                a sound event.
+              </p>
+              <blockquote>“Which area was<br />the speaker in?”</blockquote>
+            </article>
+            <article>
+              <span class="category-icon path-icon" aria-hidden="true"
+                ><svg viewBox="0 0 48 48">
+                  <circle cx="10" cy="36" r="3" />
+                  <rect x="30" y="8" width="11" height="8" rx="2" />
+                  <path d="m13 33 17-17" />
+                  <path class="faint" d="m27 30-7-7" />
+                  <circle cx="30" cy="32" r="3" /></svg
+              ></span>
+              <div class="eyebrow">596 questions · 3 tasks</div>
+              <h3>Path reasoning</h3>
+              <p>
+                Find objects near a finite path and estimate how far a person
+                traveled.
+              </p>
+              <blockquote>
+                “What would I pass<br />on the way to the couch?”
+              </blockquote>
+            </article>
+          </div>
+          <details class="figure-details">
+            <summary>
+              Task definitions and benchmark distributions <span>↗</span>
+            </summary>
+            <button
+              class="figure-button"
+              data-figure="benchmark"
+              data-title="SAVED-Bench task overview"
+            >
+              <img
+                src="assets/figures/benchmark.png"
+                loading="lazy"
+                alt="SAVED-Bench task definitions and example questions"
+              /></button
+            ><button
+              class="figure-button"
+              data-figure="distributions"
+              data-title="SAVED-Bench distributions"
+            >
+              <img
+                src="assets/figures/distributions.png"
+                loading="lazy"
+                alt="Benchmark question distributions"
+              />
+            </button>
+          </details>
+        </div>
+      </section>
+      <section class="section results-section" id="results">
+        <div class="wrap">
+          <div class="section-heading">
+            <div class="eyebrow">04 / Results</div>
+            <h2>Better spatial context.<br />Stronger spatial reasoning.</h2>
+            <p class="lead">SAVED-Bench · Gemini-3.6-Flash · No fine-tuning</p>
+          </div>
+          <div class="metric-cards">
+            <article>
+              <div class="metric-top">
+                Overall score <span>QA weighted</span>
+              </div>
+              <strong>+6.96<span> pts</span></strong>
+              <div class="metric-comparison">
+                <span>58.30</span><span aria-hidden="true">→</span><b>65.26</b>
+              </div>
+              <p>Across all 1,988 questions</p>
+            </article>
+            <article>
+              <div class="metric-top">Cross-agent direction</div>
+              <strong>+18.50<span> pts</span></strong>
+              <div class="metric-comparison">
+                <span>32.00</span><span aria-hidden="true">→</span><b>50.50</b>
+              </div>
+              <p>Exo-to-Ego Direction</p>
+            </article>
+            <article>
+              <div class="metric-top">Path reasoning</div>
+              <strong>+9.99<span> pts</span></strong>
+              <div class="metric-comparison">
+                <span>50.02</span><span aria-hidden="true">→</span><b>60.01</b>
+              </div>
+              <p>Three-task category average</p>
+            </article>
+          </div>
+          <div class="results-toolbar">
+            <div
+              class="result-filters"
+              role="group"
+              aria-label="Filter results"
+            >
+              <button aria-pressed="true" data-filter="all">All tasks</button
+              ><button aria-pressed="false" data-filter="dynamic">
+                Viewpoints</button
+              ><button aria-pressed="false" data-filter="regional">
+                Regions</button
+              ><button aria-pressed="false" data-filter="path">Paths</button>
+            </div>
+            <label class="oracle-toggle"
+              ><input type="checkbox" id="oracle-toggle" /> Show oracles</label
+            >
+          </div>
+          <div
+            class="table-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="SAVED-Bench results, horizontally scrollable"
+          >
+            <table>
+              <caption class="sr-only">
+                Current SAVED-Bench release: accuracy or AbsMRA scores on a
+                0–100 scale. Higher is better.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Task</th>
+                  <th scope="col">QAs</th>
+                  <th scope="col">Baseline</th>
+                  <th scope="col" class="ours-column">FloorSAV</th>
+                  <th scope="col">Δ points</th>
+                  <th scope="col" class="oracle-column" hidden>
+                    Partial oracle
+                  </th>
+                  <th scope="col" class="oracle-column" hidden>Full oracle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-category="dynamic" class="">
+                  <th scope="row">Ego-to-Exo Direction</th>
+                  <td>200</td>
+                  <td>56.00</td>
+                  <td class="ours-column">65.00</td>
+                  <td class="gain">+9.00</td>
+                  <td class="oracle-column" hidden>76.50</td>
+                  <td class="oracle-column" hidden>72.00</td>
+                </tr>
+                <tr data-category="dynamic" class="">
+                  <th scope="row">Ego-to-Exo Distance · AbsMRA</th>
+                  <td>200</td>
+                  <td>34.30</td>
+                  <td class="ours-column">34.55</td>
+                  <td class="gain">+0.25</td>
+                  <td class="oracle-column" hidden>47.90</td>
+                  <td class="oracle-column" hidden>45.90</td>
+                </tr>
+                <tr data-category="dynamic" class="">
+                  <th scope="row">Exo-to-Ego Direction</th>
+                  <td>200</td>
+                  <td>32.00</td>
+                  <td class="ours-column">50.50</td>
+                  <td class="gain">+18.50</td>
+                  <td class="oracle-column" hidden>50.50</td>
+                  <td class="oracle-column" hidden>53.50</td>
+                </tr>
+                <tr data-category="dynamic" class="">
+                  <th scope="row">Exo-to-Ego Distance · AbsMRA</th>
+                  <td>200</td>
+                  <td>46.40</td>
+                  <td class="ours-column">44.65</td>
+                  <td class="loss">-1.75</td>
+                  <td class="oracle-column" hidden>57.45</td>
+                  <td class="oracle-column" hidden>54.95</td>
+                </tr>
+                <tr data-category="dynamic" class="summary-row">
+                  <th scope="row">Dynamic Relativity Overall</th>
+                  <td>800</td>
+                  <td>42.18</td>
+                  <td class="ours-column">48.68</td>
+                  <td class="gain">+6.50</td>
+                  <td class="oracle-column" hidden>58.09</td>
+                  <td class="oracle-column" hidden>56.59</td>
+                </tr>
+                <tr data-category="regional" class="">
+                  <th scope="row">Visit History</th>
+                  <td>392</td>
+                  <td>86.73</td>
+                  <td class="ours-column">92.35</td>
+                  <td class="gain">+5.62</td>
+                  <td class="oracle-column" hidden>89.80</td>
+                  <td class="oracle-column" hidden>97.19</td>
+                </tr>
+                <tr data-category="regional" class="">
+                  <th scope="row">Location Awareness</th>
+                  <td>200</td>
+                  <td>92.00</td>
+                  <td class="ours-column">94.50</td>
+                  <td class="gain">+2.50</td>
+                  <td class="oracle-column" hidden>96.00</td>
+                  <td class="oracle-column" hidden>96.50</td>
+                </tr>
+                <tr data-category="regional" class="summary-row">
+                  <th scope="row">Regional Overall</th>
+                  <td>592</td>
+                  <td>89.37</td>
+                  <td class="ours-column">93.42</td>
+                  <td class="gain">+4.05</td>
+                  <td class="oracle-column" hidden>92.90</td>
+                  <td class="oracle-column" hidden>96.85</td>
+                </tr>
+                <tr data-category="path" class="">
+                  <th scope="row">Line-Path Search (static)</th>
+                  <td>196</td>
+                  <td>60.20</td>
+                  <td class="ours-column">77.04</td>
+                  <td class="gain">+16.84</td>
+                  <td class="oracle-column" hidden>78.06</td>
+                  <td class="oracle-column" hidden>77.55</td>
+                </tr>
+                <tr data-category="path" class="">
+                  <th scope="row">Line-Path Search (dynamic)</th>
+                  <td>200</td>
+                  <td>73.00</td>
+                  <td class="ours-column">78.00</td>
+                  <td class="gain">+5.00</td>
+                  <td class="oracle-column" hidden>87.50</td>
+                  <td class="oracle-column" hidden>91.00</td>
+                </tr>
+                <tr data-category="path" class="">
+                  <th scope="row">Trajectory Distance · AbsMRA</th>
+                  <td>200</td>
+                  <td>16.85</td>
+                  <td class="ours-column">25.00</td>
+                  <td class="gain">+8.15</td>
+                  <td class="oracle-column" hidden>24.98</td>
+                  <td class="oracle-column" hidden>28.18</td>
+                </tr>
+                <tr data-category="path" class="summary-row">
+                  <th scope="row">Path reasoning Overall</th>
+                  <td>596</td>
+                  <td>50.02</td>
+                  <td class="ours-column">60.01</td>
+                  <td class="gain">+9.99</td>
+                  <td class="oracle-column" hidden>63.51</td>
+                  <td class="oracle-column" hidden>65.58</td>
+                </tr>
+                <tr data-category="overall" class="summary-row">
+                  <th scope="row">Overall · QA-weighted average</th>
+                  <td>1988</td>
+                  <td>58.30</td>
+                  <td class="ours-column">65.26</td>
+                  <td class="gain">+6.96</td>
+                  <td class="oracle-column" hidden>69.75</td>
+                  <td class="oracle-column" hidden>71.28</td>
+                </tr>
+                <tr data-category="overall" class="summary-row">
+                  <th scope="row">Overall · 9-task average</th>
+                  <td>1988</td>
+                  <td>55.28</td>
+                  <td class="ours-column">62.40</td>
+                  <td class="gain">+7.12</td>
+                  <td class="oracle-column" hidden>67.63</td>
+                  <td class="oracle-column" hidden>68.53</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="results-foot">
+            <p>
+              Accuracy / AbsMRA · 0–100, higher is better. Category averages
+              weight tasks equally; the headline overall score weights QAs.
+            </p>
+            <a href="assets/data/saved-bench.csv" download
+              >Download results CSV ↓</a
+            >
+          </div>
+          <details class="release-note">
+            <summary>
+              Evaluation details and release version <span>+</span>
+            </summary>
+            <p>
+              Source: <code>saved1988_ego2exo_out_set3_v1_20260925</code>.
+              FloorSAV corresponds to Map-task; oracle columns correspond to
+              Partial-task and Full-task. Partial oracle supplies true
+              other-person positions; full oracle additionally supplies
+              ground-truth object labels. These are separate oracle conditions.
+            </p>
+            <p>
+              The current release combines 1,888 existing responses with 100
+              replacement Ego-to-Exo Direction FoV-out responses. The
+              replacement uses a larger output-token budget. This is a combined
+              release, not a fresh evaluation of every question under one
+              setting. The CSV provides full-precision scores; manuscript
+              figures may round values or report a different release.
+            </p>
+            <p>
+              All category averages improve; Exo-to-Ego Distance decreases from
+              46.40 to 44.65. Gains shown here are differences between the
+              reported scores.
+            </p>
+          </details>
+          <div class="figure-links">
+            <button
+              data-figure="visibility"
+              data-title="Inside and outside the field of view — manuscript figure"
+            >
+              Field-of-view analysis ↗</button
+            ><button
+              data-figure="savvy-results"
+              data-title="SAVVY-Bench across AV-LLMs — manuscript table"
+            >
+              SAVVY-Bench results ↗
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="section closing-section">
+        <div class="wrap narrow">
+          <div class="eyebrow">Looking ahead</div>
+          <h2>A map is a starting point.</h2>
+          <p class="large-copy">
+            Sound localization errors, long video contexts, and reading map
+            coordinates remain challenging. More accurate geometry can help—but
+            robust spatial reasoning still requires progress across perception
+            and inference.
+          </p>
+        </div>
+      </section>
+      <section class="section citation-section" id="citation">
+        <div class="wrap citation-layout">
+          <div>
+            <div class="eyebrow">Build on this work</div>
+            <h2>Citation</h2>
+            <p>FloorSAV · Kim, Kim &amp; Oh · 2026</p>
+            <button class="button" data-cite>Copy BibTeX</button>
+          </div>
+          <pre id="bibtex">
+@misc{kim2026floorsav,
+  title = {FloorSAV: Elucidating Spatial Audio-Visual
+           Context with 2D Floormap for AV-LLMs},
+  author = {Kim, Kyeong-Rae and Kim, Sungnyun and Oh, Tae-Hyun},
+  year = {2026}
+}</pre
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap">
+        <a class="brand" href="#">FloorSAV</a
+        ><span>Video. Audio. A shared spatial context.</span
+        ><a href="https://github.com/byulharang/FloorSAV">GitHub ↗</a>
+      </div>
+    </footer>
+    <dialog id="figure-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-head">
+        <h2 id="dialog-title">Paper figure</h2>
+        <button class="button" id="dialog-close">Close ×</button>
+      </div>
+      <img id="dialog-image" alt="" />
+      <p>
+        Original manuscript figure. The current benchmark release is reported in
+        the results table.
+      </p>
+    </dialog>
+    <div id="toast" class="toast" role="status"></div>
+    <noscript
+      ><p class="wrap">
+        Enable JavaScript for synchronized playback, walkthrough highlights, and
+        filters. The paper and full results table remain available.
+      </p></noscript
+    >
+  </body>
+</html>

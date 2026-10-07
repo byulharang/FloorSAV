@@ -1,0 +1,145 @@
+{
+  "release": "saved1988_ego2exo_out_set3_v1_20260925",
+  "rows": [
+    {
+      "category": "Dynamic Relativity",
+      "task": "Ego-to-Exo Direction",
+      "n": 200,
+      "baseline": 56.0,
+      "floorsav": 65.0,
+      "delta": 9.0,
+      "partial": 76.5,
+      "full": 72.0
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Ego-to-Exo Distance \u00b7 AbsMRA",
+      "n": 200,
+      "baseline": 34.3,
+      "floorsav": 34.55,
+      "delta": 0.25,
+      "partial": 47.9,
+      "full": 45.9
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Exo-to-Ego Direction",
+      "n": 200,
+      "baseline": 32.0,
+      "floorsav": 50.5,
+      "delta": 18.5,
+      "partial": 50.5,
+      "full": 53.5
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Exo-to-Ego Distance \u00b7 AbsMRA",
+      "n": 200,
+      "baseline": 46.4,
+      "floorsav": 44.65,
+      "delta": -1.75,
+      "partial": 57.45,
+      "full": 54.95
+    },
+    {
+      "category": "Dynamic Relativity Overall",
+      "task": "4-task average",
+      "n": 800,
+      "baseline": 42.18,
+      "floorsav": 48.68,
+      "delta": 6.5,
+      "partial": 58.09,
+      "full": 56.59
+    },
+    {
+      "category": "Regional",
+      "task": "Visit History",
+      "n": 392,
+      "baseline": 86.73,
+      "floorsav": 92.35,
+      "delta": 5.62,
+      "partial": 89.8,
+      "full": 97.19
+    },
+    {
+      "category": "Regional",
+      "task": "Location Awareness",
+      "n": 200,
+      "baseline": 92.0,
+      "floorsav": 94.5,
+      "delta": 2.5,
+      "partial": 96.0,
+      "full": 96.5
+    },
+    {
+      "category": "Regional Overall",
+      "task": "2-task average",
+      "n": 592,
+      "baseline": 89.37,
+      "floorsav": 93.42,
+      "delta": 4.05,
+      "partial": 92.9,
+      "full": 96.85
+    },
+    {
+      "category": "Navigational",
+      "task": "Line-Path Search (static)",
+      "n": 196,
+      "baseline": 60.2,
+      "floorsav": 77.04,
+      "delta": 16.84,
+      "partial": 78.06,
+      "full": 77.55
+    },
+    {
+      "category": "Navigational",
+      "task": "Line-Path Search (dynamic)",
+      "n": 200,
+      "baseline": 73.0,
+      "floorsav": 78.0,
+      "delta": 5.0,
+      "partial": 87.5,
+      "full": 91.0
+    },
+    {
+      "category": "Navigational",
+      "task": "Trajectory Distance \u00b7 AbsMRA",
+      "n": 200,
+      "baseline": 16.85,
+      "floorsav": 25.0,
+      "delta": 8.15,
+      "partial": 24.98,
+      "full": 28.18
+    },
+    {
+      "category": "Navigational Overall",
+      "task": "3-task average",
+      "n": 596,
+      "baseline": 50.02,
+      "floorsav": 60.01,
+      "delta": 9.99,
+      "partial": 63.51,
+      "full": 65.58
+    },
+    {
+      "category": "Overall",
+      "task": "QA-weighted average",
+      "n": 1988,
+      "baseline": 58.3,
+      "floorsav": 65.26,
+      "delta": 6.96,
+      "partial": 69.75,
+      "full": 71.28
+    },
+    {
+      "category": "Overall",
+      "task": "9-task average",
+      "n": 1988,
+      "baseline": 55.28,
+      "floorsav": 62.4,
+      "delta": 7.12,
+      "partial": 67.63,
+      "full": 68.53
+    }
+  ]
+}

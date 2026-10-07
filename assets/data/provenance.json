@@ -1,0 +1,131 @@
+{
+  "benchmark_release": "saved1988_ego2exo_out_set3_v1_20260925",
+  "results_source": "saved_bench/reports/combined_scores_1988.csv",
+  "results_sha256": "7677fba29e6e1090814d762419f2a36511314f3c642069f2161e616820cfb414",
+  "qualitative_source": "ICLR/rendered_assets/qualitative_joint_20260923/selected",
+  "rgb_source": "savvy/SAVVY/data_utils/aea/aea_processed/{scene}/images",
+  "map_source": "stageA/FloorSAV/ExpB/code/render_maps_36.py and render_maps_36_trail.py",
+  "notes": [
+    "RGB is sampled from the original timestamped frames, not interpolated from the 128-frame model video.",
+    "The maps are presentation redraws using native point-cloud preprocessing, camera poses, CDR sound estimates and Flash36 object labels.",
+    "The map redraw uses simplified styling; the method illustration is a schematic.",
+    "Qualitative examples are selected explanation reruns, not aggregate measurements or new model evaluations.",
+    "The path overlay uses estimated map positions; cited distances come from an independent GT geometry audit."
+  ],
+  "media": [
+    {
+      "file": "assets/media/viewpoint-ego.mp4",
+      "sha256": "8e5c6830b643f493e755eca49f756b064d96f79478eea81e2d9a9789f70a5486",
+      "bytes": 4359063,
+      "case": "viewpoint",
+      "qa": "expE_1567",
+      "scene": "loc3_script2_seq3_rec1",
+      "source_interval_s": [
+        60,
+        80
+      ],
+      "fps": 20,
+      "frames": 400,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 0.00023016299996925227
+    },
+    {
+      "file": "assets/media/viewpoint-map.mp4",
+      "sha256": "78d7ed29bca6b339be612f8c91f75cf9e47f514d889b24321c6817a833ffa6d6",
+      "bytes": 935318,
+      "case": "viewpoint",
+      "qa": "expE_1567",
+      "scene": "loc3_script2_seq3_rec1",
+      "source_interval_s": [
+        60,
+        80
+      ],
+      "fps": 20,
+      "frames": 400,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 0.00023016299996925227
+    },
+    {
+      "file": "assets/media/region-ego.mp4",
+      "sha256": "6552f3d85e74de59adc15eeaafec5f707ac722626d35e879b4c9c909d02817ee",
+      "bytes": 5488261,
+      "case": "region",
+      "qa": "expE_0034",
+      "scene": "loc2_script3_seq4_rec1",
+      "source_interval_s": [
+        96,
+        128
+      ],
+      "fps": 20,
+      "frames": 640,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 7.032500002424058e-05
+    },
+    {
+      "file": "assets/media/region-map.mp4",
+      "sha256": "c7ac585f3702d0ac1862c4eb40f529290681e205ee76c22dc23e8c7fcf6740d7",
+      "bytes": 1851507,
+      "case": "region",
+      "qa": "expE_0034",
+      "scene": "loc2_script3_seq4_rec1",
+      "source_interval_s": [
+        96,
+        128
+      ],
+      "fps": 20,
+      "frames": 640,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 7.032500002424058e-05
+    },
+    {
+      "file": "assets/media/path-ego.mp4",
+      "sha256": "ac9a949d66a8ba18d3df75ddc12c5959b1432ea1618007677d1301c01a9d8fe9",
+      "bytes": 3893355,
+      "case": "path",
+      "qa": "expE_1224",
+      "scene": "loc2_script3_seq31_rec1",
+      "source_interval_s": [
+        118,
+        134
+      ],
+      "fps": 20,
+      "frames": 320,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 0.00034550000003719106
+    },
+    {
+      "file": "assets/media/path-map.mp4",
+      "sha256": "df0dee683e4f33ff4d18e10d40f8c92093fe4f7862c5713f87de5ecaac608138",
+      "bytes": 944607,
+      "case": "path",
+      "qa": "expE_1224",
+      "scene": "loc2_script3_seq31_rec1",
+      "source_interval_s": [
+        118,
+        134
+      ],
+      "fps": 20,
+      "frames": 320,
+      "dimensions": [
+        720,
+        720
+      ],
+      "max_rgb_timestamp_error_s": 0.00034550000003719106
+    }
+  ]
+}

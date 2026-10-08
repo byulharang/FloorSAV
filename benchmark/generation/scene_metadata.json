@@ -1,0 +1,4645 @@
+{
+  "regions": {
+    "loc1": {
+      "kitchen area": [
+        [
+          0.02,
+          -4.02
+        ],
+        [
+          2.4,
+          -2.07
+        ],
+        [
+          -0.3,
+          1.23
+        ],
+        [
+          -2.69,
+          -0.73
+        ]
+      ],
+      "dining area": [
+        [
+          -1.96,
+          -5.32
+        ],
+        [
+          -4.35,
+          -2.41
+        ],
+        [
+          -2.59,
+          -0.97
+        ],
+        [
+          -0.2,
+          -3.87
+        ]
+      ],
+      "living room area": [
+        [
+          1.01,
+          -9.94
+        ],
+        [
+          5.88,
+          -5.94
+        ],
+        [
+          3.15,
+          -2.62
+        ],
+        [
+          -1.71,
+          -6.63
+        ]
+      ],
+      "bedroom area": [
+        [
+          3.48,
+          -1.97
+        ],
+        [
+          6.37,
+          0.41
+        ],
+        [
+          3.31,
+          4.14
+        ],
+        [
+          0.4,
+          1.76
+        ]
+      ]
+    },
+    "loc2": {
+      "kitchen area": [
+        [
+          4.15,
+          -2.16
+        ],
+        [
+          6.91,
+          -1.03
+        ],
+        [
+          4.67,
+          4.46
+        ],
+        [
+          1.92,
+          3.34
+        ]
+      ],
+      "living area": [
+        [
+          0.02,
+          -4.37
+        ],
+        [
+          4.28,
+          -2.62
+        ],
+        [
+          2.01,
+          2.92
+        ],
+        [
+          -2.25,
+          1.18
+        ]
+      ],
+      "dining area": [
+        [
+          7.16,
+          -1.02
+        ],
+        [
+          9.31,
+          -0.14
+        ],
+        [
+          7.34,
+          4.68
+        ],
+        [
+          5.19,
+          3.8
+        ]
+      ],
+      "entryway": [
+        [
+          -2.95,
+          5.46
+        ],
+        [
+          -1.46,
+          6.06
+        ],
+        [
+          -2.12,
+          7.68
+        ],
+        [
+          -3.61,
+          7.07
+        ]
+      ]
+    },
+    "loc3": {
+      "living room": [
+        [
+          -2.94,
+          -4.04
+        ],
+        [
+          0.58,
+          -1.1
+        ],
+        [
+          -2.78,
+          2.93
+        ],
+        [
+          -6.31,
+          -0.01
+        ]
+      ],
+      "kitchen area": [
+        [
+          0.29,
+          1.0
+        ],
+        [
+          2.93,
+          3.21
+        ],
+        [
+          0.0,
+          6.71
+        ],
+        [
+          -2.64,
+          4.5
+        ]
+      ],
+      "dining area": [
+        [
+          1.38,
+          -1.19
+        ],
+        [
+          4.48,
+          1.39
+        ],
+        [
+          3.03,
+          3.11
+        ],
+        [
+          -0.05,
+          0.53
+        ]
+      ]
+    }
+  },
+  "other_clock_offsets_s": {
+    "loc1_script2_seq7_rec1": 0.72,
+    "loc3_script3_seq5_rec2": 0.72,
+    "loc2_script3_seq5_rec2": 0.53,
+    "loc3_script3_seq1_rec2": -0.93,
+    "loc3_script3_seq4_rec2": -0.76,
+    "loc2_script3_seq5_rec1": -0.53,
+    "loc3_script2_seq7_rec1": 0.1,
+    "loc2_script3_seq4_rec2": 1.0,
+    "loc3_script3_seq5_rec1": -0.72,
+    "loc2_script3_seq31_rec2": 0.72,
+    "loc2_script2_seq2_rec1": 0.0,
+    "loc2_script3_seq4_rec1": -1.0,
+    "loc1_script2_seq3_rec2": 0.83,
+    "loc3_script3_seq4_rec1": 0.76,
+    "loc2_script3_seq31_rec1": -0.72,
+    "loc3_script2_seq3_rec2": 0.38,
+    "loc1_script2_seq6_rec2": 0.88,
+    "loc2_script2_seq1_rec2": 0.72,
+    "loc2_script2_seq1_rec1": -0.72,
+    "loc3_script2_seq3_rec1": -0.38,
+    "loc1_script2_seq6_rec1": -0.88,
+    "loc3_script2_seq1_rec1": 0.83,
+    "loc2_script2_seq3_rec2": 0.16,
+    "loc3_script2_seq7_rec2": -0.1,
+    "loc2_script2_seq8_rec1": 2.05,
+    "loc2_script2_seq4_rec1": -2.23,
+    "loc1_script2_seq4_rec2": 0.25,
+    "loc2_script2_seq3_rec1": -0.16,
+    "loc3_script2_seq4_rec1": -1.75,
+    "loc3_script2_seq4_rec2": 1.75,
+    "loc1_script2_seq4_rec1": -0.25,
+    "loc2_script2_seq2_rec2": 0.0,
+    "loc1_script2_seq3_rec1": -0.83,
+    "loc2_script3_seq32_rec2": 0.0,
+    "loc2_script3_seq32_rec1": 0.0,
+    "loc2_script2_seq4_rec2": 2.23,
+    "loc3_script2_seq1_rec2": -0.83,
+    "loc2_script2_seq8_rec2": -2.05,
+    "loc2_script3_seq33_rec2": 0.0,
+    "loc2_script3_seq34_rec2": 0.0,
+    "loc3_script3_seq2_rec1": 0.15,
+    "loc3_script3_seq1_rec1": 0.93,
+    "loc2_script3_seq2_rec1": 0.45,
+    "loc2_script2_seq5_rec1": 0.27,
+    "loc3_script2_seq5_rec1": 1.03,
+    "loc1_script2_seq1_rec2": 0.79,
+    "loc1_script2_seq7_rec2": -0.72,
+    "loc2_script2_seq5_rec2": -0.27,
+    "loc2_script3_seq2_rec2": -0.45,
+    "loc1_script2_seq1_rec1": -0.79,
+    "loc3_script3_seq2_rec2": -0.15,
+    "loc2_script2_seq6_rec2": -0.23,
+    "loc2_script2_seq6_rec1": 0.23,
+    "loc2_script3_seq33_rec1": 0.0,
+    "loc2_script3_seq1_rec2": -1.84
+  },
+  "objects": {
+    "loc1_script2_seq1_rec1": {
+      "TV": [
+        4.9,
+        -6.0
+      ],
+      "coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "countertop drip coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark wooden cabinet with a basket": [
+        5.1,
+        -2.8
+      ],
+      "door": [
+        -1.3,
+        -6.9
+      ],
+      "kitchen hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "armchair wall": [
+        0.9,
+        -8.7
+      ],
+      "armchair far": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "stainless steel double wall oven": [
+        0.8,
+        -3.2
+      ],
+      "stainless steel refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "wooden china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "wooden dining table": [
+        -2.4,
+        -3.1
+      ],
+      "wooden entry front door": [
+        -1.3,
+        -6.9
+      ]
+    },
+    "loc1_script2_seq1_rec2": {
+      "tv": [
+        4.9,
+        -6.0
+      ],
+      "coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "countertop drip coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "cabinet": [
+        5.1,
+        -2.8
+      ],
+      "front door": [
+        -1.3,
+        -6.9
+      ],
+      "kitchen hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "armchair near painting": [
+        0.9,
+        -8.7
+      ],
+      "armchair far painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "oven": [
+        0.8,
+        -3.2
+      ],
+      "stainless steel refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ],
+      "wooden entry front door": [
+        -1.3,
+        -6.9
+      ]
+    },
+    "loc1_script2_seq3_rec1": {
+      "tv": [
+        4.9,
+        -6.0
+      ],
+      "coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark cabinet": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq3_rec2": {
+      "tv": [
+        4.9,
+        -6.0
+      ],
+      "a set of nested coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "counter oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "cabinet": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq4_rec1": {
+      "TV": [
+        4.9,
+        -6.0
+      ],
+      "a set of nested coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark wooden cabinet with a basket": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "wooden china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq4_rec2": {
+      "TV": [
+        4.9,
+        -6.0
+      ],
+      "a set of nested coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark wooden cabinet with a basket": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "light-gray three-seater couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "wooden china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq6_rec1": {
+      "TV": [
+        4.9,
+        -6.0
+      ],
+      "a set of nested coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark wooden cabinet with a basket": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "wooden china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq6_rec2": {
+      "TV": [
+        4.9,
+        -6.0
+      ],
+      "a set of nested coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "dark wooden cabinet with a basket": [
+        5.1,
+        -2.8
+      ],
+      "dark wooden front door": [
+        -1.3,
+        -6.9
+      ],
+      "hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "light-gray armchair closer to the wall painting": [
+        0.9,
+        -8.7
+      ],
+      "light-gray armchair further from the wall painting": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "white recessed fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "wooden china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq7_rec1": {
+      "tv": [
+        4.9,
+        -6.0
+      ],
+      "coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "countertop drip coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "cabinet": [
+        5.1,
+        -2.8
+      ],
+      "front door": [
+        -1.3,
+        -6.9
+      ],
+      "kitchen hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "armchair wall": [
+        0.9,
+        -8.7
+      ],
+      "armchair window": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "small dark wooden step stool": [
+        5.7,
+        -1.5
+      ],
+      "oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc1_script2_seq7_rec2": {
+      "tv": [
+        4.9,
+        -6.0
+      ],
+      "coffee tables": [
+        2.6,
+        -6.4
+      ],
+      "bed": [
+        2.8,
+        0.1
+      ],
+      "countertop drip coffee maker": [
+        0.27,
+        0.1
+      ],
+      "countertop oven": [
+        1.6,
+        -1.1
+      ],
+      "cylindrical water heater": [
+        6.6,
+        -7.5
+      ],
+      "cabinet": [
+        5.1,
+        -2.8
+      ],
+      "front door": [
+        -1.3,
+        -6.9
+      ],
+      "kitchen hob": [
+        1.1,
+        -0.7
+      ],
+      "kitchen sink with a tap": [
+        -0.9,
+        2.4
+      ],
+      "armchair wall": [
+        0.9,
+        -8.7
+      ],
+      "armchair far": [
+        0.5,
+        -7.6
+      ],
+      "couch": [
+        1.8,
+        -5.2
+      ],
+      "step stool": [
+        5.7,
+        -1.5
+      ],
+      "wall oven": [
+        0.8,
+        -3.2
+      ],
+      "refrigerator": [
+        1.5,
+        -2.6
+      ],
+      "washing machine": [
+        5.9,
+        -6.8
+      ],
+      "white dresser with a mirror": [
+        3.3,
+        2.7
+      ],
+      "white louvered bifold door": [
+        6.4,
+        -6.7
+      ],
+      "fireplace": [
+        3.1,
+        -7.4
+      ],
+      "white rounded-rectangle ottoman bench": [
+        3.7,
+        0.8
+      ],
+      "china cabinet": [
+        3.2,
+        -3.0
+      ],
+      "dining table": [
+        -2.4,
+        -3.1
+      ]
+    },
+    "loc2_script2_seq1_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "front door": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ],
+      "wrought iron front door with glass panels": [
+        -2.5,
+        6.5
+      ]
+    },
+    "loc2_script2_seq1_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "front door": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ],
+      "wrought iron front door with glass panels": [
+        -2.5,
+        6.5
+      ]
+    },
+    "loc2_script2_seq2_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "front door": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq2_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq3_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq3_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "double oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq4_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "built-in stainless steel dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double-basin rectangular sink and tap": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "rectangle wooden coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "stainless steel double wall oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq4_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "rectangle wooden coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "double oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "pool window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq5_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq5_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "rectangle wooden coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "double oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "pool window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq6_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq6_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script2_seq8_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "front door": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ],
+      "wrought iron front door with glass panels": [
+        -2.5,
+        6.5
+      ]
+    },
+    "loc2_script2_seq8_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "front door": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ],
+      "wrought iron front door with glass panels": [
+        -2.5,
+        6.5
+      ]
+    },
+    "loc2_script3_seq1_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq2_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq2_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "sink": [
+        3.0,
+        0.9
+      ],
+      "electric cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink with a tap": [
+        4.4,
+        2.6
+      ],
+      "oven": [
+        2.7,
+        3.1
+      ],
+      "stainless steel refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "two-seater dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window with a pool view": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq31_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "pool window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq31_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq32_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "pool window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq32_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq33_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "pool window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq33_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq34_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq4_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq4_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq5_rec1": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc2_script3_seq5_rec2": {
+      "TV on a media console": [
+        -2.2,
+        -5.5
+      ],
+      "a set of white doors": [
+        -2.5,
+        -7.5
+      ],
+      "bed": [
+        -4.8,
+        -5.9
+      ],
+      "black front door with glass panels": [
+        -2.5,
+        6.5
+      ],
+      "dishwasher": [
+        3.2,
+        1.8
+      ],
+      "double sink": [
+        3.0,
+        0.9
+      ],
+      "cooktop": [
+        5.8,
+        1.4
+      ],
+      "fireplace with a black metal screen": [
+        1.8,
+        -2.7
+      ],
+      "light-gray three-seater couch": [
+        -0.7,
+        -0.8
+      ],
+      "coffee table": [
+        2.4,
+        1.1
+      ],
+      "round sink": [
+        4.4,
+        2.6
+      ],
+      "wall oven": [
+        2.7,
+        3.1
+      ],
+      "refrigerator": [
+        4.4,
+        -1.1
+      ],
+      "dining table": [
+        8.6,
+        0.8
+      ],
+      "wall-mounted TV": [
+        2.4,
+        1.1
+      ],
+      "washing machine": [
+        3.5,
+        8.4
+      ],
+      "window": [
+        6.8,
+        -1.5
+      ]
+    },
+    "loc3_script2_seq1_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "three-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq1_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch 3-seater": [
+        -1.7,
+        0.4
+      ],
+      "couch 2-seater": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq3_rec1": {
+      "TV by the fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "TV near a lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "3-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "2-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "imac desk": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq3_rec2": {
+      "TV by the fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "TV near a lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "black round ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch": [
+        -1.7,
+        0.4
+      ],
+      "light-gray two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "modern white desk with an iMac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq4_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman round": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch 3-seater": [
+        -1.7,
+        0.4
+      ],
+      "couch 2-seater": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq4_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "3-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "2-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "imac desk": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq5_rec1": {
+      "TV by the fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "TV near a lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "black round ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch": [
+        -1.7,
+        0.4
+      ],
+      "light-gray two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "modern white desk with an iMac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq7_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch 3-seater": [
+        -1.7,
+        0.4
+      ],
+      "couch 2-seater": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink with a tap": [
+        0.4,
+        2.8
+      ],
+      "stainless steel double wall oven": [
+        1.8,
+        3.3
+      ],
+      "window": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script2_seq7_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "3-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "2-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "imac desk": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink with a tap": [
+        0.4,
+        2.8
+      ],
+      "stainless steel double wall oven": [
+        1.8,
+        3.3
+      ],
+      "window": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq1_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "three-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq1_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch 3-seater": [
+        -1.7,
+        0.4
+      ],
+      "couch 2-seater": [
+        -3.8,
+        0.6
+      ],
+      "modern white desk with an iMac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "rectangular dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink with a tap": [
+        0.4,
+        2.8
+      ],
+      "stainless steel double wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq2_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "three-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq2_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "kitchen hob": [
+        0.9,
+        4.4
+      ],
+      "light-colored refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch three-seater": [
+        -1.7,
+        0.4
+      ],
+      "couch two-seater": [
+        -3.8,
+        0.6
+      ],
+      "modern white desk with an iMac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "rectangular dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink with a tap": [
+        0.4,
+        2.8
+      ],
+      "stainless steel double wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "wooden sideboard with slatted design": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq4_rec1": {
+      "TV by the fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "TV near a lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "3-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "2-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "imac desk": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq4_rec2": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "couch": [
+        -1.7,
+        0.4
+      ],
+      "light-gray two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "imac desk": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq5_rec1": {
+      "tv fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "tv lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "lounge chair": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "three-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "two-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "desk imac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "wall oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    },
+    "loc3_script3_seq5_rec2": {
+      "TV by the fireplace": [
+        -3.4,
+        -2.8
+      ],
+      "TV near a lamp": [
+        -0.8,
+        -3.6
+      ],
+      "bed": [
+        -0.7,
+        -1.2
+      ],
+      "black decorative animal sculpture": [
+        -0.5,
+        -4.3
+      ],
+      "black round ottoman": [
+        -2.5,
+        -1.7
+      ],
+      "fireplace": [
+        -4.3,
+        -1.6
+      ],
+      "gray reclining lounge chair with ottoman": [
+        2.4,
+        -1.5
+      ],
+      "guitar": [
+        0.0,
+        -3.7
+      ],
+      "hob": [
+        0.9,
+        4.4
+      ],
+      "refrigerator": [
+        -1.5,
+        4.4
+      ],
+      "3-seater couch": [
+        -1.7,
+        0.4
+      ],
+      "2-seater couch": [
+        -3.8,
+        0.6
+      ],
+      "modern white desk with an iMac": [
+        1.7,
+        -1.6
+      ],
+      "piano": [
+        -4.7,
+        1.5
+      ],
+      "dining table": [
+        1.6,
+        0.6
+      ],
+      "coffee table": [
+        -2.6,
+        -0.7
+      ],
+      "sink": [
+        0.4,
+        2.8
+      ],
+      "oven": [
+        1.8,
+        3.3
+      ],
+      "window with a balcony view": [
+        0.3,
+        -4.4
+      ],
+      "sideboard": [
+        3.1,
+        1.8
+      ]
+    }
+  },
+  "dense_sha256": {
+    "loc1_script2_seq1_rec1": "b6cc6d2a9f4c622a8db4f2b4e95bf7f1ac0c74cfa4df67ef8944d2e8f11d9327",
+    "loc1_script2_seq1_rec2": "392ee2f4b1757f1dcd4235e1242105141217864ce460f299e99fdf0365d810f7",
+    "loc1_script2_seq3_rec1": "63ff7d68b34053d9e6a56b0cf16ae9e20315598b2f22fb73c482d246a95a0f2e",
+    "loc1_script2_seq3_rec2": "3d3aae2be0d76f8b7a67bf333c713f3d9da8751fb0e1a33633caf44a75e6cc4b",
+    "loc1_script2_seq4_rec1": "6687bd106b8f3ff32b0f1772d39004198807f6870e2b823f43eb90d9b89f7dcb",
+    "loc1_script2_seq4_rec2": "cb81e832ec279c2fbe737af63ebbafec9bc5c41eca36fa224be3bb3061e8d90b",
+    "loc1_script2_seq6_rec1": "db0a42cb91ece1e2967f0f12e40e5506cf399f8909b084767d502062c8a04ab0",
+    "loc1_script2_seq6_rec2": "b0b905306112ee0cc9cbdcbdeed23f58c181151dc487663a60add01fb8f30cfc",
+    "loc1_script2_seq7_rec1": "c90f174029f88d1d432ace7673d91dcdcc81602a22bcbf9440b6f8e88a76c3d7",
+    "loc1_script2_seq7_rec2": "de6cf828da89b13fa90c10ae9269eba7a0af5ab16d899681fc717fdbfe4f271c",
+    "loc2_script2_seq1_rec1": "cdd95a0bff18026fba7f6be0df3f415fc6c9d70971d403593020d3e3d8bad63c",
+    "loc2_script2_seq1_rec2": "dedc186766fc156c8e6315f1e7200648bbe38ee6d1171b4a3c295171f2850af5",
+    "loc2_script2_seq2_rec1": "0075497e05dc0cff400a5fb3c1bfe0026e905767a75ab28d7449111ae54c04d1",
+    "loc2_script2_seq2_rec2": "940d073aadc7c4ad521f2d4f00e495b76f641863c923dc4d8cf87140ed0463d4",
+    "loc2_script2_seq3_rec1": "7c62e574369f24ca6847ee713630c8ad563f2e50fda22597df2360768c066fbd",
+    "loc2_script2_seq3_rec2": "95c66e776f00fd17c4376a1204d7627678e183dddf8b8eb0ca8cf19d5f0dfe4c",
+    "loc2_script2_seq4_rec1": "c17646e0c86f36a62bc886d88d05cf474be55641e0c979097d867533e29052b3",
+    "loc2_script2_seq4_rec2": "58ba45c30ce1a0fff7c8d7d04a552f77d0ccee9d8b52981e53c269b77ce6c11c",
+    "loc2_script2_seq5_rec1": "a15ae308f2b05b685905c20f1404cb2cee782b15dfb4f0b6c4d612496b516de1",
+    "loc2_script2_seq5_rec2": "1b375785457cf58cfe4c59b703af5d1ecd4f048e55c739154c568eaf61e5eb57",
+    "loc2_script2_seq6_rec1": "04aa692ada626bccc95820ee6a39625164648af047dca842d6ebdd7d8fd46e89",
+    "loc2_script2_seq6_rec2": "15d920cb3a29f9eda2ea6377eeb2ebd63bc7418b9d28a3136f12310b8baf5bf6",
+    "loc2_script2_seq8_rec1": "4c64fc24288e0d941cb3f636c1c4a6dc9050f7076a07227843317105fdc99bea",
+    "loc2_script2_seq8_rec2": "c3a69452ef20759e488c91f205813765efc1c718c7bd1478fb0d5dea9a0c9f35",
+    "loc2_script3_seq1_rec1": "5cb65a2b9e32860d57ab5707737f726a67ea3618a6b1d2f2e9e5dc192dff58d6",
+    "loc2_script3_seq1_rec2": "cd3624c8b5106e006596ef57ac4c0a0345b8811f47819049936ea7d87bcdc72f",
+    "loc2_script3_seq2_rec1": "69e8c647d9c13b3b8e12e26621f992b553b701c16042a1ad775796b02d48b462",
+    "loc2_script3_seq2_rec2": "756913f3db1a0b2ee984947f3e3a5460f51dc274cc9edb74f7783c263528f8b3",
+    "loc2_script3_seq31_rec1": "084749a9a24723888562ab4679f248ab96892f21dd4cf0a1b53e9f23b6f13e0f",
+    "loc2_script3_seq31_rec2": "96540b1652a3cb008aa6dcfb2039d936100e14ef51bb0dd614b8b8d4b7c24c61",
+    "loc2_script3_seq32_rec1": "3664259f79e89c05178f8861e2bf1568c5ecfbc26b73b2b0a7ade9e57622feed",
+    "loc2_script3_seq32_rec2": "9cec9a5261a41a42a79c8c4d4506c35f637632d9571de11bee31ec2c59b1ca48",
+    "loc2_script3_seq33_rec1": "c2691feb532501ce38a8e2f97c9d3f65b4a9900926ea1d768dabea9a7022df81",
+    "loc2_script3_seq33_rec2": "7978ac7e62428a963e72aeebcd314bea8d49497702e74d440be4010a56b4e0b9",
+    "loc2_script3_seq34_rec1": "8403d22b60a205f9ad0d76f03b7c62e2d764f4a5cd041a3bb658214a3197e0a0",
+    "loc2_script3_seq34_rec2": "226754a54088053a8d1aa50b92f44426327c083efab8611bd8f3acb84938cbb9",
+    "loc2_script3_seq4_rec1": "c9973dd83e428ae8958c452897bc31f35c820232996c379b18bf5fac344e9618",
+    "loc2_script3_seq4_rec2": "acb3bc3f74c72d099989d632d860f5a792c1b1c1b0b0497d4e793718e7130915",
+    "loc2_script3_seq5_rec1": "29176fc1bcd4f068f81e70b8fd29593307112ab4277f7a49913e06428e3c55b4",
+    "loc2_script3_seq5_rec2": "ad00a4a138433adc3a1e6f7ed650e8984bbdf8e17808870f44f5863dbbba772f",
+    "loc3_script2_seq1_rec1": "47e2496a5c169e5704dd6417dad587839bd2fe54db4bb98fdf4a3b5e51ab6c56",
+    "loc3_script2_seq1_rec2": "6128092d523d0ad23f7eaf5284ce5a4a5ffec68bc5d9ac94c661d5d53bf71900",
+    "loc3_script2_seq3_rec1": "9cb85c44ef43adefee40f11cf4a5ca862fea2e79bcef021b3fc253fbc9dd89e4",
+    "loc3_script2_seq3_rec2": "b556aaa331589534f000f170934d86795579b3f06fd4a49aa2497dd9e673edd4",
+    "loc3_script2_seq4_rec1": "a1546c96c9bda35bcfa0ab653f0b8265119c439bc0f5ff959f06cd2c47b9ccab",
+    "loc3_script2_seq4_rec2": "23e3389700284030831b11f76cad59eb6fb5ae6d5fcbe41c8acff0d9d7b90831",
+    "loc3_script2_seq5_rec1": "f500ba8d76d28abac6e69495acd108a45f1bf73e906d975daa14ad86de29f4da",
+    "loc3_script2_seq5_rec2": "0be1a268fabdbf095f3e94d42ba86bdc989d2bd6bc99707309859dcb8acafecd",
+    "loc3_script2_seq7_rec1": "c10d06645def5df300b527710859918d8dbed3a69767e4a32b59682c1098aea0",
+    "loc3_script2_seq7_rec2": "6578671bb755f2ad5ba5f2c2e4751b40f4a09b2e4027cf4af5033f8df89b3492",
+    "loc3_script3_seq1_rec1": "49882c4a5d919e583d45c2f5f2acde0b32c0876f243515ff05ff003b229aba3b",
+    "loc3_script3_seq1_rec2": "12742cf573d7fce0fee3bce2650e38a746bd90b0d00e98291678e6cec40ebbea",
+    "loc3_script3_seq2_rec1": "1518e0790c55534d6d5fcf50d9884a46bfb04db933e6ce83d20fb908b1e6ab8a",
+    "loc3_script3_seq2_rec2": "bd3c23f33276b5378fcba6b5f3f291944aeee484fda38a1353f58910c7df68f3",
+    "loc3_script3_seq4_rec1": "539b70381ea5a40e3026eb8d00b9105c99189945def63fc50866cf4745a1e6fa",
+    "loc3_script3_seq4_rec2": "827dba864e23614914a8afa8c9e451f40bec2dce124da01290aa0e6300ed5a74",
+    "loc3_script3_seq5_rec1": "25fa3dac0ca83fee2a309991ec1e480b84c4f1831a4abcdd0106b26c95813c7c",
+    "loc3_script3_seq5_rec2": "9a2b6e4741d02b9cc3adb276c5ba782faf072e8f012238555a145d548ae97adf"
+  }
+}

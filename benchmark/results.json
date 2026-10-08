@@ -1,0 +1,160 @@
+{
+  "benchmark": "SAVED-Bench",
+  "version": "1.0",
+  "model": "Gemini-3.6-Flash",
+  "qa_count": 1988,
+  "unit": "percent",
+  "precision": 1,
+  "columns": [
+    "Baseline",
+    "FloorSAV",
+    "Partial GT map",
+    "Full GT map"
+  ],
+  "rows": [
+    {
+      "category": "Dynamic Relativity",
+      "task": "Ego-to-Exo Direction",
+      "qa_count": 200,
+      "scores": [
+        56.0,
+        65.0,
+        76.5,
+        72.0
+      ]
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Ego-to-Exo Distance",
+      "qa_count": 200,
+      "scores": [
+        34.3,
+        34.6,
+        47.9,
+        45.9
+      ]
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Exo-to-Ego Direction",
+      "qa_count": 200,
+      "scores": [
+        32.0,
+        50.5,
+        50.5,
+        53.5
+      ]
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Exo-to-Ego Distance",
+      "qa_count": 200,
+      "scores": [
+        46.4,
+        44.7,
+        57.5,
+        55.0
+      ]
+    },
+    {
+      "category": "Dynamic Relativity",
+      "task": "Task average",
+      "qa_count": 800,
+      "scores": [
+        42.2,
+        48.7,
+        58.1,
+        56.6
+      ]
+    },
+    {
+      "category": "Regional",
+      "task": "Location Awareness",
+      "qa_count": 200,
+      "scores": [
+        92.0,
+        94.5,
+        96.0,
+        96.5
+      ]
+    },
+    {
+      "category": "Regional",
+      "task": "Visit History",
+      "qa_count": 392,
+      "scores": [
+        86.7,
+        92.3,
+        89.8,
+        97.2
+      ]
+    },
+    {
+      "category": "Regional",
+      "task": "Task average",
+      "qa_count": 592,
+      "scores": [
+        89.4,
+        93.4,
+        92.9,
+        96.8
+      ]
+    },
+    {
+      "category": "Path Reasoning",
+      "task": "Line-Path Search (static)",
+      "qa_count": 196,
+      "scores": [
+        60.2,
+        77.0,
+        78.1,
+        77.6
+      ]
+    },
+    {
+      "category": "Path Reasoning",
+      "task": "Line-Path Search (dynamic)",
+      "qa_count": 200,
+      "scores": [
+        73.0,
+        78.0,
+        87.5,
+        91.0
+      ]
+    },
+    {
+      "category": "Path Reasoning",
+      "task": "Trajectory Distance",
+      "qa_count": 200,
+      "scores": [
+        16.9,
+        25.0,
+        25.0,
+        28.2
+      ]
+    },
+    {
+      "category": "Path Reasoning",
+      "task": "Task average",
+      "qa_count": 596,
+      "scores": [
+        50.0,
+        60.0,
+        63.5,
+        65.6
+      ]
+    },
+    {
+      "category": "Overall",
+      "task": "QA-weighted average",
+      "qa_count": 1988,
+      "scores": [
+        58.3,
+        65.3,
+        69.8,
+        71.3
+      ]
+    }
+  ],
+  "qa_sha256": "6c014396e5f1499cff9d8d298ef1d3fdf5f239938fb91ea5decd2730095286b4"
+}

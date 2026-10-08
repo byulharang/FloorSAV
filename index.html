@@ -64,8 +64,8 @@
           <img
             class="kaist-logo"
             src="assets/figures/kaist-logo.png"
-            width="112"
-            height="25"
+            width="84"
+            height="19"
             alt="KAIST"
           /><span>Korea Advanced Institute of Science and Technology</span>
         </p>
@@ -182,7 +182,8 @@
         </div>
         <div class="hero-caption">
           <span
-            >Original RGB frames + maps redrawn from the same scene data.</span
+            >Original RGB frames + original FloorSAV map rendering at 20
+            fps.</span
           >
           <div class="map-legend">
             <span><i class="red"></i>Camera</span
@@ -968,8 +969,9 @@
             ></div>
             <p class="radar-note">
               Ego / Exo: SAVVY-Bench · Gemini-2.5-Pro. Other axes: SAVED-Bench ·
-              Gemini-3.6-Flash. Paired tasks are averaged; scores are 0–100.
-              Sources: paper Tables 1 &amp; 4.
+              Gemini-3.6-Flash. Paired tasks are averaged. Each axis starts at 0
+              and uses its labeled maximum; scales stay fixed when GT maps are
+              toggled. Sources: paper Tables 1 &amp; 4.
             </p>
             <p class="gt-explanation" id="gt-explanation" hidden>
               <strong>Partial GT map:</strong> ground-truth other-person

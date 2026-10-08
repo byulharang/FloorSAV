@@ -688,7 +688,8 @@
     if (c.name === "region") {
       map += pin("camera-ring", sample.camera, "1", "Camera", -18, 10);
       if (step >= 2) {
-        map += `<rect class="region-focus" x="13" y="27" width="35" height="56" rx="6"/>`;
+        const [[x0, y0], [x1, y1]] = data.regions.kitchen;
+        map += `<rect class="region-focus" x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" rx="6"/>`;
         map += pin(
           "kitchen-ring",
           data.objects.counter,
@@ -1049,7 +1050,6 @@
       "4  ·  Ground objects on the map",
       "5  ·  Synchronize map + video",
     ];
-    chip(mapCtx, stageNames[phase], 320, 26, stageColors[phase], 18);
     mapCtx.save();
     mapCtx.globalAlpha = flat;
     for (let x = 0; x <= 8; x++) {
@@ -1219,6 +1219,8 @@
       }
       label(mapCtx, "Time →", 55, 420, "#2456d6", 15);
     }
+    // Draw the opaque title last so projecting 3D points always pass behind it.
+    chip(mapCtx, stageNames[phase], 320, 26, stageColors[phase], 18);
     if (phase !== renderIndex) {
       renderIndex = phase;
       $("#render-player").dataset.phase = phase;

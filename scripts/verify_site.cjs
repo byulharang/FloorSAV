@@ -67,7 +67,31 @@ const checks = [],
       published.rows.map((r) => r.scores),
     );
     assert.equal(await p.locator("[data-radar-series]").count(), 2);
+    const axisMaxima = () =>
+      p
+        .locator("[data-axis-max]")
+        .evaluateAll((labels) => labels.map((el) => +el.dataset.axisMax));
+    assert.deepEqual(await axisMaxima(), [70, 65, 65, 55, 30, 85, 100, 100]);
+    assert.equal(await p.locator(".radar-origin").textContent(), "0");
     await p.locator("#oracle-toggle").check();
+    assert.deepEqual(await axisMaxima(), [70, 65, 65, 55, 30, 85, 100, 100]);
+    // The low-valued Trajectory axis should now use most of its 0–30 radius,
+    // while the tooltip keeps the reported score of 28.2.
+    const trajectory = await p
+      .locator('[data-radar-series="3"] circle[data-axis="4"]')
+      .evaluate((el) => {
+        const svg = el.closest("svg"),
+          outer = [...svg.querySelectorAll(".radar-grid")]
+            .at(-1)
+            .points.getItem(4);
+        const center = svg.viewBox.baseVal.height / 2;
+        return {
+          score: +el.dataset.score,
+          radius: (el.cy.baseVal.value - center) / (outer.y - center),
+        };
+      });
+    assert.equal(trajectory.score, 28.2);
+    assert(Math.abs(trajectory.radius - 0.94) < 0.00001);
     assert.equal(await p.locator("[data-radar-series]").count(), 4);
     assert.equal(await p.locator(".bar-row").count(), 16);
     await p.locator('[data-results-view="table"]').click();

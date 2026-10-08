@@ -64,7 +64,12 @@ def main():
         assert timing['fps'] == 20
         assert len(timing['samples']) == duration * 20
         assert timing['max_rgb_time_error_s'] < .001
-        runtime[name] = {key: timing[key] for key in ('fps', 'objects', 'samples')}
+        assert timing['audio_mean_half_window_s'] == 1.0
+        assert len(timing['native_parity']) == 2
+        assert all(check['mean_pixel_error'] < .25 for check in timing['native_parity'])
+        if name == 'region':
+            assert 'kitchen' in timing['regions']
+        runtime[name] = {key: timing[key] for key in ('fps', 'objects', 'regions', 'samples')}
         for kind in ('ego', 'map'):
             file = ROOT / f'assets/media/{name}-{kind}.mp4'
             probe = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-of', 'json', str(file)]))
@@ -86,8 +91,8 @@ def main():
                 'rgb_source':'savvy/SAVVY/data_utils/aea/aea_processed/{scene}/images',
                 'map_source':'stageA/FloorSAV/ExpB/code/render_maps_36.py and render_maps_36_trail.py',
                 'notes':['RGB is sampled from the original timestamped frames, not interpolated from the 128-frame model video.',
-                         'The maps are presentation redraws using native point-cloud preprocessing, camera poses, CDR sound estimates and Flash36 object labels.',
-                         'The map redraw uses simplified styling; the method illustration is a schematic.',
+                         'The maps reuse the original Flash 3.6 renderer: point clouds, bold object labels, gradient FoV, red camera, green CDR estimate, and the native optional fading trail.',
+                         'Map frames are rendered every 0.05 seconds, preserving the original mean1s audio window of plus/minus 1 second; these are not new audio predictions. The method animation is a separate schematic.',
                          'Qualitative examples are selected explanation reruns, not aggregate measurements or new model evaluations.',
                          'The path overlay uses estimated map positions; cited distances come from an independent GT geometry audit.'],
                 'media':media}

@@ -7,8 +7,8 @@
   "map_source": "stageA/FloorSAV/ExpB/code/render_maps_36.py and render_maps_36_trail.py",
   "notes": [
     "RGB is sampled from the original timestamped frames, not interpolated from the 128-frame model video.",
-    "The maps are presentation redraws using native point-cloud preprocessing, camera poses, CDR sound estimates and Flash36 object labels.",
-    "The map redraw uses simplified styling; the method illustration is a schematic.",
+    "The maps reuse the original Flash 3.6 renderer: point clouds, bold object labels, gradient FoV, red camera, green CDR estimate, and the native optional fading trail.",
+    "Map frames are rendered every 0.05 seconds, preserving the original mean1s audio window of plus/minus 1 second; these are not new audio predictions. The method animation is a separate schematic.",
     "Qualitative examples are selected explanation reruns, not aggregate measurements or new model evaluations.",
     "The path overlay uses estimated map positions; cited distances come from an independent GT geometry audit."
   ],
@@ -34,8 +34,8 @@
     },
     {
       "file": "assets/media/viewpoint-map.mp4",
-      "sha256": "78d7ed29bca6b339be612f8c91f75cf9e47f514d889b24321c6817a833ffa6d6",
-      "bytes": 935318,
+      "sha256": "a3165cce6cb13758d483cb5f9b39fec3251e0228550a1494e0b3fd8ae028d7f9",
+      "bytes": 1180531,
       "case": "viewpoint",
       "qa": "expE_1567",
       "scene": "loc3_script2_seq3_rec1",
@@ -72,8 +72,8 @@
     },
     {
       "file": "assets/media/region-map.mp4",
-      "sha256": "c7ac585f3702d0ac1862c4eb40f529290681e205ee76c22dc23e8c7fcf6740d7",
-      "bytes": 1851507,
+      "sha256": "e5138691209cc1f398d4a215aa83b0392cbdde4c4aa7d3fe52973fc01af51f27",
+      "bytes": 2344347,
       "case": "region",
       "qa": "expE_0034",
       "scene": "loc2_script3_seq4_rec1",
@@ -110,8 +110,8 @@
     },
     {
       "file": "assets/media/path-map.mp4",
-      "sha256": "df0dee683e4f33ff4d18e10d40f8c92093fe4f7862c5713f87de5ecaac608138",
-      "bytes": 944607,
+      "sha256": "be4a3470ddba999a31ea19bad14977b7ecf3a153070a45ddf12c4f8310fdc0c4",
+      "bytes": 1299257,
       "case": "path",
       "qa": "expE_1224",
       "scene": "loc2_script3_seq31_rec1",

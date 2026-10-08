@@ -49,8 +49,8 @@ body {
 }
 .kaist-logo {
   object-fit: contain;
-  width: 112px;
-  height: 25px;
+  width: 84px;
+  height: auto;
   flex-shrink: 0;
 }
 .author-note {
@@ -964,7 +964,7 @@ footer {
     gap: 9px;
   }
   .kaist-logo {
-    width: 95px;
+    width: 76px;
     height: auto;
   }
   .hero-actions {
@@ -1986,5 +1986,41 @@ footer {
   .benchmark-cards .task-expand,
   .benchmark-cards .task-details {
     grid-column: 1 / -1;
+  }
+}
+
+/* Keep all author names on one baseline even when a dagger is present. */
+.authors {
+  align-items: baseline;
+}
+.authors a {
+  line-height: 1.5;
+}
+.authors sup {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.45em;
+  line-height: 0;
+}
+.radar-maximum {
+  font-size: 14px;
+  font-weight: 700;
+  fill: #345779;
+  letter-spacing: 0;
+}
+.radar-origin {
+  font-size: 13px;
+  font-weight: 650;
+  fill: #455b75;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+}
+@media (max-width: 760px) {
+  .radar-maximum {
+    font-size: 11px;
+  }
+  .radar-origin {
+    font-size: 11px;
   }
 }

@@ -82,6 +82,10 @@
       values: task("Visit History"),
     },
   ];
+  // Include every condition when choosing each linear scale; toggling GT never rescales.
+  axes.forEach((axis) => {
+    axis.maximum = Math.ceil(Math.max(...axis.values) / 5) * 5;
+  });
   let view = "chart",
     filter = "all";
   const legend = (n) =>
@@ -93,33 +97,39 @@
     const n = $("#oracle-toggle").checked ? 4 : 2;
     const width = Math.max(300, Math.min(920, $("#results-radar").clientWidth));
     const small = width < 560,
-      height = small ? 420 : 610;
+      height = small ? 440 : 650;
     const cx = width / 2,
-      cy = height / 2,
-      radius = small ? width * 0.29 : Math.min(205, width * 0.29);
-    const point = (i, value, r = radius) => {
+      cy = height / 2;
+    const radius = small ? width * 0.29 : Math.min(205, width * 0.29);
+    const radial = (i, fraction, r = radius) => {
       const angle = (i * Math.PI) / 4 - Math.PI / 2;
       return [
-        cx + (Math.cos(angle) * r * value) / 100,
-        cy + (Math.sin(angle) * r * value) / 100,
+        cx + Math.cos(angle) * r * fraction,
+        cy + Math.sin(angle) * r * fraction,
       ];
     };
-    const polygon = (values, r) =>
-      values.map((v, i) => point(i, v, r).join(",")).join(" ");
-    const grid = [25, 50, 75, 100]
+    const point = (i, value) => radial(i, value / axes[i].maximum);
+    const polygon = (values) =>
+      values.map((v, i) => point(i, v).join(",")).join(" ");
+    const grid = [0.25, 0.5, 0.75, 1]
       .map(
-        (v) =>
-          `<polygon points="${polygon(axes.map(() => v))}" class="radar-grid"/><text x="${cx + 7}" y="${cy - (radius * v) / 100 + 4}" class="radar-scale">${v}</text>`,
+        (fraction) =>
+          `<polygon points="${axes.map((_, i) => radial(i, fraction).join(",")).join(" ")}" class="radar-grid"/>`,
       )
       .join("");
     const spokes = axes
       .map((axis, i) => {
-        const [x, y] = point(i, 100),
-          [lx, ly] = point(i, 100, radius + (small ? 35 : 52));
-        const labelX = small && i === 2 ? width - 8 : small && i === 6 ? 8 : lx;
+        const [x, y] = radial(i, 1),
+          [lx, ly] = radial(i, 1, radius + (small ? 44 : 60));
+        const labelX = small && i === 2 ? width - 2 : small && i === 6 ? 2 : lx;
         const anchor =
           small && i === 2 ? "end" : small && i === 6 ? "start" : "middle";
-        return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" class="radar-spoke"/><text x="${labelX}" y="${ly - 4}" text-anchor="${anchor}" class="radar-axis">${axis.label}<tspan x="${labelX}" dy="18" class="radar-source">${axis.source}</tspan></text>`;
+        const title =
+          small && i === 2
+            ? `Ego →<tspan x="${labelX}" dy="15">Exo</tspan>`
+            : axis.label;
+        const labelY = ly - (small && i === 2 ? 25 : 13);
+        return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" class="radar-spoke"/><text x="${labelX}" y="${labelY}" text-anchor="${anchor}" class="radar-axis">${title}<tspan x="${labelX}" dy="17" class="radar-source">${axis.source}</tspan><tspan x="${labelX}" dy="16" class="radar-maximum" data-axis-max="${axis.maximum}">max ${axis.maximum}</tspan></text>`;
       })
       .join("");
     // Draw translucent GT outlines first so the main comparison stays readable.
@@ -127,22 +137,22 @@
     const series = order
       .map(
         (k) =>
-          `<g data-radar-series="${k}"><polygon points="${polygon(axes.map((a) => a.values[k]))}" fill="${colors[k]}" fill-opacity="${k === 1 ? 0.11 : 0.035}" stroke="${colors[k]}" stroke-width="${k === 1 ? 3 : 2}" ${k > 1 ? `stroke-dasharray="${k === 2 ? "7 5" : "2 5"}"` : ""}/>${axes
+          `<g data-radar-series="${k}"><polygon points="${polygon(axes.map((a) => a.values[k]))}" fill="${colors[k]}" fill-opacity="${k === 1 ? 0.11 : 0.035}" stroke="${colors[k]}" stroke-width="${k === 1 ? 3.5 : 2}" ${k !== 1 ? `stroke-dasharray="${k === 0 ? "6 3" : k === 2 ? "7 5" : "2 5"}"` : ""}/>${axes
             .map((a, i) => {
               const [x, y] = point(i, a.values[k]);
-              return `<circle cx="${x}" cy="${y}" r="${small ? 3 : 4}" fill="${colors[k]}" stroke="white" stroke-width="1"><title>${a.label} (${a.source}), ${labels[k]}: ${a.values[k].toFixed(1)}</title></circle>`;
+              return `<circle data-score="${a.values[k]}" data-axis="${i}" cx="${x}" cy="${y}" r="${small ? 3 : 4}" fill="${colors[k]}" stroke="white" stroke-width="1"><title>${a.label} (${a.source}), ${labels[k]}: ${a.values[k].toFixed(1)}</title></circle>`;
             })
             .join("")}</g>`,
       )
       .join("");
     $("#results-radar").innerHTML =
-      `<svg viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="radar-title radar-desc"><title id="radar-title">Spatial skills: ${labels.slice(0, n).join(", ")}</title><desc id="radar-desc">Eight axes, scores from 0 to 100; larger is better. Exact values and grouping definitions are in the expandable table below.</desc>${grid}${spokes}${series}</svg><details class="radar-values"><summary>Axis values &amp; task groups</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Radar axis values, horizontally scrollable"><table><caption class="sr-only">Averages of the reported task scores for each radar axis</caption><thead><tr><th scope="col">Skill group</th>${labels
+      `<svg viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="radar-title radar-desc"><title id="radar-title">Spatial skills: ${labels.slice(0, n).join(", ")}</title><desc id="radar-desc">Eight linear axes, each starting at zero with its own labeled maximum. Larger is better. The expandable table lists original scores and axis limits.</desc>${grid}${spokes}${series}<text x="${cx}" y="${cy + 4}" text-anchor="middle" class="radar-origin">0</text></svg><details class="radar-values"><summary>Axis values &amp; task groups</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Radar axis values, horizontally scrollable"><table><caption>Original scores. Each axis maximum is the highest score across all four conditions rounded up to a multiple of 5. Axis minima are always 0.</caption><thead><tr><th scope="col">Skill group</th><th scope="col">Axis max</th>${labels
         .slice(0, n)
         .map((l) => `<th scope="col">${l}</th>`)
         .join("")}</tr></thead><tbody>${axes
         .map(
           (a) =>
-            `<tr><th scope="row">${a.label} · ${a.source}<small>${a.detail}</small></th>${a.values
+            `<tr><th scope="row">${a.label} · ${a.source}<small>${a.detail}</small></th><td>${a.maximum}</td>${a.values
               .slice(0, n)
               .map((v) => `<td>${v.toFixed(1)}</td>`)
               .join("")}</tr>`,

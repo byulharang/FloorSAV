@@ -179,8 +179,8 @@ const checks = [],
     await p.locator("#tab-path").click();
     await p.locator('[data-step="1"]').click();
     await aligned(p, 5.6);
-    await p.locator("#start-walkthrough").click(); // Explicit pause cancels the countdown.
-    await p.waitForTimeout(2800);
+    // Choosing an explanation before pressing play stays paused.
+    await p.waitForTimeout(300);
     await aligned(p, 5.6);
     assert.equal(
       await p.locator("#start-walkthrough").innerText(),
@@ -214,8 +214,19 @@ const checks = [],
     await p.waitForFunction(
       () => document.querySelector("#case-ego").currentTime > 12.2,
     );
-    await p.locator("#case-play").click();
+    // A step chosen during free playback inherits the playing state.
     await p.locator('[data-step="0"]').click();
+    assert.equal(
+      await p.locator("#case-play").getAttribute("aria-label"),
+      "Pause example",
+    );
+    await p.locator("#case-play").click();
+    await p.locator('[data-step="1"]').click();
+    await aligned(p, 5.6);
+    assert.equal(
+      await p.locator("#case-play").getAttribute("aria-label"),
+      "Play example",
+    );
     await p.locator("#tab-region").click();
     await p.waitForTimeout(2800);
     await aligned(p, 0);
@@ -224,7 +235,6 @@ const checks = [],
     );
     await p.locator("#tab-viewpoint").click();
     await p.locator('[data-step="3"]').click();
-    await p.locator("#start-walkthrough").click();
     await aligned(p, 5.5);
     await capture(p, "#case-panel", "viewpoint-explanation");
     await p.locator("#annotations").uncheck();
@@ -249,7 +259,7 @@ const checks = [],
     );
     await p.close();
 
-    // Real-time playback: every original clip reaches its end after four 2.5-second holds.
+    // Real-time playback: every original clip finishes after four readable, step-specific holds.
     await Promise.all(
       ["region", "path", "viewpoint"].map(async (name) => {
         const page = await open();
@@ -287,13 +297,18 @@ const checks = [],
             document.querySelector("#playback-state").textContent ===
             "Full clip complete",
           null,
-          { timeout: 60000 },
+          { timeout: 90000 },
         );
         const data = await page.evaluate(() => ({
           ...window.tourRecord,
           time: document.querySelector("#case-ego").currentTime,
           duration: document.querySelector("#case-ego").duration,
           mapTime: document.querySelector("#case-map").currentTime,
+          holdSeconds: window.FLOORSAV_STORIES.find(
+            (c) =>
+              "tab-" + c.name ===
+              document.querySelector('[data-case][aria-selected="true"]').id,
+          ).steps.map((s) => s.holdSeconds),
         }));
         assert.deepEqual(
           data.holds.map((h) => h.step),
@@ -302,7 +317,9 @@ const checks = [],
         );
         assert(
           data.holds.every(
-            (h) => h.end - h.start >= 2300 && h.end - h.start < 3300,
+            (h, i) =>
+              h.end - h.start >= data.holdSeconds[i] * 1000 - 200 &&
+              h.end - h.start < data.holdSeconds[i] * 1000 + 1800,
           ),
           JSON.stringify(data.holds),
         );
@@ -316,8 +333,64 @@ const checks = [],
         );
         assert(Math.max(...data.sync) < 0.3, name + " pair drift");
         assert(await page.locator("#map-overlay").isHidden());
+        fs.writeFileSync(
+          path.join(output, `${name}-timing.json`),
+          JSON.stringify(data, null, 2),
+        );
         checks.push(
           `${name}: full ${data.duration}s clip, four timed pauses, synchronized playback and automatic completion`,
+        );
+        // Pause is a persistent user choice, including jumps that share a timestamp.
+        await page.locator('[data-step="0"]').click();
+        assert.equal(
+          await page.locator("#case-play").getAttribute("aria-label"),
+          "Play example",
+        );
+        await page.locator("#case-play").click();
+        await page.locator('[data-step="1"]').click();
+        assert.equal(
+          await page.locator("#case-play").getAttribute("aria-label"),
+          "Pause example",
+        );
+        await page.locator("#start-walkthrough").click();
+        await page.locator('[data-step="0"]').click();
+        await page.locator('[data-step="2"]').click();
+        await page.locator("#next-step").click();
+        const finalTime = data.holds[3].time;
+        await aligned(page, finalTime);
+        await page.waitForTimeout(Math.max(...data.holdSeconds) * 1000 + 400);
+        await aligned(page, finalTime);
+        assert.equal(
+          await page.locator('[data-step="3"]').getAttribute("aria-current"),
+          "step",
+        );
+        assert.equal(
+          await page.locator("#case-play").getAttribute("aria-label"),
+          "Play example",
+        );
+        assert.equal(
+          await page.locator("#start-walkthrough").innerText(),
+          "Resume ▶",
+        );
+        await page.locator("#next-step").click(); // Return to video also respects pause.
+        await aligned(page, finalTime);
+        assert.equal(
+          await page.locator("#case-play").getAttribute("aria-label"),
+          "Play example",
+        );
+        await page.locator('[data-step="1"]').click();
+        await page.locator("#case-play").click();
+        await page.locator("#next-step").click();
+        assert.equal(
+          await page.locator('[data-step="2"]').getAttribute("aria-current"),
+          "step",
+        );
+        assert.equal(
+          await page.locator("#case-play").getAttribute("aria-label"),
+          "Pause example",
+        );
+        checks.push(
+          `${name}: play/pause persists across backward and forward step jumps, next step and return to video`,
         );
         await page.close();
       }),
@@ -374,7 +447,6 @@ const checks = [],
       if (width < 760) {
         await mobile.locator("#tab-viewpoint").click();
         await mobile.locator('[data-step="3"]').click();
-        await mobile.locator("#start-walkthrough").click();
         await mobile.locator('button[data-evidence-view="map"]').click();
         await capture(mobile, "#case-panel", "mobile-evidence-" + width);
       }

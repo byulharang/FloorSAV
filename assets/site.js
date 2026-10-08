@@ -351,7 +351,6 @@
     holdRemaining = 0,
     nextStop = 0,
     tourFinished = false;
-  const HOLD_MS = 2500;
   const caseButtons = $$("[data-case]"),
     stepButtons = $$("[data-step]");
   const story = new VideoPair("case", { onUpdate: renderStory });
@@ -417,13 +416,17 @@
   }
   // One forward timeline: travel → timed explanation → travel, through the clip's end.
   // Repeated timestamps let several explanations share exactly the same evidence frame.
-  function goStep(index, resume = true) {
+  function playbackActive() {
+    // A timed highlight pauses the videos, but the user's playback mode stays active.
+    return guided ? tourActive : story.wantPlay;
+  }
+  function goStep(index, resume = playbackActive()) {
     guided = true;
     hasStarted = true;
     tourFinished = false;
     tourActive = resume;
     holding = true;
-    holdRemaining = HOLD_MS;
+    holdRemaining = (cases[caseIndex].steps[index].holdSeconds ?? 6) * 1000;
     stepIndex = index;
     nextStop = index + 1;
     story.userPaused = !resume;
@@ -527,13 +530,11 @@
   stepButtons.forEach((b, i) => b.addEventListener("click", () => goStep(i)));
   $("#start-walkthrough").addEventListener("click", toggleTour);
   $("#next-step").addEventListener("click", () => {
-    if (nextStop < cases[caseIndex].steps.length)
-      goStep(nextStop, !hasStarted || tourActive);
+    if (nextStop < cases[caseIndex].steps.length) goStep(nextStop);
     else {
       holding = false;
-      tourActive = true;
-      story.userPaused = false;
-      story.play(true);
+      if (tourActive) story.play(true);
+      renderStory(story.ego.currentTime);
     }
   });
   $("#replay-step").addEventListener("click", startTour);
@@ -764,7 +765,7 @@
             ? "Pause"
             : "Resume ▶";
     $("#next-step").textContent =
-      nextStop < c.steps.length ? "Next step →" : "Continue video ▶";
+      nextStop < c.steps.length ? "Next step →" : "Return to video →";
     $("#next-step").hidden =
       tourFinished || (nextStop >= c.steps.length && !holding);
     $("#replay-step").hidden = !hasStarted || tourFinished;

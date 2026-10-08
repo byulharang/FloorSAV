@@ -22,6 +22,7 @@ window.FLOORSAV_STORIES = [
       "The kitchen outline is a reading aid. The model receives object labels, not annotated room boundaries. Sound estimates can be noisy; the explanation also uses movement history.",
     steps: [
       {
+        holdSeconds: 6,
         at: 6,
         from: 2,
         until: 6,
@@ -34,6 +35,7 @@ window.FLOORSAV_STORIES = [
         map: "The camera stays by the dining table.",
       },
       {
+        holdSeconds: 6,
         at: 18.75,
         from: 17.5,
         until: 21.5,
@@ -46,6 +48,7 @@ window.FLOORSAV_STORIES = [
         map: "1 · Camera position at the dining table.",
       },
       {
+        holdSeconds: 8,
         at: 18.75,
         name: "Read the place",
         focus: "Map → object landmarks",
@@ -55,6 +58,7 @@ window.FLOORSAV_STORIES = [
         map: "2 · Kitchen landmarks, away from the dining table.",
       },
       {
+        holdSeconds: 8,
         at: 18.75,
         name: "Connect the evidence",
         focus: "Video + map → answer",
@@ -86,6 +90,7 @@ window.FLOORSAV_STORIES = [
       "The route illustrates estimated map positions. The selected answer matches ground truth, but the model’s distance calculations are imperfect. An independent ground-truth check gives 1.04 m to the TV and 2.70 m to the window, including the route’s endpoints.",
     steps: [
       {
+        holdSeconds: 6,
         at: 5.6,
         from: 0,
         until: 6.8,
@@ -98,6 +103,7 @@ window.FLOORSAV_STORIES = [
         map: "1 · The route starts at this camera position.",
       },
       {
+        holdSeconds: 8,
         at: 5.6,
         name: "Find the destination",
         focus: "Map → a place beyond the view",
@@ -107,6 +113,7 @@ window.FLOORSAV_STORIES = [
         map: "1 · Start. 2 · Couch, labeled “sofa”.",
       },
       {
+        holdSeconds: 6,
         at: 5.6,
         name: "Draw the route",
         focus: "Geometry → the imagined path",
@@ -116,6 +123,7 @@ window.FLOORSAV_STORIES = [
         map: "The blue segment connects 1 → 2.",
       },
       {
+        holdSeconds: 8,
         at: 5.6,
         name: "Compare nearby objects",
         focus: "Map + question → answer",
@@ -147,6 +155,7 @@ window.FLOORSAV_STORIES = [
       "The coordinate sketch reconstructs the model’s reported estimates; it is not a ground-truth overlay. Its position estimates are approximate. The final back-left answer matches ground truth.",
     steps: [
       {
+        holdSeconds: 6,
         at: 5.5,
         from: 0,
         until: 6.5,
@@ -159,6 +168,7 @@ window.FLOORSAV_STORIES = [
         map: "1 · The camera’s position and facing direction.",
       },
       {
+        holdSeconds: 6,
         at: 5.5,
         name: "Use a shared frame",
         focus: "Both views → estimated positions",
@@ -168,6 +178,7 @@ window.FLOORSAV_STORIES = [
         map: "Model coordinate sketch: 1 · You. 2 · Other person.",
       },
       {
+        holdSeconds: 8,
         at: 5.5,
         name: "Place the imagined object",
         focus: "Question → a geometric construction",
@@ -177,6 +188,7 @@ window.FLOORSAV_STORIES = [
         map: "2 → 3 · Rotate the heading and place the object.",
       },
       {
+        holdSeconds: 8,
         at: 5.5,
         name: "Read it from your view",
         focus: "Shared frame → your viewpoint",

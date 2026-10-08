@@ -30,7 +30,6 @@ fs.mkdirSync(output, { recursive: true });
         if (state === "path-answer") {
           await page.locator("#tab-path").click();
           await page.locator('[data-step="3"]').click();
-          await page.locator("#start-walkthrough").click();
           await page.waitForFunction(
             () =>
               document.querySelector("#case-ego").currentTime >= 5.59 &&

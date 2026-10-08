@@ -124,6 +124,10 @@
       this.wantPlay = false;
       this.epoch = 0;
       this.playButton.addEventListener("click", () => {
+        if (this.onPlayRequest) {
+          this.onPlayRequest();
+          return;
+        }
         if (this.wantPlay && !this.ego.paused) {
           this.userPaused = true;
           this.pause();
@@ -184,7 +188,10 @@
         });
       }
       this.ego.addEventListener("timeupdate", () => this.update());
-      this.ego.addEventListener("pause", () => this.button());
+      this.ego.addEventListener("pause", () => {
+        this.button();
+        this.update();
+      });
       this.ego.addEventListener("play", () => this.button());
       this.ego.addEventListener("waiting", () => this.map.pause());
       this.ego.addEventListener("playing", () => {
@@ -329,155 +336,50 @@
     auto: true,
   });
   allPairs.push(hero);
-  const cases = [
-    {
-      name: "viewpoint",
-      category: "Dynamic relativity",
-      title: "Where is the imaginary object?",
-      start: 60,
-      duration: 20,
-      event: [5, 6.5],
-      quote: "We have this thing.",
-      qa: "expE_1567",
-      scene: "loc3_script2_seq3_rec1",
-      figure: "cross-agent",
-      question:
-        "At <mark>“We have this thing,”</mark> imagine an object 3 m from the other person, 70° clockwise from their hypothetical heading toward you. Where is it relative to your view?",
-      baseline: "Front-left",
-      answer: "Back-left",
-      steps: [
-        {
-          at: 0,
-          name: "Locate the event",
-          insight:
-            "First, connect the question to <mark>the speech event at 01:05</mark>. Watch how the camera turns away from the other person as the event approaches.",
-        },
-        {
-          at: 5,
-          name: "Notice the blind spot",
-          insight:
-            "The baseline assumes the other person is directly ahead. The floormap provides <mark>camera orientation and estimated sound location</mark> in a shared frame.",
-        },
-        {
-          at: 12,
-          name: "Look across views",
-          insight:
-            "A nearby frame brings the person into view. Read this visual context together with <mark>the mapped kitchen landmarks</mark>, rather than assuming the off-screen person is straight ahead.",
-        },
-        {
-          at: 16,
-          name: "Resolve the viewpoint",
-          insight:
-            "FloorSAV answers <mark>back-left</mark>, matching the ground truth. The task requires reasoning across two viewpoints, not just recognizing the visible kitchen.",
-        },
-      ],
-    },
-    {
-      name: "region",
-      category: "Regional reasoning",
-      title: "Where is the off-screen speaker?",
-      start: 96,
-      duration: 32,
-      event: [18.5, 21.5],
-      quote: "I mean, I like beef rare.",
-      qa: "expE_0034",
-      scene: "loc2_script3_seq4_rec1",
-      figure: "regional",
-      question:
-        "When <mark>“I mean, I like beef rare”</mark> is spoken, which area of the home is the other person in?",
-      baseline: "Dining area",
-      answer: "Kitchen area",
-      steps: [
-        {
-          at: 0,
-          name: "Watch them leave",
-          insight:
-            "The other person gets up from the dining table. <mark>Their location changes</mark> while the camera wearer remains at the table.",
-        },
-        {
-          at: 17.5,
-          name: "Hear the speaker",
-          insight:
-            "At the question’s speech event, the camera faces the meal. <mark>Where the camera is does not tell us where the speaker is.</mark>",
-        },
-        {
-          at: 23,
-          name: "Read the landmarks",
-          insight:
-            "The floormap distinguishes the table from the <mark>counter, oven, and refrigerator</mark>. These landmarks locate the kitchen without supplying annotated region boundaries to the model.",
-        },
-        {
-          at: 28,
-          name: "Identify the area",
-          insight:
-            "FloorSAV combines movement history with the mapped objects and answers <mark>kitchen area</mark>. The egocentric baseline instead answers dining area.",
-        },
-      ],
-    },
-    {
-      name: "path",
-      category: "Path reasoning",
-      title: "What would you pass on the way?",
-      start: 118,
-      duration: 16,
-      event: [4.5, 6.8],
-      quote: "Let’s … we got the kebabs so.",
-      qa: "expE_1224",
-      scene: "loc2_script3_seq31_rec1",
-      figure: "path",
-      question:
-        "At <mark>“Let’s … we got the kebabs so,”</mark> imagine walking in a straight line to the couch. Which candidate object would you pass most closely?",
-      baseline: "Pool window",
-      answer: "Wall-mounted TV",
-      steps: [
-        {
-          at: 0,
-          name: "Find your position",
-          insight:
-            "Locate the camera at the speech event. The task asks about <mark>an imagined straight path</mark>, not a walk actually taken in the clip.",
-        },
-        {
-          at: 4.5,
-          name: "Find the destination",
-          insight:
-            "The map places the <mark>couch and candidate objects</mark> in one frame, including objects outside the current camera view.",
-        },
-        {
-          at: 8,
-          name: "Connect the route",
-          insight:
-            "The cyan segment connects the <mark>query-time camera position to the couch</mark>. Compare objects to this finite segment, including its endpoints.",
-        },
-        {
-          at: 12,
-          name: "Compare the objects",
-          insight:
-            "FloorSAV selects the <mark>wall-mounted TV</mark>. An independent ground-truth check confirms the TV at 1.04 m from the route, versus 2.70 m for the pool window. The overlay is illustrative.",
-        },
-      ],
-    },
-  ];
-  cases.sort(
-    (a, b) =>
-      ["region", "path", "viewpoint"].indexOf(a.name) -
-      ["region", "path", "viewpoint"].indexOf(b.name),
-  );
+  const cases = window.FLOORSAV_STORIES;
   let caseIndex = 0,
-    stepIndex = -1,
+    stepIndex = 0,
     annotations = true;
+  let guided = true,
+    stepRunning = false,
+    hasStarted = false;
   const caseButtons = $$("[data-case]"),
     stepButtons = $$("[data-step]");
   const story = new VideoPair("case", { onUpdate: renderStory });
   allPairs.push(story);
+  const exactTime = (t) =>
+    `${formatTime(t)}.${String(Math.round((t % 1) * 100)).padStart(2, "0")}`;
+  function evidenceView(view) {
+    $("#case-panel").dataset.evidenceView = view;
+    $$("button[data-evidence-view]").forEach((b) =>
+      b.setAttribute("aria-pressed", String(b.dataset.evidenceView === view)),
+    );
+  }
+  function focusEvidence() {
+    const c = cases[caseIndex];
+    evidenceView(
+      stepIndex === 0 || (c.name === "region" && stepIndex === 1)
+        ? "video"
+        : "map",
+    );
+  }
+  $$("button[data-evidence-view]").forEach((b) =>
+    b.addEventListener("click", () => evidenceView(b.dataset.evidenceView)),
+  );
   function selectCase(index) {
     caseIndex = index;
-    stepIndex = -1;
+    stepIndex = 0;
+    guided = true;
+    stepRunning = false;
+    hasStarted = false;
     const c = cases[index];
+    focusEvidence();
     $("#case-category").textContent = c.category;
     $("#case-title").textContent = c.title;
     $("#case-question").innerHTML = c.question;
     $("#case-reference").textContent =
-      `${c.qa} · ${c.scene} · Source ${formatTime(c.start)}–${formatTime(c.start + c.duration)} · 20 fps`;
+      `${c.qa} · ${c.scene} · Source ${formatTime(c.start)}–${formatTime(c.start + c.duration)} · Original 20 fps frames`;
+    $("#case-caveat").textContent = c.caveat;
     $("#next-example").setAttribute(
       "aria-label",
       `Next example: ${cases[(index + 1) % cases.length].title}`,
@@ -489,16 +391,50 @@
     });
     stepButtons.forEach((b, i) => {
       b.querySelector(".step-name").textContent = c.steps[i].name;
-      b.querySelector(".step-time").textContent = formatTime(
+      b.querySelector(".step-time").textContent = exactTime(
         c.start + c.steps[i].at,
       );
+      b.setAttribute("aria-label", `Step ${i + 1}: ${c.steps[i].name}`);
     });
     story.userPaused = true;
     story.load(c.name, c.start, c.duration);
+    story.setTime(c.steps[0].at);
     $("#media-error").hidden = true;
-    $("#playback-intro").hidden = false;
-    $("#walkthrough-duration").textContent =
-      `${c.duration} seconds · Highlights guide the way`;
+    renderStory(c.steps[0].at);
+  }
+  function goStep(index, play = false) {
+    scrollGuidedStep();
+    guided = true;
+    hasStarted = true;
+    stepRunning = false;
+    story.pause();
+    stepIndex = index;
+    focusEvidence();
+    story.setTime(cases[caseIndex].steps[index].at);
+    if (play && cases[caseIndex].steps[index].from != null) playStep();
+    else renderStory(cases[caseIndex].steps[index].at);
+  }
+  function scrollGuidedStep() {
+    if (matchMedia("(max-width:760px)").matches)
+      $(".insight").scrollIntoView({
+        block: "start",
+        behavior: reduced.matches ? "auto" : "smooth",
+      });
+  }
+  function playStep() {
+    scrollGuidedStep();
+    const s = cases[caseIndex].steps[stepIndex];
+    guided = true;
+    hasStarted = true;
+    if (s.from == null) {
+      goStep(stepIndex);
+      return;
+    }
+    stepRunning = true;
+    story.setTime(s.from);
+    story.userPaused = false;
+    story.play(true);
+    renderStory(s.from);
   }
   caseButtons.forEach((b, i) => {
     b.addEventListener("click", () => selectCase(i));
@@ -516,23 +452,41 @@
       }
     });
   });
-  stepButtons.forEach((b, i) =>
-    b.addEventListener("click", () => {
-      $("#playback-intro").hidden = true;
-      story.userPaused = true;
+  stepButtons.forEach((b, i) => b.addEventListener("click", () => goStep(i)));
+  $("#start-walkthrough").addEventListener("click", () => {
+    if (!guided) goStep(stepIndex);
+    else if (!hasStarted) playStep();
+    else if (stepRunning) {
+      stepRunning = false;
       story.pause();
-      story.setTime(cases[caseIndex].steps[i].at + 0.04);
-    }),
-  );
+      story.setTime(cases[caseIndex].steps[stepIndex].at);
+    } else if (stepIndex < 3) goStep(stepIndex + 1, true);
+    else {
+      hasStarted = false;
+      selectCase(caseIndex);
+      playStep();
+    }
+  });
+  $("#replay-step").addEventListener("click", playStep);
+  story.onPlayRequest = () => {
+    if (story.wantPlay && !story.ego.paused) {
+      story.pause();
+      renderStory(story.ego.currentTime);
+    } else if (guided) playStep();
+    else story.play(true);
+  };
   $("#case-restart").addEventListener("click", () => {
-    story.pause();
-    story.setTime(0);
-    story.userPaused = true;
+    selectCase(caseIndex);
+    playStep();
+  });
+  $("#case-seek").addEventListener("input", () => {
+    guided = false;
+    stepRunning = false;
+    renderStory(Number(story.seek.value));
   });
   $("#case-speed").addEventListener("click", () => {
-    const rates = [1, 0.75, 0.5];
-    const rate =
-      rates[(rates.indexOf(story.ego.playbackRate) + 1) % rates.length];
+    const rates = [1, 0.75, 0.5],
+      rate = rates[(rates.indexOf(story.ego.playbackRate) + 1) % rates.length];
     story.ego.playbackRate = story.map.playbackRate = rate;
     $("#case-speed").textContent = `${rate}×`;
     $("#case-speed").setAttribute(
@@ -542,9 +496,7 @@
   });
   $("#annotations").addEventListener("change", (e) => {
     annotations = e.target.checked;
-    $("#ego-overlay").toggleAttribute("hidden", !annotations);
-    $("#map-overlay").toggleAttribute("hidden", !annotations);
-    $("#map-evidence-label").hidden = !annotations;
+    renderStory(story.ego.currentTime);
   });
   $("#next-example").addEventListener("click", () => {
     selectCase((caseIndex + 1) % cases.length);
@@ -559,175 +511,211 @@
       cases[caseIndex].title + " — paper example",
     ),
   );
-  const ring = (id, x, y, rx = 6, ry = 6, cls = "") =>
-    `<ellipse id="${id}" class="highlight ring draw ${cls}" cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`;
-  const underline = (x, y, w) =>
-    `<path class="highlight draw" d="M ${x - w / 2} ${y + 2} Q ${x} ${y + 3.2} ${x + w / 2} ${y + 2}"/>`;
-  const svgText = (x, y, text) => `<text x="${x}" y="${y}">${text}</text>`;
-  function renderStory(t) {
-    const c = cases[caseIndex];
-    if (!c) return;
-    const data = window.FLOORSAV_MEDIA?.[c.name];
-    const step = c.steps.reduce((v, s, i) => (t >= s.at ? i : v), 0);
-    $("#case-source-time").textContent = `Source ${formatTime(c.start + t)}`;
-    const eventNow = t >= c.event[0] && t <= c.event[1];
-    $("#event-caption").innerHTML = eventNow
-      ? `<mark>“${c.quote}”</mark>`
-      : step === 0
-        ? c.name === "region"
-          ? "Before the speech event"
-          : `Listen for the event at ${formatTime(c.start + c.event[0])}`
-        : "";
-    if (step !== stepIndex) {
-      stepIndex = step;
-      stepButtons.forEach((b, i) => {
-        if (i === step) b.setAttribute("aria-current", "step");
-        else b.removeAttribute("aria-current");
-      });
-      $("#insight-number").textContent = `0${step + 1}`;
-      $("#case-insight").innerHTML = c.steps[step].insight;
-      $("#baseline-answer").textContent =
-        step >= 1 ? c.baseline : "Observe the scene";
-      $("#floorsav-answer").textContent =
-        step === 3 ? c.answer : "Follow the evidence…";
-      $(".answer-ours").classList.toggle("pending", step !== 3);
-      buildOverlays(c, step, data);
+  const pin = (id, point, number, label, dx = -14, dy = -11, tone = "") => {
+    const [x, y] = point,
+      lx = Math.max(5, Math.min(68, x + dx)),
+      ly = Math.max(8, Math.min(90, y + dy));
+    const width = Math.max(18, label.length * 1.55 + 9);
+    return `<g id="${id}" class="evidence-pin ${tone}"><path class="pin-leader" d="M${x},${y} L${lx + 3},${ly}"/><circle class="pin-target" cx="${x}" cy="${y}" r="2.8"/><rect class="pin-label" x="${lx - 3}" y="${ly - 3.5}" width="${width}" height="7" rx="2"/><text class="pin-text" x="${lx}" y="${ly + 1.2}">${number} · ${label}</text></g>`;
+  };
+  const evidenceLine = (a, b, cls = "route-line") =>
+    `<path class="${cls}" d="M${a[0]},${a[1]} L${b[0]},${b[1]}"/>`;
+  function coordinateSketch(step) {
+    // Coordinates quoted by the selected model output, not sensor/ground-truth locations.
+    const xy = ([x, y]) => [20 + (x - 3.5) * 18, 90 - (y - 3) * 18];
+    const you = xy([5.65, 6.25]),
+      other = xy([4.8, 6.7]),
+      object = xy([4.39, 3.73]);
+    const theta = (118 * Math.PI) / 180;
+    const fwd = [Math.cos(theta) * 18, -Math.sin(theta) * 18];
+    const left = [-Math.sin(theta) * 18, -Math.cos(theta) * 18];
+    const head = [you[0] + fwd[0] * 0.7, you[1] + fwd[1] * 0.7];
+    let svg = `<defs><marker id="view-heading-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10Z" fill="#bd4a4a"/></marker></defs><rect width="100" height="100" class="sketch-bg"/><text class="sketch-heading" x="7" y="9">MODEL COORDINATE SKETCH</text><text class="sketch-sub" x="7" y="15">At the same question moment · estimates</text>`;
+    if (step === 3) {
+      const a = [you[0] - fwd[0] * 2.5, you[1] - fwd[1] * 2.5],
+        b = [a[0] + left[0] * 2.7, a[1] + left[1] * 2.7],
+        d = [you[0] + left[0] * 2.7, you[1] + left[1] * 2.7];
+      svg += `<path class="quadrant-fill" d="M${you} L${a} L${b} L${d}Z"/>`;
+      svg += evidenceLine(
+        [you[0] - fwd[0] * 2.5, you[1] - fwd[1] * 2.5],
+        [you[0] + fwd[0] * 1.2, you[1] + fwd[1] * 1.2],
+        "sketch-axis",
+      );
+      svg += evidenceLine(
+        [you[0] - left[0] * 1.2, you[1] - left[1] * 1.2],
+        [you[0] + left[0] * 2.7, you[1] + left[1] * 2.7],
+        "sketch-axis",
+      );
+      svg += `<text class="sketch-answer" x="8" y="89">BACK-LEFT</text>`;
     }
-    if (!data) return;
-    const sample =
-      data.samples[Math.min(data.samples.length - 1, Math.round(t * data.fps))];
-    for (const [id, point] of [
-      ["camera-ring", sample.camera],
-      ["sound-ring", sample.sound],
-    ]) {
-      const el = $("#" + id);
-      if (el) {
-        el.style.display =
-          point && point.every((v) => v >= 4 && v <= 96) ? "" : "none";
-        if (point) {
-          el.setAttribute("cx", point[0]);
-          el.setAttribute("cy", point[1]);
-        }
-      }
-    }
-    const leaving = $("#leaving-ring");
-    if (leaving) leaving.style.display = t < 4 ? "" : "none";
-    // A tracked visual highlight is shown only during the verified nearby frames.
-    const person = $("#person-ring");
-    if (person) {
-      const visible = c.name === "viewpoint" && t >= 13 && t <= 18;
-      person.style.display = visible ? "" : "none";
-      if (visible) {
-        const p = personTrack(t);
-        person.setAttribute("cx", p[0]);
-        person.setAttribute("cy", p[1]);
-        person.setAttribute("rx", p[2]);
-        person.setAttribute("ry", p[3]);
-      }
-    }
-  }
-  function personTrack(t) {
-    const track = [
-      [13, 6, 52, 9, 28],
-      [14, 9, 57, 10, 27],
-      [15, 27, 56, 12, 27],
-      [16, 35, 59, 13, 26],
-      [17, 45, 66, 12, 26],
-      [18, 56, 64, 13, 28],
-    ];
-    let k = 0;
-    while (k < track.length - 2 && t > track[k + 1][0]) k++;
-    const a = track[k],
-      b = track[k + 1],
-      u = Math.max(0, Math.min(1, (t - a[0]) / (b[0] - a[0])));
-    return a.slice(1).map((v, i) => v + (b[i + 1] - v) * u);
-  }
-  function buildOverlays(c, step, data) {
-    let map = "",
-      ego = "",
-      label = "";
-    if (data) {
-      const d =
-        data.samples[
-          Math.min(
-            data.samples.length - 1,
-            Math.round(c.steps[step].at * data.fps),
-          )
+    svg +=
+      evidenceLine(you, head, "heading-line") +
+      `<text class="sketch-heading-label" x="65" y="22">Your view</text>`;
+    svg +=
+      pin("you-sketch", you, "1", "You", 5, -1) +
+      pin("other-sketch", other, "2", "Other person", -28, -2);
+    if (step >= 2) {
+      svg +=
+        evidenceLine(other, you, "sketch-axis") + evidenceLine(other, object);
+      const angleStart = Math.atan2(you[1] - other[1], you[0] - other[0]);
+      const angleEnd = Math.atan2(object[1] - other[1], object[0] - other[0]);
+      const p = [
+          other[0] + 8 * Math.cos(angleStart),
+          other[1] + 8 * Math.sin(angleStart),
+        ],
+        q = [
+          other[0] + 8 * Math.cos(angleEnd),
+          other[1] + 8 * Math.sin(angleEnd),
         ];
-      if (step >= 0) map += ring("camera-ring", ...d.camera, 3, 3);
-      if (c.name === "viewpoint") {
-        if (step >= 1) {
-          map += ring("sound-ring", ...(d.sound || [50, 50]), 4.3, 4.3);
-          label = "Camera pose + sound estimate";
+      svg += `<path class="angle-arc" d="M${p} A8,8 0 0,1 ${q}"/><text class="sketch-label" x="${other[0] + 4}" y="${other[1] + 14}">70°</text><text class="sketch-label" x="${object[0] + 4}" y="${(other[1] + object[1]) / 2 + 7}">3 m</text>`;
+      svg += pin(
+        "object-sketch",
+        object,
+        "3",
+        "Imagined object",
+        5,
+        0,
+        "answer-pin",
+      );
+    }
+    svg += `<text class="sketch-sub" x="7" y="96">Reconstructed from the model’s reported coordinates</text>`;
+    return svg;
+  }
+  function buildOverlays(c, step, t) {
+    const data = window.FLOORSAV_MEDIA[c.name],
+      sample =
+        data.samples[
+          Math.min(data.samples.length - 1, Math.round(t * data.fps))
+        ];
+    let map = "",
+      ego = "";
+    if (c.name === "region") {
+      map += pin("camera-ring", sample.camera, "1", "Camera", -18, 10);
+      if (step >= 2) {
+        map += `<rect class="region-focus" x="13" y="27" width="35" height="56" rx="6"/>`;
+        map += pin(
+          "kitchen-ring",
+          data.objects.counter,
+          "2",
+          "Kitchen",
+          3,
+          -23,
+          "answer-pin",
+        );
+        for (const key of ["oven", "counter", "refrigerator"]) {
+          const [x, y] = data.objects[key];
+          map += `<circle class="landmark-dot" cx="${x}" cy="${y}" r="1.7"/>`;
         }
-        if (step >= 2) {
-          ego += ring("person-ring", 5, 50, 10, 26);
-          const p = data.objects["counter"];
-          map += underline(p[0], p[1] - 2, 15);
-          label = "Connect nearby visual context with the map";
-        }
-        if (step === 3) label = "Two viewpoints → back-left";
-      } else if (c.name === "region") {
-        if (step === 0) ego += ring("leaving-ring", 39, 45, 25, 38);
-        if (step === 1) {
-          const p = data.objects.table;
-          map += ring("table-ring", ...p, 9, 6);
-          label = "The camera remains at the dining table";
-        }
-        if (step >= 2) {
-          const p = data.objects.counter,
-            q = data.objects.oven,
-            r = data.objects.refrigerator;
-          map +=
-            ring(
-              "kitchen-ring",
-              (p[0] + q[0] + r[0]) / 3,
-              (p[1] + q[1] + r[1]) / 3,
-              17,
-              26,
-            ) +
-            underline(p[0], p[1] - 2, 14) +
-            underline(r[0], r[1] - 2, 18);
-          label =
-            step === 3
-              ? "Mapped landmarks → kitchen area"
-              : "Kitchen landmarks";
-        }
-      } else {
-        const sofa = data.objects.sofa,
-          tv = data.objects.tv;
-        if (step >= 1) {
-          map += ring("sofa-ring", ...sofa, 7, 4.5);
-          label = "Find the couch";
-        }
-        if (step >= 2) {
-          const query =
-            data.samples[Math.round((123.6 - c.start) * data.fps)].camera;
-          map +=
-            `<path class="highlight path draw" d="M ${query[0]} ${query[1]} L ${sofa[0]} ${sofa[1]}"/><circle class="dot" cx="${query[0]}" cy="${query[1]}" r="1.1"/>` +
-            svgText(query[0] + 2, query[1] + 4, "Query position");
-          label = "Query-time route · 02:03.6";
-        }
-        if (step === 3)
-          map += ring("tv-ring", ...tv, 5, 5) + underline(tv[0], tv[1] - 2, 7);
       }
+    } else if (c.name === "path") {
+      const sofa = data.objects.sofa,
+        tv = data.objects.tv;
+      if (step >= 2) map += evidenceLine(sample.camera, sofa);
+      map += pin("camera-ring", sample.camera, "1", "Start", 6, 10);
+      if (step >= 1) map += pin("sofa-ring", sofa, "2", "Couch", -12, 12);
+      if (step === 3)
+        map += pin("tv-ring", tv, "3", "TV", -10, -12, "answer-pin");
+    } else {
+      if (step === 0)
+        map += pin("camera-ring", sample.camera, "1", "Camera", -2, 12);
+      else map = coordinateSketch(step);
     }
     $("#map-overlay").innerHTML = map;
     $("#ego-overlay").innerHTML = ego;
-    $("#map-evidence-label").textContent = label;
+  }
+  let overlayKey = "";
+  function renderStory(t) {
+    const c = cases[caseIndex];
+    if (!c) return;
+    const s = c.steps[stepIndex];
+    if (guided && stepRunning && t >= s.until - 0.018) {
+      stepRunning = false;
+      story.pause();
+      story.setTime(s.at);
+      return;
+    }
+    const moving = stepRunning && !story.ego.paused;
+    $("#case-source-time").textContent = `Source ${exactTime(c.start + t)}`;
+    $("#playback-state").textContent = !guided
+      ? "Exploring original footage"
+      : moving
+        ? "Playing context · pauses for explanation"
+        : `Paused · ${stepIndex === 0 && c.name === "region" ? "after departure" : "question moment"}`;
+    $("#playback-state").classList.toggle("playing", moving);
+    $("#frozen-time").textContent = exactTime(c.start + t);
+    $("#guide-progress").textContent = `Step ${stepIndex + 1} of 4`;
+    $("#insight-number").textContent = `0${stepIndex + 1}`;
+    $("#insight-focus").textContent = guided ? s.focus : "Free exploration";
+    $("#insight-title").textContent = guided
+      ? s.name
+      : "Return to the evidence";
+    const insight = guided
+      ? s.insight
+      : "You’re exploring the original footage. Resume the guided step to match its explanation and highlights to the right moment.";
+    if ($("#case-insight").innerHTML !== insight)
+      $("#case-insight").innerHTML = insight;
+    stepButtons.forEach((b, i) => {
+      if (i === stepIndex && guided) b.setAttribute("aria-current", "step");
+      else b.removeAttribute("aria-current");
+    });
+    $("#video-evidence").textContent = guided
+      ? s.video
+      : "Original source footage · use the timeline to explore.";
+    $("#map-evidence").textContent = guided
+      ? s.map
+      : "Floormap at the matching source time.";
+    const showingSketch =
+      guided && annotations && c.name === "viewpoint" && stepIndex >= 1;
+    $("#map-view-label").textContent = showingSketch
+      ? "Coordinate sketch"
+      : "2D floormap";
+    $("#map-time-label").textContent = showingSketch
+      ? "Query-time reconstruction"
+      : "Matched source time";
+    if (guided && !annotations && c.name === "viewpoint" && stepIndex >= 1)
+      $("#map-evidence").textContent =
+        "Source map. Enable highlights to see the coordinate reconstruction.";
+    const eventNow = t >= c.event[0] && t <= c.event[1];
+    $("#event-caption").textContent = eventNow ? `“${c.quote}”` : "";
+    $("#start-walkthrough").textContent = !guided
+      ? "Resume guided step →"
+      : !hasStarted
+        ? s.action + " ▶"
+        : stepRunning
+          ? "Pause & explain"
+          : stepIndex < 3
+            ? `Next: ${c.steps[stepIndex + 1].name} →`
+            : "Replay this example ↺";
+    $("#replay-step").hidden = !guided || s.from == null || !hasStarted;
+    $("#baseline-answer").textContent = c.baseline;
+    $("#floorsav-answer").textContent = c.answer;
+    $(".answers").hidden = !guided || stepIndex !== 3;
+    $("#case-takeaway").hidden = !guided || stepIndex !== 3;
+    $("#case-takeaway").textContent = c.takeaway;
+    const visible = annotations && guided && !moving;
+    $("#map-overlay").toggleAttribute("hidden", !visible);
+    $("#ego-overlay").toggleAttribute("hidden", !visible);
+    $("#map-evidence-label").hidden = true;
+    const key = `${c.name}-${stepIndex}-${t.toFixed(2)}`;
+    if (visible && key !== overlayKey) {
+      overlayKey = key;
+      buildOverlays(c, stepIndex, t);
+    }
+    $("button[data-evidence-view=map]").textContent =
+      guided && c.name === "viewpoint" && stepIndex >= 1
+        ? "Coordinate sketch"
+        : "Floormap";
+    $("#case-play").disabled = guided && s.from == null;
+    $("#case-play").setAttribute(
+      "aria-label",
+      guided
+        ? moving
+          ? "Pause current scene"
+          : "Replay current scene"
+        : "Play source clip",
+    );
   }
   selectCase(0);
-  $("#start-walkthrough").addEventListener("click", () => {
-    $("#playback-intro").hidden = true;
-    story.userPaused = false;
-    story.play(true);
-  });
-  $("#case-play").addEventListener("click", () => {
-    $("#playback-intro").hidden = true;
-  });
-  $("#case-seek").addEventListener("input", () => {
-    $("#playback-intro").hidden = true;
-  });
   $("#mobile-layout").addEventListener("click", () => {
     const stacked = $("#case-panel").classList.toggle("stacked-views");
     $("#mobile-layout").textContent = stacked
@@ -739,7 +727,7 @@
     expand = $("#case-expand");
   let beforeTheaterFocus = null;
   const theaterBackground = $$(
-    "body>header,main>section:not(#examples),#examples>.wrap>.section-heading,.case-tabs,.case-heading,.case-question,.evidence-steps,.insight,.answers,.case-footer,#examples>.wrap>.small-note,body>footer",
+    "body>header,main>section:not(#examples),#examples>.wrap>.section-heading,.case-tabs,.case-heading,.case-question,.story-sidebar,.case-footer,#examples>.wrap>.small-note,body>footer",
   );
   function exitTheater() {
     theaterBackground.forEach((el) => (el.inert = false));

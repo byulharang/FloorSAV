@@ -23,7 +23,7 @@ fs.mkdirSync(output, { recursive: true });
           await page.locator('[data-step="3"]').click();
           await page.waitForFunction(
             () =>
-              document.querySelector("#case-ego").currentTime > 12 &&
+              document.querySelector("#case-ego").currentTime >= 5.59 &&
               document.querySelector("#case-map").readyState >= 2,
           );
         }
@@ -86,8 +86,8 @@ fs.mkdirSync(output, { recursive: true });
     await p.locator('[data-step="3"]').click();
     await p.waitForFunction(
       () =>
-        document.querySelector("#case-ego").currentTime > 12 &&
-        document.querySelector("#case-map").currentTime > 12 &&
+        document.querySelector("#case-ego").currentTime >= 5.59 &&
+        document.querySelector("#case-map").currentTime >= 5.59 &&
         document.querySelector("#case-ego").readyState >= 2 &&
         document.querySelector("#case-map").readyState >= 2,
       {},

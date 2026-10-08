@@ -18,8 +18,11 @@
       crossorigin
     />
     <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/experience.css" />
     <script defer src="assets/media-data.js"></script>
+    <script defer src="assets/stories.js"></script>
     <script defer src="assets/site.js"></script>
+    <script defer src="assets/results.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -58,8 +61,13 @@
           ><a href="mailto:taehyun.oh@kaist.ac.kr">Tae-Hyun Oh<sup>†</sup></a>
         </div>
         <p class="affiliation">
-          <strong>KAIST</strong
-          ><span>Korea Advanced Institute of Science and Technology</span>
+          <img
+            class="kaist-logo"
+            src="assets/figures/kaist-logo.png"
+            width="112"
+            height="25"
+            alt="KAIST"
+          /><span>Korea Advanced Institute of Science and Technology</span>
         </p>
         <p class="author-note">† Corresponding authors</p>
         <div class="actions hero-actions">
@@ -85,11 +93,17 @@
           </button>
         </div>
         <p class="hero-description">
-          Video, sound, and geometry. One shared map for spatial reasoning.<br
-            class="desktop-break"
-          />
-          <span class="training-note">No fine-tuning required.</span>
+          Help AI connect what it sees and hears<br class="desktop-break" />
+          to <strong>where things are.</strong>
         </p>
+        <p class="hero-subtitle">
+          A synchronized 2D floormap gives audio-visual models a shared spatial
+          reference.
+        </p>
+        <div class="research-tags" aria-label="Method properties">
+          <span>Training-free</span><span>Task-agnostic</span
+          ><span>Single inference</span>
+        </div>
         <div
           class="paired-player hero-player"
           id="hero-player"
@@ -178,15 +192,38 @@
       <section class="section abstract-section">
         <div class="wrap narrow">
           <div class="eyebrow">The idea</div>
-          <h2>
-            A shared map for what you see,<br />hear, and where things are.
-          </h2>
+          <h2>Give the model a map.<br />Let it connect the evidence.</h2>
           <p class="large-copy">
-            A person can be heard without being seen. A nearby object may be far
-            from your path. FloorSAV brings camera motion, sound locations, and
-            object landmarks into one coordinate system—so an AV-LLM can reason
-            across views.
+            A first-person video shows only part of a changing scene. FloorSAV
+            adds a top-down <strong>2D floormap</strong> that brings geometry,
+            camera motion, spatial sound, and object landmarks into one shared
+            frame.
           </p>
+          <p class="large-copy idea-second">
+            The audio-visual language model (<strong>AV-LLM</strong>) reads both
+            synchronized videos, with a floormap interpretation guide, to answer
+            spatial questions.
+          </p>
+          <div class="principle-grid">
+            <article>
+              <h3>Training-free</h3>
+              <p>Use an existing AV-LLM without fine-tuning its weights.</p>
+            </article>
+            <article>
+              <h3>Task-agnostic</h3>
+              <p>
+                Use the same spatial representation for viewpoints, places, and
+                paths.
+              </p>
+            </article>
+            <article>
+              <h3>Single inference</h3>
+              <p>
+                After preparing the scene map, the AV-LLM reasons over both
+                streams in one call.
+              </p>
+            </article>
+          </div>
           <details class="abstract">
             <summary>Read the abstract <span>+</span></summary>
             <p>
@@ -220,11 +257,12 @@
         <div class="wrap">
           <div class="section-heading">
             <div class="eyebrow">01 / See it in action</div>
-            <h2>Follow the evidence.</h2>
+            <h2>Watch. Pause. Make the connection.</h2>
             <p class="lead">
-              Three questions. Real source video. A map that makes the
-              difference.<br class="desktop-break" />
-              Play a walkthrough or choose a step to inspect the evidence.
+              Three spatial questions, explained one moment at a time.<br
+                class="desktop-break"
+              />Watch the scene, then advance through the evidence at your own
+              pace.
             </p>
           </div>
           <div
@@ -269,7 +307,7 @@
             <div class="case-heading">
               <div>
                 <div class="eyebrow" id="case-category">Regional reasoning</div>
-                <h3 id="case-title">Where is the off-screen speaker?</h3>
+                <h3 id="case-title">You hear them. But where are they?</h3>
               </div>
               <div class="case-options">
                 <button
@@ -284,13 +322,31 @@
                 >
               </div>
             </div>
-            <p class="case-question" id="case-question">When <mark>“I mean, I like beef rare”</mark> is spoken, which area of the home is the other person in?</p>
+            <p class="case-question" id="case-question">
+              When <mark>“I mean, I like beef rare”</mark> is spoken, which area
+              of the home is the other person in?
+            </p>
             <div class="case-story-layout">
               <div id="case-playback" class="case-playback">
+                <div class="playback-status">
+                  <span id="playback-state">Paused · after departure</span
+                  ><span id="frozen-time">01:42.00</span>
+                </div>
+                <div
+                  class="mobile-view-switch"
+                  role="group"
+                  aria-label="Choose evidence view"
+                >
+                  <button data-evidence-view="video" aria-pressed="true">
+                    First-person video</button
+                  ><button data-evidence-view="map" aria-pressed="false">
+                    Floormap
+                  </button>
+                </div>
                 <div class="paired-views case-views">
                   <div class="video-pane">
                     <div class="pane-label">
-                      <span>Egocentric video</span
+                      <span>First-person video</span
                       ><small id="case-source-time">Source 01:00</small>
                     </div>
                     <div class="media-square" id="ego-stage">
@@ -310,10 +366,12 @@
                       ></svg>
                       <div class="event-caption" id="event-caption"></div>
                     </div>
+                    <p class="pane-evidence" id="video-evidence"></p>
                   </div>
                   <div class="video-pane">
                     <div class="pane-label">
-                      <span>Floormap</span><small>Same source time</small>
+                      <span id="map-view-label">2D floormap</span
+                      ><small id="map-time-label">Matched source time</small>
                     </div>
                     <div class="media-square" id="map-stage">
                       <video
@@ -335,6 +393,7 @@
                         id="map-evidence-label"
                       ></div>
                     </div>
+                    <p class="pane-evidence" id="map-evidence"></p>
                   </div>
                 </div>
                 <div class="player-controls">
@@ -381,16 +440,6 @@
                     ⛶
                   </button>
                 </div>
-                <div class="playback-intro" id="playback-intro">
-                  <button id="start-walkthrough">
-                    <span class="large-play" aria-hidden="true">▶</span
-                    ><span
-                      >Play walkthrough<small id="walkthrough-duration"
-                        >32 seconds · Highlights guide the way</small
-                      ></span
-                    >
-                  </button>
-                </div>
               </div>
               <aside
                 class="story-sidebar"
@@ -422,12 +471,27 @@
                   </button>
                 </div>
                 <div class="insight">
-                  <span id="insight-number">01</span>
-                  <p id="case-insight" aria-live="off"></p>
+                  <span id="insight-number" class="sr-only">01</span>
+                  <div class="insight-top">
+                    <span id="guide-progress">Step 1 of 4</span
+                    ><span id="insight-focus"></span>
+                  </div>
+                  <h4 id="insight-title"></h4>
+                  <p id="case-insight" aria-live="polite"></p>
                 </div>
-                <div class="answers">
+                <div class="guide-controls">
+                  <button class="button primary" id="start-walkthrough">
+                    Watch the departure ▶</button
+                  ><button class="text-button" id="replay-step" hidden>
+                    Replay this moment ↺
+                  </button>
+                </div>
+                <p class="guide-hint">
+                  Videos pause for you. “Next” advances the explanation.
+                </p>
+                <div class="answers" hidden>
                   <div>
-                    <span class="answer-label">Egocentric baseline</span
+                    <span class="answer-label">Video-only baseline</span
                     ><strong id="baseline-answer"></strong>
                   </div>
                   <div class="answer-ours">
@@ -439,12 +503,14 @@
                     ><strong id="floorsav-answer"></strong>
                   </div>
                 </div>
+                <p class="case-takeaway" id="case-takeaway" hidden></p>
               </aside>
             </div>
             <div class="case-footer">
               <details class="source-details">
                 <summary>Source details</summary>
                 <p id="case-reference"></p>
+                <p id="case-caveat"></p>
               </details>
               <div class="case-footer-actions">
                 <button class="text-button" id="original-figure">
@@ -456,10 +522,9 @@
             </div>
           </div>
           <p class="small-note">
-            Selected explanation reruns from the paper’s source material; no new
-            model evaluation. Highlight overlays are presentation aids. Green
-            markers are sound-source estimates, not ground-truth person
-            locations.
+            Guided summaries of selected model explanations. Numbered markers
+            connect the text to the evidence; they are presentation aids. Green
+            dots in the original maps are sound estimates, not tracked people.
           </p>
         </div>
       </section>
@@ -467,12 +532,13 @@
         <div class="wrap">
           <div class="section-heading">
             <div class="eyebrow">02 / Method</div>
-            <h2>A little geometry.<br />A clearer picture.</h2>
+            <h2>From sensory streams<br />to a shared spatial reference.</h2>
             <p class="lead">
               Project the scene into 2D. Add motion, sound, and semantics.<br
                 class="desktop-break"
               />
-              Give the model both views in a single inference.
+              Feed both synchronized videos and a floormap interpretation guide
+              to the AV-LLM.
             </p>
           </div>
           <div
@@ -621,9 +687,29 @@
           </div>
 
           <p class="small-note">
-            Illustration of the rendering pipeline. The videos above and below
-            use recorded scene data.
+            Illustration of scene preparation. The qualitative videos above use
+            recorded scene data.
           </p>
+          <div
+            class="inference-flow"
+            aria-label="FloorSAV inference after scene preparation"
+          >
+            <div class="inference-inputs">
+              <span>Two synchronized inputs</span
+              ><strong>First-person video + audio<br />2D floormap video</strong
+              ><small>+ Question &amp; floormap interpretation guide</small>
+            </div>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <div class="inference-model">
+              <span>One inference</span><strong>AV-LLM</strong
+              ><small>Joint audio-visual-spatial reasoning</small>
+            </div>
+            <span class="flow-arrow" aria-hidden="true">→</span>
+            <div class="inference-answer">
+              <span>Spatial answer</span
+              ><strong>Viewpoints.<br />Places. Paths.</strong>
+            </div>
+          </div>
           <details class="figure-details">
             <summary>Explore the method figure <span>↗</span></summary>
             <button
@@ -650,7 +736,8 @@
                 A benchmark for reasoning about viewpoints,<br
                   class="desktop-break"
                 />
-                places, and movement in real egocentric scenes.
+                places, and movement in real egocentric scenes. We introduce
+                SAVED-Bench to test reasoning with dynamic agents.
               </p>
             </div>
             <div class="benchmark-numbers">
@@ -748,33 +835,29 @@
             <h2>Better spatial context.<br />Stronger spatial reasoning.</h2>
             <p class="lead">SAVED-Bench · Gemini-3.6-Flash · No fine-tuning</p>
           </div>
-          <div class="metric-cards">
-            <article>
-              <div class="metric-top">
-                Overall score <span>QA weighted</span>
-              </div>
-              <strong>+6.96<span> pts</span></strong>
-              <div class="metric-comparison">
-                <span>58.30</span><span aria-hidden="true">→</span><b>65.26</b>
-              </div>
-              <p>Across all 1,988 questions</p>
-            </article>
-            <article>
-              <div class="metric-top">Cross-agent direction</div>
-              <strong>+18.50<span> pts</span></strong>
-              <div class="metric-comparison">
-                <span>32.00</span><span aria-hidden="true">→</span><b>50.50</b>
-              </div>
-              <p>Exo-to-Ego Direction</p>
-            </article>
-            <article>
-              <div class="metric-top">Path reasoning</div>
-              <strong>+9.99<span> pts</span></strong>
-              <div class="metric-comparison">
-                <span>50.02</span><span aria-hidden="true">→</span><b>60.01</b>
-              </div>
-              <p>Three-task category average</p>
-            </article>
+          <div class="results-summary">
+            <div>
+              <span>Overall · 1,988 questions</span
+              ><strong
+                >58.30 <span aria-hidden="true">→</span> <em>65.26</em></strong
+              >
+            </div>
+            <p>
+              <b>+6.96 points</b> with FloorSAV.<br />All three category
+              averages improve.
+            </p>
+          </div>
+          <div class="results-viewbar">
+            <p id="chart-description">
+              SAVED-Bench scores · 0–100 · higher is better
+            </p>
+            <div class="view-switch" role="group" aria-label="Results display">
+              <button data-results-view="chart" aria-pressed="true">
+                Graph</button
+              ><button data-results-view="table" aria-pressed="false">
+                Table
+              </button>
+            </div>
           </div>
           <div class="results-toolbar">
             <div
@@ -782,7 +865,7 @@
               role="group"
               aria-label="Filter results"
             >
-              <button aria-pressed="true" data-filter="all">All tasks</button
+              <button aria-pressed="true" data-filter="all">Overview</button
               ><button aria-pressed="false" data-filter="dynamic">
                 Viewpoints</button
               ><button aria-pressed="false" data-filter="regional">
@@ -794,6 +877,12 @@
             >
           </div>
           <div
+            id="results-chart"
+            aria-label="Benchmark comparison graph"
+            hidden
+          ></div>
+          <div
+            id="results-table"
             class="table-scroll"
             tabindex="0"
             role="region"
@@ -947,6 +1036,10 @@
               </tbody>
             </table>
           </div>
+          <p class="chart-takeaway" id="chart-takeaway">
+            A clearer spatial reference helps across viewpoints, regions, and
+            paths.
+          </p>
           <div class="results-foot">
             <p>
               Accuracy / AbsMRA · 0–100, higher is better. Category averages
@@ -972,8 +1065,8 @@
               replacement Ego-to-Exo Direction FoV-out responses. The
               replacement uses a larger output-token budget. This is a combined
               release, not a fresh evaluation of every question under one
-              setting. The CSV provides full-precision scores; manuscript
-              figures may round values or report a different release.
+              setting. The CSV provides full-precision scores; the manuscript
+              rounds these values.
             </p>
             <p>
               All category averages improve; Exo-to-Ego Distance decreases from
@@ -999,12 +1092,12 @@
       <section class="section closing-section">
         <div class="wrap narrow">
           <div class="eyebrow">Looking ahead</div>
-          <h2>A map is a starting point.</h2>
+          <h2>Better maps help.<br />Spatial reasoning is still hard.</h2>
           <p class="large-copy">
-            Sound localization errors, long video contexts, and reading map
-            coordinates remain challenging. More accurate geometry can help—but
-            robust spatial reasoning still requires progress across perception
-            and inference.
+            FloorSAV improves performance on SAVED-Bench and SAVVY-Bench. It is
+            not error-free: sound localization, long video contexts, and map
+            reading remain challenging. Ground-truth map studies show further
+            gains when spatial information is more accurate.
           </p>
         </div>
       </section>

@@ -39,13 +39,16 @@ def main():
     rows = list(csv.DictReader(csv_path.open()))
     parser = TableReader()
     parser.feed((ROOT / 'index.html').read_text())
-    assert len(rows) == len(parser.rows) == 14
-    for source, html in zip(rows, parser.rows):
-        expected = [int(source['# QAs']), float(source['Baseline']), float(source['Map-task']),
-                    round(float(source['Map-task']) - float(source['Baseline']), 2),
-                    float(source['Partial-task']), float(source['Full-task'])]
+    reported = json.loads((ROOT / 'benchmark/results.json').read_text())['rows']
+    assert len(reported) == len(parser.rows) == 13
+    for source, html in zip(reported, parser.rows):
+        baseline, floorsav, partial, full = source['scores']
+        expected = [source['qa_count'], baseline, floorsav,
+                    round(floorsav - baseline, 1), partial, full]
         actual = [float(v.strip()) for v in html[1:]]
-        assert actual == expected, (source['Task'], actual, expected)
+        assert actual == expected, (source['task'], actual, expected)
+    # Retain the original full-precision export as research provenance.
+    assert len(rows) == 14
     data = json.loads((ROOT / 'assets/data/results.json').read_text())
     assert data['release'] == RELEASE
     for a, b in zip(rows, data['rows']):
@@ -89,6 +92,6 @@ def main():
                          'The path overlay uses estimated map positions; cited distances come from an independent GT geometry audit.'],
                 'media':media}
     (ROOT / 'assets/data/provenance.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    print(f'PASS: {len(rows)} table rows, 1,988 QAs, {len(media)} synchronized 20 fps clips; source manifest exported.')
+    print(f'PASS: {len(reported)} reported table rows, 1,988 QAs, {len(media)} synchronized 20 fps clips; source manifest exported.')
 
 if __name__ == '__main__': main()

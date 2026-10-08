@@ -93,12 +93,13 @@
           </button>
         </div>
         <p class="hero-description">
-          Help AI connect what it sees and hears<br class="desktop-break" />
-          to <strong>where things are.</strong>
+          Ground what models see and hear<br class="desktop-break" />
+          in a shared spatial context.
         </p>
         <p class="hero-subtitle">
-          A synchronized 2D floormap gives audio-visual models a shared spatial
-          reference.
+          A dynamic 2D floormap brings geometry, motion, sound, and object
+          landmarks into one view—so audio-visual models can reason about
+          viewpoints, places, and paths.
         </p>
         <div class="research-tags" aria-label="Method properties">
           <span>Training-free</span><span>Task-agnostic</span
@@ -135,7 +136,8 @@
             </div>
             <div class="video-pane">
               <div class="pane-label">
-                <span>FloorSAV map</span><small>Where things are</small>
+                <span>FloorSAV map</span
+                ><small>Spatial context over time</small>
               </div>
               <div class="media-square">
                 <video
@@ -257,12 +259,12 @@
         <div class="wrap">
           <div class="section-heading">
             <div class="eyebrow">01 / See it in action</div>
-            <h2>Watch. Pause. Make the connection.</h2>
+            <h2>See the scene. Follow the spatial reasoning.</h2>
             <p class="lead">
               Three spatial questions, explained one moment at a time.<br
                 class="desktop-break"
-              />Watch the scene, then advance through the evidence at your own
-              pace.
+              />Watch the full scene with brief pauses at key moments. Pause
+              longer or jump to the next step whenever you like.
             </p>
           </div>
           <div
@@ -481,13 +483,15 @@
                 </div>
                 <div class="guide-controls">
                   <button class="button primary" id="start-walkthrough">
-                    Watch the departure ▶</button
+                    Play full example ▶</button
+                  ><button class="button" id="next-step">Next step →</button
                   ><button class="text-button" id="replay-step" hidden>
-                    Replay this moment ↺
+                    Replay example ↺
                   </button>
                 </div>
                 <p class="guide-hint">
-                  Videos pause for you. “Next” advances the explanation.
+                  Each highlight pauses for 2.5 seconds, then playback
+                  continues. Pause to read longer, or skip to the next step.
                 </p>
                 <div class="answers" hidden>
                   <div>
@@ -762,8 +766,50 @@
                 and another person’s viewpoints.
               </p>
               <blockquote>
-                “From their viewpoint,<br />where is the object?”
+                “From their viewpoint, where is the object?”
               </blockquote>
+              <button
+                class="task-expand"
+                aria-expanded="false"
+                aria-controls="task-details-0"
+              >
+                Explore 4 tasks <span aria-hidden="true">+</span>
+              </button>
+              <div class="task-details" id="task-details-0" aria-hidden="true">
+                <div>
+                  <ul>
+                    <li>
+                      <strong>Ego → Exo · Direction</strong>
+                      <p>
+                        Place an imagined object relative to the wearer, then
+                        identify its direction from the other person’s
+                        viewpoint.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Ego → Exo · Distance</strong>
+                      <p>
+                        Estimate the distance from the other person to that
+                        imagined object.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Exo → Ego · Direction</strong>
+                      <p>
+                        Place an imagined object in the other person’s frame,
+                        then identify its direction from the wearer’s viewpoint.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Exo → Ego · Distance</strong>
+                      <p>
+                        Estimate the distance from the wearer to the object
+                        described in the other person’s frame.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </article>
             <article>
               <span class="category-icon region-icon" aria-hidden="true"
@@ -778,7 +824,34 @@
                 Identify a person’s location and the places they visited during
                 a sound event.
               </p>
-              <blockquote>“Which area was<br />the speaker in?”</blockquote>
+              <blockquote>“Which area was the speaker in?”</blockquote>
+              <button
+                class="task-expand"
+                aria-expanded="false"
+                aria-controls="task-details-1"
+              >
+                Explore 2 tasks <span aria-hidden="true">+</span>
+              </button>
+              <div class="task-details" id="task-details-1" aria-hidden="true">
+                <div>
+                  <ul>
+                    <li>
+                      <strong>Location Awareness</strong>
+                      <p>
+                        Identify the region occupied by the wearer or the other
+                        person at a target moment.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Visit History</strong>
+                      <p>
+                        Recover the order of visited regions, or identify a
+                        region not visited during the sound-event interval.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </article>
             <article>
               <span class="category-icon path-icon" aria-hidden="true"
@@ -796,8 +869,43 @@
                 traveled.
               </p>
               <blockquote>
-                “What would I pass<br />on the way to the couch?”
+                “What would I pass on the way to the couch?”
               </blockquote>
+              <button
+                class="task-expand"
+                aria-expanded="false"
+                aria-controls="task-details-2"
+              >
+                Explore 3 tasks <span aria-hidden="true">+</span>
+              </button>
+              <div class="task-details" id="task-details-2" aria-hidden="true">
+                <div>
+                  <ul>
+                    <li>
+                      <strong>Line-Path Search · Static</strong>
+                      <p>
+                        Find the offered object closest to the finite straight
+                        path from the wearer to a target object.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Line-Path Search · Dynamic</strong>
+                      <p>
+                        Find the offered object closest to the straight path
+                        between the wearer and the other person.
+                      </p>
+                    </li>
+                    <li>
+                      <strong>Trajectory Distance</strong>
+                      <p>
+                        Estimate how far each person traveled over the interval,
+                        following their trajectories rather than the
+                        straight-line displacement.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </article>
           </div>
           <details class="figure-details">
@@ -835,16 +943,51 @@
             <h2>Better spatial context.<br />Stronger spatial reasoning.</h2>
             <p class="lead">SAVED-Bench · Gemini-3.6-Flash · No fine-tuning</p>
           </div>
+          <div class="radar-panel">
+            <div class="radar-heading">
+              <div>
+                <div class="eyebrow">Across spatial skills</div>
+                <h3>A wider view of spatial reasoning.</h3>
+              </div>
+              <label class="oracle-toggle gt-toggle"
+                ><input
+                  type="checkbox"
+                  id="oracle-toggle"
+                  aria-controls="results-radar results-chart results-table"
+                /><span>GT map studies</span></label
+              >
+            </div>
+            <p class="radar-intro">
+              Compare eight skill groups across SAVED-Bench and SAVVY-Bench. Add
+              ground-truth maps to explore the role of spatial accuracy.
+            </p>
+            <div class="chart-legend" id="radar-legend"></div>
+            <div
+              id="results-radar"
+              aria-label="Eight-axis spatial reasoning comparison"
+            ></div>
+            <p class="radar-note">
+              Ego / Exo: SAVVY-Bench · Gemini-2.5-Pro. Other axes: SAVED-Bench ·
+              Gemini-3.6-Flash. Paired tasks are averaged; scores are 0–100.
+              Sources: paper Tables 1 &amp; 4.
+            </p>
+            <p class="gt-explanation" id="gt-explanation" hidden>
+              <strong>Partial GT map:</strong> ground-truth other-person
+              positions. <strong>Full GT map:</strong> additionally uses
+              ground-truth object labels. The same switch updates the graph and
+              table below.
+            </p>
+          </div>
           <div class="results-summary">
             <div>
               <span>Overall · 1,988 questions</span
               ><strong
-                >58.30 <span aria-hidden="true">→</span> <em>65.26</em></strong
+                >58.3 <span aria-hidden="true">→</span> <em>65.3</em></strong
               >
             </div>
             <p>
-              <b>+6.96 points</b> with FloorSAV.<br />All three category
-              averages improve.
+              <b>+7.0 points</b> with FloorSAV.<br />All three category averages
+              improve.
             </p>
           </div>
           <div class="results-viewbar">
@@ -872,9 +1015,6 @@
                 Regions</button
               ><button aria-pressed="false" data-filter="path">Paths</button>
             </div>
-            <label class="oracle-toggle"
-              ><input type="checkbox" id="oracle-toggle" /> Show oracles</label
-            >
           </div>
           <div
             id="results-chart"
@@ -901,137 +1041,128 @@
                   <th scope="col" class="ours-column">FloorSAV</th>
                   <th scope="col">Δ points</th>
                   <th scope="col" class="oracle-column" hidden>
-                    Partial oracle
+                    Partial GT map
                   </th>
-                  <th scope="col" class="oracle-column" hidden>Full oracle</th>
+                  <th scope="col" class="oracle-column" hidden>Full GT map</th>
                 </tr>
               </thead>
               <tbody>
                 <tr data-category="dynamic" class="">
                   <th scope="row">Ego-to-Exo Direction</th>
                   <td>200</td>
-                  <td>56.00</td>
-                  <td class="ours-column">65.00</td>
-                  <td class="gain">+9.00</td>
-                  <td class="oracle-column" hidden>76.50</td>
-                  <td class="oracle-column" hidden>72.00</td>
+                  <td>56.0</td>
+                  <td class="ours-column">65.0</td>
+                  <td class="gain">+9.0</td>
+                  <td class="oracle-column" hidden>76.5</td>
+                  <td class="oracle-column" hidden>72.0</td>
                 </tr>
                 <tr data-category="dynamic" class="">
                   <th scope="row">Ego-to-Exo Distance · AbsMRA</th>
                   <td>200</td>
-                  <td>34.30</td>
-                  <td class="ours-column">34.55</td>
-                  <td class="gain">+0.25</td>
-                  <td class="oracle-column" hidden>47.90</td>
-                  <td class="oracle-column" hidden>45.90</td>
+                  <td>34.3</td>
+                  <td class="ours-column">34.6</td>
+                  <td class="gain">+0.3</td>
+                  <td class="oracle-column" hidden>47.9</td>
+                  <td class="oracle-column" hidden>45.9</td>
                 </tr>
                 <tr data-category="dynamic" class="">
                   <th scope="row">Exo-to-Ego Direction</th>
                   <td>200</td>
-                  <td>32.00</td>
-                  <td class="ours-column">50.50</td>
-                  <td class="gain">+18.50</td>
-                  <td class="oracle-column" hidden>50.50</td>
-                  <td class="oracle-column" hidden>53.50</td>
+                  <td>32.0</td>
+                  <td class="ours-column">50.5</td>
+                  <td class="gain">+18.5</td>
+                  <td class="oracle-column" hidden>50.5</td>
+                  <td class="oracle-column" hidden>53.5</td>
                 </tr>
                 <tr data-category="dynamic" class="">
                   <th scope="row">Exo-to-Ego Distance · AbsMRA</th>
                   <td>200</td>
-                  <td>46.40</td>
-                  <td class="ours-column">44.65</td>
-                  <td class="loss">-1.75</td>
-                  <td class="oracle-column" hidden>57.45</td>
-                  <td class="oracle-column" hidden>54.95</td>
+                  <td>46.4</td>
+                  <td class="ours-column">44.7</td>
+                  <td class="loss">-1.7</td>
+                  <td class="oracle-column" hidden>57.5</td>
+                  <td class="oracle-column" hidden>55.0</td>
                 </tr>
                 <tr data-category="dynamic" class="summary-row">
                   <th scope="row">Dynamic Relativity Overall</th>
                   <td>800</td>
-                  <td>42.18</td>
-                  <td class="ours-column">48.68</td>
-                  <td class="gain">+6.50</td>
-                  <td class="oracle-column" hidden>58.09</td>
-                  <td class="oracle-column" hidden>56.59</td>
-                </tr>
-                <tr data-category="regional" class="">
-                  <th scope="row">Visit History</th>
-                  <td>392</td>
-                  <td>86.73</td>
-                  <td class="ours-column">92.35</td>
-                  <td class="gain">+5.62</td>
-                  <td class="oracle-column" hidden>89.80</td>
-                  <td class="oracle-column" hidden>97.19</td>
+                  <td>42.2</td>
+                  <td class="ours-column">48.7</td>
+                  <td class="gain">+6.5</td>
+                  <td class="oracle-column" hidden>58.1</td>
+                  <td class="oracle-column" hidden>56.6</td>
                 </tr>
                 <tr data-category="regional" class="">
                   <th scope="row">Location Awareness</th>
                   <td>200</td>
-                  <td>92.00</td>
-                  <td class="ours-column">94.50</td>
-                  <td class="gain">+2.50</td>
-                  <td class="oracle-column" hidden>96.00</td>
-                  <td class="oracle-column" hidden>96.50</td>
+                  <td>92.0</td>
+                  <td class="ours-column">94.5</td>
+                  <td class="gain">+2.5</td>
+                  <td class="oracle-column" hidden>96.0</td>
+                  <td class="oracle-column" hidden>96.5</td>
+                </tr>
+                <tr data-category="regional" class="">
+                  <th scope="row">Visit History</th>
+                  <td>392</td>
+                  <td>86.7</td>
+                  <td class="ours-column">92.3</td>
+                  <td class="gain">+5.6</td>
+                  <td class="oracle-column" hidden>89.8</td>
+                  <td class="oracle-column" hidden>97.2</td>
                 </tr>
                 <tr data-category="regional" class="summary-row">
                   <th scope="row">Regional Overall</th>
                   <td>592</td>
-                  <td>89.37</td>
-                  <td class="ours-column">93.42</td>
-                  <td class="gain">+4.05</td>
-                  <td class="oracle-column" hidden>92.90</td>
-                  <td class="oracle-column" hidden>96.85</td>
+                  <td>89.4</td>
+                  <td class="ours-column">93.4</td>
+                  <td class="gain">+4.0</td>
+                  <td class="oracle-column" hidden>92.9</td>
+                  <td class="oracle-column" hidden>96.8</td>
                 </tr>
                 <tr data-category="path" class="">
                   <th scope="row">Line-Path Search (static)</th>
                   <td>196</td>
-                  <td>60.20</td>
-                  <td class="ours-column">77.04</td>
-                  <td class="gain">+16.84</td>
-                  <td class="oracle-column" hidden>78.06</td>
-                  <td class="oracle-column" hidden>77.55</td>
+                  <td>60.2</td>
+                  <td class="ours-column">77.0</td>
+                  <td class="gain">+16.8</td>
+                  <td class="oracle-column" hidden>78.1</td>
+                  <td class="oracle-column" hidden>77.6</td>
                 </tr>
                 <tr data-category="path" class="">
                   <th scope="row">Line-Path Search (dynamic)</th>
                   <td>200</td>
-                  <td>73.00</td>
-                  <td class="ours-column">78.00</td>
-                  <td class="gain">+5.00</td>
-                  <td class="oracle-column" hidden>87.50</td>
-                  <td class="oracle-column" hidden>91.00</td>
+                  <td>73.0</td>
+                  <td class="ours-column">78.0</td>
+                  <td class="gain">+5.0</td>
+                  <td class="oracle-column" hidden>87.5</td>
+                  <td class="oracle-column" hidden>91.0</td>
                 </tr>
                 <tr data-category="path" class="">
                   <th scope="row">Trajectory Distance · AbsMRA</th>
                   <td>200</td>
-                  <td>16.85</td>
-                  <td class="ours-column">25.00</td>
-                  <td class="gain">+8.15</td>
-                  <td class="oracle-column" hidden>24.98</td>
-                  <td class="oracle-column" hidden>28.18</td>
+                  <td>16.9</td>
+                  <td class="ours-column">25.0</td>
+                  <td class="gain">+8.1</td>
+                  <td class="oracle-column" hidden>25.0</td>
+                  <td class="oracle-column" hidden>28.2</td>
                 </tr>
                 <tr data-category="path" class="summary-row">
-                  <th scope="row">Path reasoning Overall</th>
+                  <th scope="row">Path Reasoning Overall</th>
                   <td>596</td>
-                  <td>50.02</td>
-                  <td class="ours-column">60.01</td>
-                  <td class="gain">+9.99</td>
-                  <td class="oracle-column" hidden>63.51</td>
-                  <td class="oracle-column" hidden>65.58</td>
+                  <td>50.0</td>
+                  <td class="ours-column">60.0</td>
+                  <td class="gain">+10.0</td>
+                  <td class="oracle-column" hidden>63.5</td>
+                  <td class="oracle-column" hidden>65.6</td>
                 </tr>
                 <tr data-category="overall" class="summary-row">
                   <th scope="row">Overall · QA-weighted average</th>
                   <td>1988</td>
-                  <td>58.30</td>
-                  <td class="ours-column">65.26</td>
-                  <td class="gain">+6.96</td>
-                  <td class="oracle-column" hidden>69.75</td>
-                  <td class="oracle-column" hidden>71.28</td>
-                </tr>
-                <tr data-category="overall" class="summary-row">
-                  <th scope="row">Overall · 9-task average</th>
-                  <td>1988</td>
-                  <td>55.28</td>
-                  <td class="ours-column">62.40</td>
-                  <td class="gain">+7.12</td>
-                  <td class="oracle-column" hidden>67.63</td>
-                  <td class="oracle-column" hidden>68.53</td>
+                  <td>58.3</td>
+                  <td class="ours-column">65.3</td>
+                  <td class="gain">+7.0</td>
+                  <td class="oracle-column" hidden>69.8</td>
+                  <td class="oracle-column" hidden>71.3</td>
                 </tr>
               </tbody>
             </table>
@@ -1045,33 +1176,29 @@
               Accuracy / AbsMRA · 0–100, higher is better. Category averages
               weight tasks equally; the headline overall score weights QAs.
             </p>
-            <a href="assets/data/saved-bench.csv" download
-              >Download results CSV ↓</a
+            <a href="benchmark/results.json" download
+              >Download reported results ↓</a
             >
           </div>
           <details class="release-note">
-            <summary>
-              Evaluation details and release version <span>+</span>
-            </summary>
+            <summary>Evaluation details <span>+</span></summary>
             <p>
-              Source: <code>saved1988_ego2exo_out_set3_v1_20260925</code>.
-              FloorSAV corresponds to Map-task; oracle columns correspond to
-              Partial-task and Full-task. Partial oracle supplies true
-              other-person positions; full oracle additionally supplies
-              ground-truth object labels. These are separate oracle conditions.
+              SAVED-Bench values match the released
+              <a href="benchmark/results.json">Table 1 results</a> at the
+              paper’s one-decimal precision. Category and overall averages are
+              preserved as reported. Displayed gains are differences between
+              these reported values.
             </p>
             <p>
-              The current release combines 1,888 existing responses with 100
-              replacement Ego-to-Exo Direction FoV-out responses. The
-              replacement uses a larger output-token budget. This is a combined
-              release, not a fresh evaluation of every question under one
-              setting. The CSV provides full-precision scores; the manuscript
-              rounds these values.
+              Direction, region, and line-path tasks use accuracy; distance
+              tasks use AbsMRA. All category averages improve; Exo-to-Ego
+              Distance decreases from 46.4 to 44.7.
             </p>
             <p>
-              All category averages improve; Exo-to-Ego Distance decreases from
-              46.40 to 44.65. Gains shown here are differences between the
-              reported scores.
+              The radar averages direction and distance for each viewpoint pair,
+              and static and dynamic tasks for Line-Path Search. It groups
+              different benchmarks and models for the overview; it is not a
+              single-model aggregate score.
             </p>
           </details>
           <div class="figure-links">
@@ -1114,7 +1241,8 @@
   title = {FloorSAV: Elucidating Spatial Audio-Visual
            Context with 2D Floormap for AV-LLMs},
   author = {Kim, Kyeong-Rae and Kim, Sungnyun and Oh, Tae-Hyun},
-  year = {2026}
+  year = {2026},
+  url = {https://byulharang.github.io/FloorSAV/}
 }</pre
           >
         </div>

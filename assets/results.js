@@ -1,4 +1,4 @@
-/* Charts read the same verified table cells, so the two views cannot diverge. */
+/* SAVED values read the released Table 1 cells; SAVVY values are Table 4 in paper.pdf. */
 (() => {
   const $ = (s) => document.querySelector(s);
   const rows = [...document.querySelectorAll("#results-table tbody tr")].map(
@@ -10,15 +10,147 @@
       delta: Number(row.cells[4].textContent.trim()),
     }),
   );
-  let view = "chart",
-    filter = "all";
-  const labels = ["Video only", "FloorSAV", "Partial oracle", "Full oracle"];
+  const labels = ["Baseline", "FloorSAV", "Partial GT map", "Full GT map"];
+  const colors = ["#64748b", "#2456d6", "#a16207", "#087e71"];
   const shortTitles = {
     "Overall · QA-weighted average": "Overall",
     "Dynamic Relativity Overall": "Viewpoints",
     "Regional Overall": "Regions",
-    "Path reasoning Overall": "Paths",
+    "Path Reasoning Overall": "Paths",
   };
+  const average = (...values) =>
+    values[0].map(
+      (_, i) => values.reduce((sum, v) => sum + v[i], 0) / values.length,
+    );
+  const task = (name) => rows.find((r) => r.title.startsWith(name)).values;
+  const axes = [
+    {
+      label: "Ego",
+      source: "SAVVY",
+      detail: "Direction + distance",
+      values: average([75.2, 75.8, 70.2, 68.3], [59.6, 55.4, 59.0, 61.0]),
+    },
+    {
+      label: "Exo",
+      source: "SAVVY",
+      detail: "Direction + distance",
+      values: average([31.7, 52.8, 52.3, 69.9], [37.0, 34.9, 37.9, 52.2]),
+    },
+    {
+      label: "Ego → Exo",
+      source: "SAVED",
+      detail: "Direction + distance",
+      values: average(
+        task("Ego-to-Exo Direction"),
+        task("Ego-to-Exo Distance"),
+      ),
+    },
+    {
+      label: "Exo → Ego",
+      source: "SAVED",
+      detail: "Direction + distance",
+      values: average(
+        task("Exo-to-Ego Direction"),
+        task("Exo-to-Ego Distance"),
+      ),
+    },
+    {
+      label: "Trajectory",
+      source: "SAVED",
+      detail: "Trajectory Distance",
+      values: task("Trajectory Distance"),
+    },
+    {
+      label: "Line-path",
+      source: "SAVED",
+      detail: "Static + dynamic search",
+      values: average(
+        task("Line-Path Search (static)"),
+        task("Line-Path Search (dynamic)"),
+      ),
+    },
+    {
+      label: "Location",
+      source: "SAVED",
+      detail: "Location Awareness",
+      values: task("Location Awareness"),
+    },
+    {
+      label: "Visit history",
+      source: "SAVED",
+      detail: "Visit History",
+      values: task("Visit History"),
+    },
+  ];
+  let view = "chart",
+    filter = "all";
+  const legend = (n) =>
+    labels
+      .slice(0, n)
+      .map((label, i) => `<span><i class="series-${i}"></i>${label}</span>`)
+      .join("");
+  function renderRadar() {
+    const n = $("#oracle-toggle").checked ? 4 : 2;
+    const width = Math.max(300, Math.min(920, $("#results-radar").clientWidth));
+    const small = width < 560,
+      height = small ? 420 : 610;
+    const cx = width / 2,
+      cy = height / 2,
+      radius = small ? width * 0.29 : Math.min(205, width * 0.29);
+    const point = (i, value, r = radius) => {
+      const angle = (i * Math.PI) / 4 - Math.PI / 2;
+      return [
+        cx + (Math.cos(angle) * r * value) / 100,
+        cy + (Math.sin(angle) * r * value) / 100,
+      ];
+    };
+    const polygon = (values, r) =>
+      values.map((v, i) => point(i, v, r).join(",")).join(" ");
+    const grid = [25, 50, 75, 100]
+      .map(
+        (v) =>
+          `<polygon points="${polygon(axes.map(() => v))}" class="radar-grid"/><text x="${cx + 7}" y="${cy - (radius * v) / 100 + 4}" class="radar-scale">${v}</text>`,
+      )
+      .join("");
+    const spokes = axes
+      .map((axis, i) => {
+        const [x, y] = point(i, 100),
+          [lx, ly] = point(i, 100, radius + (small ? 35 : 52));
+        const labelX = small && i === 2 ? width - 8 : small && i === 6 ? 8 : lx;
+        const anchor =
+          small && i === 2 ? "end" : small && i === 6 ? "start" : "middle";
+        return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" class="radar-spoke"/><text x="${labelX}" y="${ly - 4}" text-anchor="${anchor}" class="radar-axis">${axis.label}<tspan x="${labelX}" dy="18" class="radar-source">${axis.source}</tspan></text>`;
+      })
+      .join("");
+    // Draw translucent GT outlines first so the main comparison stays readable.
+    const order = n === 4 ? [3, 2, 0, 1] : [0, 1];
+    const series = order
+      .map(
+        (k) =>
+          `<g data-radar-series="${k}"><polygon points="${polygon(axes.map((a) => a.values[k]))}" fill="${colors[k]}" fill-opacity="${k === 1 ? 0.11 : 0.035}" stroke="${colors[k]}" stroke-width="${k === 1 ? 3 : 2}" ${k > 1 ? `stroke-dasharray="${k === 2 ? "7 5" : "2 5"}"` : ""}/>${axes
+            .map((a, i) => {
+              const [x, y] = point(i, a.values[k]);
+              return `<circle cx="${x}" cy="${y}" r="${small ? 3 : 4}" fill="${colors[k]}" stroke="white" stroke-width="1"><title>${a.label} (${a.source}), ${labels[k]}: ${a.values[k].toFixed(1)}</title></circle>`;
+            })
+            .join("")}</g>`,
+      )
+      .join("");
+    $("#results-radar").innerHTML =
+      `<svg viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="radar-title radar-desc"><title id="radar-title">Spatial skills: ${labels.slice(0, n).join(", ")}</title><desc id="radar-desc">Eight axes, scores from 0 to 100; larger is better. Exact values and grouping definitions are in the expandable table below.</desc>${grid}${spokes}${series}</svg><details class="radar-values"><summary>Axis values &amp; task groups</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Radar axis values, horizontally scrollable"><table><caption class="sr-only">Averages of the reported task scores for each radar axis</caption><thead><tr><th scope="col">Skill group</th>${labels
+        .slice(0, n)
+        .map((l) => `<th scope="col">${l}</th>`)
+        .join("")}</tr></thead><tbody>${axes
+        .map(
+          (a) =>
+            `<tr><th scope="row">${a.label} · ${a.source}<small>${a.detail}</small></th>${a.values
+              .slice(0, n)
+              .map((v) => `<td>${v.toFixed(1)}</td>`)
+              .join("")}</tr>`,
+        )
+        .join("")}</tbody></table></div></details>`;
+    $("#radar-legend").innerHTML = legend(n);
+    $("#gt-explanation").hidden = n !== 4;
+  }
   function render() {
     $("#results-chart").hidden = view !== "chart";
     $("#results-table").hidden = view !== "table";
@@ -29,7 +161,7 @@
       );
     $('[data-filter="all"]').textContent =
       view === "chart" ? "Overview" : "All tasks";
-    const showOracle = $("#oracle-toggle").checked;
+    const n = $("#oracle-toggle").checked ? 4 : 2;
     const selected =
       filter === "all"
         ? [
@@ -37,31 +169,27 @@
             ...rows.filter((r) => r.summary && r.category !== "overall"),
           ]
         : rows.filter((r) => r.category === filter && !r.summary);
-    $("#results-chart").innerHTML = `<div class="chart-legend">${labels
-      .slice(0, showOracle ? 4 : 2)
-      .map((label, i) => `<span><i class="series-${i}"></i>${label}</span>`)
-      .join(
-        "",
-      )}</div><div class="chart-scale" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><div class="bar-groups">${selected
-      .map(
-        (r) =>
-          `<article class="bar-group"><div class="bar-heading"><h3>${shortTitles[r.title] || r.title}</h3><span class="delta ${r.delta < 0 ? "negative" : ""}">${r.delta > 0 ? "+" : ""}${r.delta.toFixed(2)} pts</span></div><div class="bar-series">${r.values
-            .slice(0, showOracle ? 4 : 2)
-            .map(
-              (value, i) =>
-                `<div class="bar-row"><span class="sr-only">${labels[i]}: ${value.toFixed(2)}</span><div class="bar-track" aria-hidden="true"><span class="bar-fill series-${i}" style="width:${value}%"></span><span class="bar-value" style="left:${value}%">${value.toFixed(2)}</span></div></div>`,
-            )
-            .join("")}</div></article>`,
-      )
-      .join("")}</div>`;
+    $("#results-chart").innerHTML =
+      `<div class="chart-legend">${legend(n)}</div><div class="chart-scale" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><div class="bar-groups">${selected
+        .map(
+          (r) =>
+            `<article class="bar-group"><div class="bar-heading"><h3>${shortTitles[r.title] || r.title}</h3><span class="delta ${r.delta < 0 ? "negative" : ""}">${r.delta > 0 ? "+" : ""}${r.delta.toFixed(1)} pts</span></div><div class="bar-series">${r.values
+              .slice(0, n)
+              .map(
+                (value, i) =>
+                  `<div class="bar-row"><span class="sr-only">${labels[i]}: ${value.toFixed(1)}</span><div class="bar-track" aria-hidden="true"><span class="bar-fill series-${i}" style="width:${value}%"></span><span class="bar-value" style="left:${value}%">${value.toFixed(1)}</span></div></div>`,
+              )
+              .join("")}</div></article>`,
+        )
+        .join("")}</div>`;
     $("#chart-takeaway").textContent =
       filter === "dynamic"
-        ? "Direction gains are substantial; Exo-to-Ego Distance decreases by 1.75 points."
+        ? "Direction gains are substantial; Exo-to-Ego Distance decreases by 1.7 points."
         : filter === "regional"
           ? "Movement history and object landmarks support reasoning about places."
           : filter === "path"
-            ? "The largest path gain is on static line-path search: +16.84 points."
-            : "All category averages improve. Results vary by task—explore each category for the full picture.";
+            ? "The largest path gain is on static line-path search: +16.8 points."
+            : "All category averages improve. Explore each category to see where performance varies.";
   }
   document.querySelectorAll("[data-results-view]").forEach((b) =>
     b.addEventListener("click", () => {
@@ -75,6 +203,18 @@
       render();
     }),
   );
-  $("#oracle-toggle").addEventListener("change", render);
+  $("#oracle-toggle").addEventListener("change", () => {
+    render();
+    renderRadar();
+  });
+  let lastWidth = 0;
+  new ResizeObserver((entries) => {
+    const width = Math.round(entries[0].contentRect.width);
+    if (width !== lastWidth) {
+      lastWidth = width;
+      renderRadar();
+    }
+  }).observe($("#results-radar"));
   render();
+  renderRadar();
 })();

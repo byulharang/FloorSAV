@@ -70,7 +70,7 @@
       $$("[data-filter]").forEach((b) =>
         b.setAttribute("aria-pressed", String(b === button)),
       );
-      $$("tbody tr").forEach(
+      $$("#results-table tbody tr").forEach(
         (row) =>
           (row.hidden =
             button.dataset.filter !== "all" &&
@@ -82,6 +82,42 @@
   $("#oracle-toggle").addEventListener("change", (e) =>
     $$(".oracle-column").forEach((cell) => (cell.hidden = !e.target.checked)),
   );
+  $$(".benchmark-cards article").forEach((card) => {
+    const button = card.querySelector(".task-expand"),
+      details = card.querySelector(".task-details");
+    let pinned = false,
+      hovering = false;
+    const setOpen = (open) => {
+      card.classList.toggle("expanded", open);
+      button.setAttribute("aria-expanded", String(open));
+      details.setAttribute("aria-hidden", String(!open));
+      button.querySelector("span").textContent = open ? "−" : "+";
+    };
+    card.addEventListener("pointerenter", (e) => {
+      if (e.pointerType === "mouse") {
+        hovering = true;
+        setOpen(true);
+      }
+    });
+    card.addEventListener("pointerleave", () => {
+      hovering = false;
+      if (!pinned && !card.contains(document.activeElement)) setOpen(false);
+    });
+    card.addEventListener("focusout", (e) => {
+      if (!card.contains(e.relatedTarget) && !pinned && !hovering)
+        setOpen(false);
+    });
+    button.addEventListener("click", () => {
+      pinned = !card.classList.contains("expanded");
+      setOpen(pinned);
+    });
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        pinned = false;
+        setOpen(false);
+      }
+    });
+  });
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       for (const e of entries)
@@ -221,6 +257,7 @@
             )
               this.play();
           } else this.pause();
+          this.onVisibilityChange?.(this.visible);
         },
         { threshold: 0.15 },
       );
@@ -243,7 +280,8 @@
       const epoch = ++this.epoch;
       try {
         await this.ego.play();
-        if (epoch !== this.epoch || !this.wantPlay) {
+        if (epoch !== this.epoch) return;
+        if (!this.wantPlay) {
           this.ego.pause();
           return;
         }
@@ -255,6 +293,7 @@
           this.wantPlay = false;
           this.ego.pause();
           this.map.pause();
+          this.onPlayError?.();
           if (manual && error.name !== "AbortError")
             toast("Press play again once the video has loaded.");
         }
@@ -341,8 +380,13 @@
     stepIndex = 0,
     annotations = true;
   let guided = true,
-    stepRunning = false,
-    hasStarted = false;
+    hasStarted = false,
+    tourActive = false,
+    holding = false,
+    holdRemaining = 0,
+    nextStop = 0,
+    tourFinished = false;
+  const HOLD_MS = 2500;
   const caseButtons = $$("[data-case]"),
     stepButtons = $$("[data-step]");
   const story = new VideoPair("case", { onUpdate: renderStory });
@@ -370,7 +414,11 @@
     caseIndex = index;
     stepIndex = 0;
     guided = true;
-    stepRunning = false;
+    tourActive = false;
+    holding = false;
+    holdRemaining = 0;
+    nextStop = 0;
+    tourFinished = false;
     hasStarted = false;
     const c = cases[index];
     focusEvidence();
@@ -398,44 +446,97 @@
     });
     story.userPaused = true;
     story.load(c.name, c.start, c.duration);
-    story.setTime(c.steps[0].at);
+    story.setTime(0);
     $("#media-error").hidden = true;
-    renderStory(c.steps[0].at);
+    renderStory(0);
   }
-  function goStep(index, play = false) {
-    scrollGuidedStep();
+  // One forward timeline: travel → timed explanation → travel, through the clip's end.
+  // Repeated timestamps let several explanations share exactly the same evidence frame.
+  function goStep(index, resume = true) {
     guided = true;
     hasStarted = true;
-    stepRunning = false;
-    story.pause();
+    tourFinished = false;
+    tourActive = resume;
+    holding = true;
+    holdRemaining = HOLD_MS;
     stepIndex = index;
+    nextStop = index + 1;
+    story.userPaused = !resume;
+    story.pause();
     focusEvidence();
     story.setTime(cases[caseIndex].steps[index].at);
-    if (play && cases[caseIndex].steps[index].from != null) playStep();
-    else renderStory(cases[caseIndex].steps[index].at);
   }
-  function scrollGuidedStep() {
-    if (matchMedia("(max-width:760px)").matches)
-      $(".insight").scrollIntoView({
-        block: "start",
-        behavior: reduced.matches ? "auto" : "smooth",
-      });
-  }
-  function playStep() {
-    scrollGuidedStep();
-    const s = cases[caseIndex].steps[stepIndex];
+  function startTour() {
     guided = true;
     hasStarted = true;
-    if (s.from == null) {
-      goStep(stepIndex);
+    tourFinished = false;
+    tourActive = true;
+    holding = false;
+    nextStop = 0;
+    stepIndex = 0;
+    story.userPaused = false;
+    evidenceView("video");
+    story.setTime(0);
+    story.play(true);
+    renderStory(0);
+  }
+  function toggleTour() {
+    if (!guided || !hasStarted || tourFinished) {
+      startTour();
       return;
     }
-    stepRunning = true;
-    story.setTime(s.from);
-    story.userPaused = false;
-    story.play(true);
-    renderStory(s.from);
+    tourActive = !tourActive;
+    story.userPaused = !tourActive;
+    if (!tourActive) story.pause();
+    else if (!holding) story.play(true);
+    renderStory(story.ego.currentTime);
   }
+  function updateTour(dt) {
+    if (!guided || !tourActive || !story.visible) return;
+    if (holding) {
+      // Count only after both exact frames have loaded; never expire a hold in a hidden tab.
+      if (
+        story.pendingSeek != null ||
+        [story.ego, story.map].some((v) => v.readyState < 2 || v.seeking)
+      )
+        return;
+      holdRemaining -= dt;
+      if (holdRemaining <= 0) {
+        const steps = cases[caseIndex].steps;
+        if (
+          nextStop < steps.length &&
+          steps[nextStop].at <= story.ego.currentTime + 0.08
+        )
+          goStep(nextStop);
+        else {
+          holding = false;
+          story.play();
+        }
+      }
+      renderStory(story.ego.currentTime);
+    } else if (
+      story.wantPlay &&
+      !story.ego.paused &&
+      story.pendingSeek == null
+    ) {
+      const step = cases[caseIndex].steps[nextStop];
+      if (step && story.ego.currentTime >= step.at) goStep(nextStop);
+    }
+  }
+  story.onVisibilityChange = (visible) => {
+    if (visible && tourActive && !holding && !document.hidden && !dialog.open)
+      story.play();
+  };
+  story.onPlayError = () => {
+    tourActive = false;
+    renderStory(story.ego.currentTime);
+  };
+  story.ego.addEventListener("ended", () => {
+    tourActive = false;
+    holding = false;
+    tourFinished = true;
+    renderStory(story.duration);
+  });
   caseButtons.forEach((b, i) => {
     b.addEventListener("click", () => selectCase(i));
     b.addEventListener("keydown", (e) => {
@@ -453,35 +554,29 @@
     });
   });
   stepButtons.forEach((b, i) => b.addEventListener("click", () => goStep(i)));
-  $("#start-walkthrough").addEventListener("click", () => {
-    if (!guided) goStep(stepIndex);
-    else if (!hasStarted) playStep();
-    else if (stepRunning) {
-      stepRunning = false;
-      story.pause();
-      story.setTime(cases[caseIndex].steps[stepIndex].at);
-    } else if (stepIndex < 3) goStep(stepIndex + 1, true);
+  $("#start-walkthrough").addEventListener("click", toggleTour);
+  $("#next-step").addEventListener("click", () => {
+    if (nextStop < cases[caseIndex].steps.length)
+      goStep(nextStop, !hasStarted || tourActive);
     else {
-      hasStarted = false;
-      selectCase(caseIndex);
-      playStep();
+      holding = false;
+      tourActive = true;
+      story.userPaused = false;
+      story.play(true);
     }
   });
-  $("#replay-step").addEventListener("click", playStep);
+  $("#replay-step").addEventListener("click", startTour);
   story.onPlayRequest = () => {
-    if (story.wantPlay && !story.ego.paused) {
-      story.pause();
-      renderStory(story.ego.currentTime);
-    } else if (guided) playStep();
+    if (guided) toggleTour();
+    else if (story.wantPlay) story.pause();
     else story.play(true);
   };
-  $("#case-restart").addEventListener("click", () => {
-    selectCase(caseIndex);
-    playStep();
-  });
+  $("#case-restart").addEventListener("click", startTour);
   $("#case-seek").addEventListener("input", () => {
     guided = false;
-    stepRunning = false;
+    tourActive = false;
+    holding = false;
+    tourFinished = false;
     renderStory(Number(story.seek.value));
   });
   $("#case-speed").addEventListener("click", () => {
@@ -513,10 +608,11 @@
   );
   const pin = (id, point, number, label, dx = -14, dy = -11, tone = "") => {
     const [x, y] = point,
-      lx = Math.max(5, Math.min(68, x + dx)),
-      ly = Math.max(8, Math.min(90, y + dy));
-    const width = Math.max(18, label.length * 1.55 + 9);
-    return `<g id="${id}" class="evidence-pin ${tone}"><path class="pin-leader" d="M${x},${y} L${lx + 3},${ly}"/><circle class="pin-target" cx="${x}" cy="${y}" r="2.8"/><rect class="pin-label" x="${lx - 3}" y="${ly - 3.5}" width="${width}" height="7" rx="2"/><text class="pin-text" x="${lx}" y="${ly + 1.2}">${number} · ${label}</text></g>`;
+      text = `${number} · ${label}`;
+    const width = Math.max(21, text.length * 1.95 + 7);
+    const lx = Math.max(2, Math.min(98 - width, x + dx));
+    const ly = Math.max(9, Math.min(89, y + dy));
+    return `<g id="${id}" class="evidence-pin ${tone}"><path class="pin-leader" d="M${x},${y} L${lx + width / 2},${ly}"/><circle class="pin-target" cx="${x}" cy="${y}" r="3.2"/><rect class="pin-label" x="${lx}" y="${ly - 4.5}" width="${width}" height="9" rx="2"/><text class="pin-text" x="${lx + width / 2}" y="${ly}" text-anchor="middle" dominant-baseline="central">${text}</text></g>`;
   };
   const evidenceLine = (a, b, cls = "route-line") =>
     `<path class="${cls}" d="M${a[0]},${a[1]} L${b[0]},${b[1]}"/>`;
@@ -553,7 +649,7 @@
       `<text class="sketch-heading-label" x="65" y="22">Your view</text>`;
     svg +=
       pin("you-sketch", you, "1", "You", 5, -1) +
-      pin("other-sketch", other, "2", "Other person", -28, -2);
+      pin("other-sketch", other, "2", "Other person", -43, 6);
     if (step >= 2) {
       svg +=
         evidenceLine(other, you, "sketch-axis") + evidenceLine(other, object);
@@ -628,71 +724,84 @@
     const c = cases[caseIndex];
     if (!c) return;
     const s = c.steps[stepIndex];
-    if (guided && stepRunning && t >= s.until - 0.018) {
-      stepRunning = false;
-      story.pause();
-      story.setTime(s.at);
-      return;
-    }
-    const moving = stepRunning && !story.ego.paused;
+    const moving = story.wantPlay && !story.ego.paused;
+    const atEvidence = guided && holding && Math.abs(t - s.at) < 0.12;
     $("#case-source-time").textContent = `Source ${exactTime(c.start + t)}`;
     $("#playback-state").textContent = !guided
       ? "Exploring original footage"
-      : moving
-        ? "Playing context · pauses for explanation"
-        : `Paused · ${stepIndex === 0 && c.name === "region" ? "after departure" : "question moment"}`;
+      : tourFinished
+        ? "Full clip complete"
+        : !hasStarted
+          ? "Ready · full clip with guided highlights"
+          : holding && tourActive
+            ? `Highlight ${stepIndex + 1} · continues in ${(Math.max(0, holdRemaining) / 1000).toFixed(1)}s`
+            : !tourActive
+              ? "Paused · resume whenever you’re ready"
+              : "Playing · synchronized source footage";
     $("#playback-state").classList.toggle("playing", moving);
     $("#frozen-time").textContent = exactTime(c.start + t);
-    $("#guide-progress").textContent = `Step ${stepIndex + 1} of 4`;
+    $("#guide-progress").textContent = tourFinished
+      ? "4 of 4 · complete"
+      : `Step ${stepIndex + 1} of 4`;
     $("#insight-number").textContent = `0${stepIndex + 1}`;
-    $("#insight-focus").textContent = guided ? s.focus : "Free exploration";
+    $("#insight-focus").textContent = !guided
+      ? "Free exploration"
+      : atEvidence
+        ? s.focus
+        : nextStop === 0
+          ? "First highlight coming up"
+          : `Explained at ${exactTime(c.start + s.at)}`;
     $("#insight-title").textContent = guided
       ? s.name
       : "Return to the evidence";
     const insight = guided
       ? s.insight
-      : "You’re exploring the original footage. Resume the guided step to match its explanation and highlights to the right moment.";
+      : "You’re exploring the original footage. Choose a step to see its explanation at the matching moment, or replay the full guided example.";
     if ($("#case-insight").innerHTML !== insight)
       $("#case-insight").innerHTML = insight;
     stepButtons.forEach((b, i) => {
       if (i === stepIndex && guided) b.setAttribute("aria-current", "step");
       else b.removeAttribute("aria-current");
     });
-    $("#video-evidence").textContent = guided
+    $("#video-evidence").textContent = atEvidence
       ? s.video
       : "Original source footage · use the timeline to explore.";
-    $("#map-evidence").textContent = guided
+    $("#map-evidence").textContent = atEvidence
       ? s.map
       : "Floormap at the matching source time.";
     const showingSketch =
-      guided && annotations && c.name === "viewpoint" && stepIndex >= 1;
+      atEvidence && annotations && c.name === "viewpoint" && stepIndex >= 1;
     $("#map-view-label").textContent = showingSketch
       ? "Coordinate sketch"
       : "2D floormap";
     $("#map-time-label").textContent = showingSketch
       ? "Query-time reconstruction"
       : "Matched source time";
-    if (guided && !annotations && c.name === "viewpoint" && stepIndex >= 1)
+    if (atEvidence && !annotations && c.name === "viewpoint" && stepIndex >= 1)
       $("#map-evidence").textContent =
         "Source map. Enable highlights to see the coordinate reconstruction.";
     const eventNow = t >= c.event[0] && t <= c.event[1];
     $("#event-caption").textContent = eventNow ? `“${c.quote}”` : "";
     $("#start-walkthrough").textContent = !guided
-      ? "Resume guided step →"
+      ? "Replay guided example ▶"
       : !hasStarted
-        ? s.action + " ▶"
-        : stepRunning
-          ? "Pause & explain"
-          : stepIndex < 3
-            ? `Next: ${c.steps[stepIndex + 1].name} →`
-            : "Replay this example ↺";
-    $("#replay-step").hidden = !guided || s.from == null || !hasStarted;
+        ? "Play full example ▶"
+        : tourFinished
+          ? "Replay example ↺"
+          : tourActive
+            ? "Pause"
+            : "Resume ▶";
+    $("#next-step").textContent =
+      nextStop < c.steps.length ? "Next step →" : "Continue video ▶";
+    $("#next-step").hidden =
+      tourFinished || (nextStop >= c.steps.length && !holding);
+    $("#replay-step").hidden = !hasStarted || tourFinished;
     $("#baseline-answer").textContent = c.baseline;
     $("#floorsav-answer").textContent = c.answer;
     $(".answers").hidden = !guided || stepIndex !== 3;
     $("#case-takeaway").hidden = !guided || stepIndex !== 3;
     $("#case-takeaway").textContent = c.takeaway;
-    const visible = annotations && guided && !moving;
+    const visible = annotations && atEvidence && !moving;
     $("#map-overlay").toggleAttribute("hidden", !visible);
     $("#ego-overlay").toggleAttribute("hidden", !visible);
     $("#map-evidence-label").hidden = true;
@@ -701,18 +810,14 @@
       overlayKey = key;
       buildOverlays(c, stepIndex, t);
     }
-    $("button[data-evidence-view=map]").textContent =
-      guided && c.name === "viewpoint" && stepIndex >= 1
-        ? "Coordinate sketch"
-        : "Floormap";
-    $("#case-play").disabled = guided && s.from == null;
+    $("button[data-evidence-view=map]").textContent = showingSketch
+      ? "Coordinate sketch"
+      : "Floormap";
+    $("#case-play").disabled = false;
+    $("#case-play").textContent = (guided ? tourActive : moving) ? "Ⅱ" : "▶";
     $("#case-play").setAttribute(
       "aria-label",
-      guided
-        ? moving
-          ? "Pause current scene"
-          : "Replay current scene"
-        : "Play source clip",
+      (guided ? tourActive : moving) ? "Pause example" : "Play example",
     );
   }
   selectCase(0);
@@ -781,13 +886,21 @@
   // Avoid background playback and honor reduced-motion at any point in the visit.
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) allPairs.forEach((p) => p.pause());
-    else if (hero.visible && !hero.userPaused && !reduced.matches) hero.play();
+    else {
+      if (hero.visible && !hero.userPaused && !reduced.matches) hero.play();
+      story.onVisibilityChange(story.visible);
+    }
   });
   new MutationObserver(() => {
     if (dialog.open) allPairs.forEach((p) => p.pause());
+    else story.onVisibilityChange(story.visible);
   }).observe(dialog, { attributes: true, attributeFilter: ["open"] });
   reduced.addEventListener("change", () => {
-    if (reduced.matches) allPairs.forEach((p) => p.pause());
+    if (reduced.matches) {
+      tourActive = false;
+      allPairs.forEach((p) => p.pause());
+      renderStory(story.ego.currentTime);
+    }
   });
 
   // A deterministic schematic of the rendering stages, not a sensor-data replay.
@@ -885,7 +998,7 @@
   }
   function label(ctx, text, x, y, color = "#425e80", size = 11) {
     ctx.fillStyle = color;
-    ctx.font = `500 ${size}px Inter,system-ui,sans-serif`;
+    ctx.font = `600 ${size}px "DM Sans",system-ui,sans-serif`;
     ctx.fillText(text, x, y);
   }
   function box(ctx, x, y, w, h, r, fill, stroke) {
@@ -900,6 +1013,18 @@
       ctx.lineWidth = 1;
       ctx.stroke();
     }
+  }
+  function chip(ctx, text, x, y, color, size = 17) {
+    ctx.save();
+    ctx.font = `700 ${size}px "DM Sans",system-ui,sans-serif`;
+    const width = ctx.measureText(text).width + 24,
+      height = size + 18;
+    box(ctx, x - width / 2, y - height / 2, width, height, 7, color, "#ffffff");
+    ctx.fillStyle = "#ffffff";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, x, y + 0.5);
+    ctx.restore();
   }
   function cameraAt(t) {
     return [
@@ -916,6 +1041,15 @@
     mapCtx.clearRect(0, 0, 640, 440);
     mapCtx.fillStyle = "#fff";
     mapCtx.fillRect(0, 0, 640, 440);
+    const stageColors = ["#2456d6", "#b93842", "#087e63", "#7040b0", "#2456d6"];
+    const stageNames = [
+      "1  ·  3D geometry → 2D map",
+      "2  ·  Add camera + movement",
+      "3  ·  Add estimated sound",
+      "4  ·  Ground objects on the map",
+      "5  ·  Synchronize map + video",
+    ];
+    chip(mapCtx, stageNames[phase], 320, 26, stageColors[phase], 18);
     mapCtx.save();
     mapCtx.globalAlpha = flat;
     for (let x = 0; x <= 8; x++) {
@@ -946,8 +1080,8 @@
         mapCtx,
         v[0],
         v[1],
-        flat < 0.9 ? 1.25 : 0.85,
-        flat < 0.9 ? "#6e8aad88" : "#74869c75",
+        flat < 0.9 ? 1.8 : 1.25,
+        flat < 0.9 ? "#2456d6b0" : "#64748ba0",
       );
     }
     if (phase === 0 && flat < 0.96) {
@@ -969,7 +1103,7 @@
         const p = cameraAt(i / 60);
         history.push(xy(p[0], p[1]));
       }
-      line(mapCtx, history, "#4385dd", 2.6);
+      line(mapCtx, history, "#2456d6", 4.5);
       const head = camera[2],
         fov = 0.86,
         mapAngle = head - 0.48;
@@ -977,13 +1111,13 @@
       mapCtx.moveTo(...pos);
       mapCtx.arc(pos[0], pos[1], 124, mapAngle - fov, mapAngle + fov);
       mapCtx.closePath();
-      mapCtx.fillStyle = "#f4d35739";
+      mapCtx.fillStyle = "#e9b82555";
       mapCtx.fill();
       const end = [
         pos[0] + 29 * Math.cos(mapAngle),
         pos[1] + 29 * Math.sin(mapAngle),
       ];
-      line(mapCtx, [pos, end], "#db5956", 3);
+      line(mapCtx, [pos, end], "#b93842", 4);
       mapCtx.save();
       mapCtx.translate(...end);
       mapCtx.rotate(mapAngle);
@@ -995,11 +1129,11 @@
       mapCtx.fillStyle = "#db5956";
       mapCtx.fill();
       mapCtx.restore();
-      dot(mapCtx, ...pos, 6, "#db5956");
+      dot(mapCtx, ...pos, 9, "#b93842");
       dot(mapCtx, ...pos, 2, "#fff");
       if (phase === 1) {
-        label(mapCtx, "Camera", pos[0] - 21, pos[1] + 24, "#af4d4d", 11);
-        label(mapCtx, "Recent path", 175, 325, "#3974bb", 10);
+        chip(mapCtx, "Camera + heading", pos[0], pos[1] + 37, "#b93842");
+        chip(mapCtx, "Motion history", 170, 338, "#2456d6", 16);
       }
     }
     if (phase >= 2) {
@@ -1008,27 +1142,23 @@
       mapCtx.save();
       mapCtx.globalAlpha = opacity;
       const radius = 8 + ((renderMs % 1200) / 1200) * 25;
-      mapCtx.strokeStyle = "#28987755";
-      mapCtx.lineWidth = 1.5;
+      mapCtx.strokeStyle = "#087e6399";
+      mapCtx.lineWidth = 3;
       mapCtx.beginPath();
       mapCtx.arc(...p, radius, 0, Math.PI * 2);
       mapCtx.stroke();
-      dot(mapCtx, ...p, 6, "#249772");
+      dot(mapCtx, ...p, 10, "#087e63");
       dot(mapCtx, ...p, 2, "white");
       if (phase === 2) {
         const c = cameraAt(1),
           cp = xy(c[0], c[1]);
         mapCtx.setLineDash([4, 5]);
-        line(mapCtx, [cp, p], "#2b997480", 1.6);
+        line(mapCtx, [cp, p], "#087e63", 2.8);
         mapCtx.setLineDash([]);
-        label(
-          mapCtx,
-          "Estimated sound position",
-          p[0] - 124,
-          p[1] - 23,
-          "#1e8060",
-          11,
-        );
+        chip(mapCtx, "Estimated sound", p[0] - 40, p[1] - 40, "#087e63");
+        const mid = [(cp[0] + p[0]) / 2, (cp[1] + p[1]) / 2];
+        line(mapCtx, [[376, mid[1]], mid], "#087e63", 2);
+        chip(mapCtx, "Direction + distance", 285, mid[1], "#087e63", 16);
       }
       mapCtx.restore();
     }
@@ -1039,21 +1169,18 @@
           pt = xy(f.x + f.w / 2, f.y + f.h / 2);
         mapCtx.save();
         mapCtx.globalAlpha = show;
-        const text = f.label,
-          mapWidth = mapCtx.measureText(text).width + 16;
+        const a = xy(f.x, f.y + f.h);
         box(
           mapCtx,
-          pt[0] - mapWidth / 2,
-          pt[1] - 10,
-          mapWidth,
-          20,
-          5,
-          "#fff",
-          "#bdcfe5",
+          a[0] - 4,
+          a[1] - 4,
+          f.w * 49 + 8,
+          f.h * 49 + 8,
+          6,
+          "#7040b026",
+          "#7040b0",
         );
-        mapCtx.textAlign = "center";
-        label(mapCtx, text, pt[0], pt[1] + 4, "#36577f", 10);
-        mapCtx.textAlign = "left";
+        chip(mapCtx, f.label, pt[0], pt[1], "#7040b0", 17);
         mapCtx.restore();
       }
     }
@@ -1073,8 +1200,8 @@
           thumbW,
           thumbH,
           4,
-          isCurrent ? "#edf4ff" : "#fafbfd",
-          isCurrent ? "#5790df" : "#d4dfed",
+          isCurrent ? "#dbeafe" : "#f1f5f9",
+          isCurrent ? "#2456d6" : "#b8c6d8",
         );
         line(
           mapCtx,
@@ -1090,13 +1217,18 @@
         dot(mapCtx, x + 15 + k * 6, y + 25 - k * 3, 2, "#d75d58");
         dot(mapCtx, x + 44, y + 12, 2, "#249772");
       }
-      label(mapCtx, "Frames", 82, 420, "#738ba8", 9);
+      label(mapCtx, "Time →", 55, 420, "#2456d6", 15);
     }
     if (phase !== renderIndex) {
       renderIndex = phase;
+      $("#render-player").dataset.phase = phase;
       const s = renderStages[phase];
       $("#render-step-title").textContent = s[0];
       $("#render-step-description").textContent = s[1];
+      mapCanvas.setAttribute(
+        "aria-label",
+        `Step ${phase + 1}: ${s[0]}. ${s[1]}`,
+      );
       $("#render-step-number").textContent = phase + 1;
       $("#render-stage-count").textContent =
         String(phase + 1).padStart(2, "0") + " / 05";
@@ -1148,25 +1280,15 @@
       }
     } else {
       for (let i = 0; i < 4; i++) {
-        box(
-          signalCtx,
-          5 + i * 123,
-          24,
-          110,
-          48,
-          8,
-          phase === 4 ? "#edf4ff" : "#f3edf9",
-          "#cfdae9",
-        );
-        label(
+        chip(
           signalCtx,
           phase === 4
-            ? String(i + 1).padStart(2, "0")
+            ? `Frame ${i + 1}`
             : ["sofa", "table", "counter", "chair"][i],
-          25 + i * 123,
-          53,
-          "#57729b",
-          15,
+          61 + i * 123,
+          52,
+          phase === 4 ? "#2456d6" : "#7040b0",
+          17,
         );
       }
     }
@@ -1196,7 +1318,7 @@
   });
   $$("[data-render-step]").forEach((b) =>
     b.addEventListener("click", () => {
-      renderMs = Number(b.dataset.renderStep) * 4000 + 1800;
+      renderMs = Number(b.dataset.renderStep) * 4000 + 3000;
       renderPlaying = false;
       renderButton();
       drawRendering();
@@ -1223,6 +1345,7 @@
     lastFrame = now;
     if (!document.hidden && !dialog.open) {
       allPairs.forEach((p) => p.tick());
+      updateTour(dt);
       if (renderVisible && renderPlaying) {
         renderMs = (renderMs + dt) % renderDuration;
         drawRendering();

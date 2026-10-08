@@ -1553,3 +1553,438 @@ footer {
   fill: #a03c3c;
   stroke: none;
 }
+
+/* Paper identity, timed explanations, and legible spatial evidence. */
+.authors {
+  font-size: 21px;
+  gap: 14px 30px;
+}
+.authors sup {
+  font-size: 17px;
+  margin-left: 3px;
+}
+.author-note {
+  font-size: 15px;
+}
+.hero-subtitle {
+  max-width: 830px;
+  margin-inline: auto;
+  line-height: 1.65;
+}
+.guide-controls {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.guide-controls .button {
+  min-height: 46px;
+}
+.guide-hint {
+  line-height: 1.6;
+}
+.evidence-overlay .pin-label {
+  fill: #174fa6;
+  stroke: #fff;
+  stroke-width: 0.35;
+}
+.evidence-overlay .pin-text {
+  fill: #fff;
+  font: 700 3.65px var(--sans);
+}
+.evidence-overlay .answer-pin .pin-label {
+  fill: #087552;
+  stroke: #fff;
+}
+.evidence-overlay .answer-pin .pin-text {
+  fill: #fff;
+}
+.evidence-overlay .pin-leader {
+  stroke-width: 0.7;
+}
+.evidence-overlay .pin-target {
+  stroke-width: 0.85;
+  fill: #dbeafe55;
+}
+.evidence-overlay .region-focus {
+  stroke-width: 0.8;
+  fill: #b7efd140;
+}
+.evidence-overlay .sketch-heading {
+  font-size: 3.5px;
+  font-weight: 750;
+  fill: #14365b;
+}
+.evidence-overlay .sketch-sub {
+  font-size: 3px;
+  fill: #344f6c;
+}
+.evidence-overlay .sketch-label,
+.evidence-overlay .sketch-answer {
+  font-size: 4.5px;
+  font-weight: 750;
+}
+.evidence-overlay .sketch-heading-label {
+  font-size: 3.5px;
+  font-weight: 700;
+}
+
+/* Stage colors connect the active input, the canvas addition, and the explanation. */
+.render-player {
+  --stage: #2456d6;
+  --stage-tint: #edf3ff;
+}
+.render-player[data-phase="1"] {
+  --stage: #b93842;
+  --stage-tint: #fff0f1;
+}
+.render-player[data-phase="2"] {
+  --stage: #087e63;
+  --stage-tint: #e8f7f0;
+}
+.render-player[data-phase="3"] {
+  --stage: #7040b0;
+  --stage-tint: #f4edfc;
+}
+.render-view {
+  border-top: 4px solid var(--stage);
+}
+.render-view-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--stage);
+}
+.sensor-input {
+  border: 1px solid #dde4ed;
+  background: #fff;
+}
+.sensor-input.active {
+  border: 2px solid var(--stage);
+  padding: 11px 9px;
+  background: var(--stage-tint);
+  box-shadow: 0 3px 14px #243c5814;
+}
+.sensor-input.active .sensor-icon,
+.sensor-input.active strong {
+  color: var(--stage);
+}
+.sensor-input.done {
+  background: #f1f6fc;
+}
+.sensor-input strong {
+  font-size: 16px;
+}
+.sensor-input small {
+  font-size: 14px;
+}
+.render-step-caption {
+  background: var(--stage-tint);
+  border-left: 5px solid var(--stage);
+  padding: 24px;
+}
+.render-step-caption > span {
+  background: var(--stage);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  flex-basis: 44px;
+  font-size: 22px;
+  font-weight: 700;
+}
+.render-step-caption h3 {
+  font-size: 23px;
+  color: #172b45;
+}
+#render-step-description {
+  font-size: 18px;
+  color: #344c68;
+}
+.render-step-tabs button[aria-current="step"] {
+  background: var(--stage);
+  color: #fff;
+  border-color: var(--stage);
+  font-weight: 700;
+}
+.map-key {
+  font-size: 13px;
+  color: #344c68;
+}
+.map-key i {
+  width: 9px;
+  height: 9px;
+}
+
+/* Hover reveals all tasks; the button also supports touch and keyboard. */
+.benchmark-cards {
+  align-items: start;
+}
+.benchmark-cards article {
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dbe4ef;
+  border-radius: 14px;
+  background: #fff;
+}
+.benchmark-cards article.expanded {
+  border-color: #7299d6;
+  box-shadow: 0 12px 30px #1c4d8910;
+}
+.task-expand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #d8e2ee;
+  background: transparent;
+  color: #174fa6;
+  padding: 17px 0 0;
+  margin-top: 22px;
+  font: 650 16px var(--sans);
+  text-align: left;
+  cursor: pointer;
+  min-height: 46px;
+}
+.task-expand span {
+  font-size: 24px;
+}
+.task-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+  visibility: hidden;
+}
+.task-details > div {
+  overflow: hidden;
+}
+.expanded .task-details {
+  grid-template-rows: 1fr;
+  visibility: visible;
+}
+.task-details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.task-details li {
+  padding-top: 20px;
+}
+.task-details li strong {
+  font-size: 16px;
+  color: #183e71;
+  line-height: 1.5;
+}
+.benchmark-cards .task-details p {
+  min-height: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 6px 0 0;
+  color: #3e526b;
+}
+
+/* Shared series colors across the radar, bars, and GT controls. */
+.series-0 {
+  background: #64748b;
+}
+.series-1 {
+  background: #2456d6;
+}
+.series-2 {
+  background: #a16207;
+}
+.series-3 {
+  background: #087e71;
+}
+.radar-panel {
+  background: #fff;
+  border: 1px solid #dae4f0;
+  border-radius: 18px;
+  padding: 32px;
+  margin: 0 0 34px;
+}
+.radar-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.radar-heading h3 {
+  font-size: clamp(23px, 2.5vw, 31px);
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  margin: 7px 0 0;
+}
+.radar-intro {
+  font-size: 18px;
+  color: #405675;
+  line-height: 1.65;
+  max-width: 790px;
+  margin: 18px 0 24px;
+}
+.gt-toggle {
+  border: 1px solid #91a9c9;
+  border-radius: 30px;
+  padding: 11px 17px;
+  background: #f6f9fe;
+  cursor: pointer;
+  font-size: 16px;
+  color: #254977;
+  flex-shrink: 0;
+}
+.gt-toggle:has(input:checked) {
+  color: #fff;
+  background: #174fa6;
+  border-color: #174fa6;
+}
+.gt-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #174fa6;
+}
+#radar-legend {
+  margin: 0;
+  justify-content: center;
+  font-size: 16px;
+}
+#results-radar {
+  max-width: 920px;
+  margin: auto;
+  min-width: 0;
+}
+#results-radar svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: var(--sans);
+}
+.radar-grid {
+  fill: none;
+  stroke: #ced8e6;
+  stroke-width: 1;
+}
+.radar-spoke {
+  stroke: #dee5ef;
+}
+.radar-scale {
+  fill: #4e627c;
+  font-size: 12px;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+}
+.radar-axis {
+  font-size: 19px;
+  font-weight: 700;
+  fill: #1b3559;
+}
+.radar-source {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #526782;
+  letter-spacing: 1px;
+}
+.radar-note,
+.gt-explanation {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #465d79;
+  margin: 16px 0 0;
+}
+.gt-explanation {
+  background: #eff5ff;
+  border-radius: 8px;
+  padding: 16px;
+}
+.radar-values summary {
+  font-size: 15px;
+  cursor: pointer;
+  color: #174fa6;
+  padding: 12px 0;
+}
+.radar-values table {
+  width: 100%;
+  font-size: 15px;
+}
+.radar-values th,
+.radar-values td {
+  padding: 12px;
+}
+.radar-values th small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #526782;
+}
+.radar-values td {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 760px) {
+  .authors {
+    font-size: 19px;
+    gap: 10px 20px;
+  }
+  .authors sup {
+    font-size: 16px;
+  }
+  .radar-panel {
+    padding: 22px 14px;
+  }
+  .radar-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .radar-intro {
+    font-size: 16px;
+  }
+  #radar-legend {
+    font-size: 14px;
+    gap: 12px 18px;
+  }
+  .radar-axis {
+    font-size: 13px;
+  }
+  .radar-source {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+  .radar-scale {
+    font-size: 10px;
+  }
+  .render-step-caption {
+    padding: 18px;
+    gap: 12px;
+  }
+  .render-step-caption h3 {
+    font-size: 20px;
+  }
+  #render-step-description {
+    font-size: 16px;
+  }
+  .sensor-input strong {
+    font-size: 15px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .task-details,
+  .benchmark-cards article {
+    transition: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .benchmark-cards article {
+    grid-template-columns: 48px 1fr;
+    gap: 0 14px;
+    padding: 22px;
+  }
+  .benchmark-cards .category-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .benchmark-cards .task-expand,
+  .benchmark-cards .task-details {
+    grid-column: 1 / -1;
+  }
+}

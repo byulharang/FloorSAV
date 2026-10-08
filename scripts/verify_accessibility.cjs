@@ -19,7 +19,14 @@ fs.mkdirSync(output, { recursive: true });
       });
       await page.goto(base, { waitUntil: "networkidle" });
       await page.addScriptTag({ path: axePath });
-      for (const state of ["initial", "path-answer", "expanded"]) {
+      for (const state of [
+        "initial",
+        "path-answer",
+        "expanded",
+        "category-viewpoints",
+        "category-regions",
+        "category-paths",
+      ]) {
         if (state === "path-answer") {
           await page.locator("#tab-path").click();
           await page.locator('[data-step="3"]').click();
@@ -31,6 +38,14 @@ fs.mkdirSync(output, { recursive: true });
           );
         }
         if (state === "expanded") await page.locator("#case-expand").click();
+        if (state === "category-viewpoints") {
+          await page.locator(".task-expand").first().focus();
+          await page.keyboard.press("Enter");
+        }
+        if (state === "category-regions")
+          await page.locator('.category-switch [data-category="1"]').click();
+        if (state === "category-paths")
+          await page.locator('.category-switch [data-category="2"]').click();
         const report = await page.evaluate(
           async () =>
             await axe.run(document, {

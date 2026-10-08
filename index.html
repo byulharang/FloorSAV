@@ -19,9 +19,11 @@
     />
     <link rel="stylesheet" href="assets/style.css" />
     <link rel="stylesheet" href="assets/experience.css" />
+    <link rel="stylesheet" href="assets/benchmark.css" />
     <script defer src="assets/media-data.js"></script>
     <script defer src="assets/stories.js"></script>
     <script defer src="assets/site.js"></script>
+    <script defer src="assets/benchmark.js"></script>
     <script defer src="assets/results.js"></script>
   </head>
   <body>
@@ -772,7 +774,8 @@
               <button
                 class="task-expand"
                 aria-expanded="false"
-                aria-controls="task-details-0"
+                aria-controls="category-dialog"
+                aria-haspopup="dialog"
               >
                 Explore 4 tasks <span aria-hidden="true">+</span>
               </button>
@@ -829,7 +832,8 @@
               <button
                 class="task-expand"
                 aria-expanded="false"
-                aria-controls="task-details-1"
+                aria-controls="category-dialog"
+                aria-haspopup="dialog"
               >
                 Explore 2 tasks <span aria-hidden="true">+</span>
               </button>
@@ -875,7 +879,8 @@
               <button
                 class="task-expand"
                 aria-expanded="false"
-                aria-controls="task-details-2"
+                aria-controls="category-dialog"
+                aria-haspopup="dialog"
               >
                 Explore 3 tasks <span aria-hidden="true">+</span>
               </button>
@@ -1267,6 +1272,60 @@
         Original manuscript figure. The current benchmark release is reported in
         the results table.
       </p>
+    </dialog>
+    <dialog
+      id="category-dialog"
+      class="category-dialog"
+      aria-labelledby="category-title"
+      aria-describedby="category-description"
+    >
+      <div class="category-heading">
+        <div>
+          <div class="eyebrow" id="category-count"></div>
+          <h2 id="category-title">Explore the tasks</h2>
+          <p id="category-description"></p>
+        </div>
+        <button
+          class="category-close"
+          aria-label="Close task explorer"
+          autofocus
+        >
+          ×
+        </button>
+      </div>
+      <div class="category-toolbar">
+        <div class="category-switch" role="group" aria-label="Task category">
+          <button data-category="0" aria-pressed="true">
+            Viewpoints <span>4</span>
+          </button>
+          <button data-category="1" aria-pressed="false">
+            Regions <span>2</span>
+          </button>
+          <button data-category="2" aria-pressed="false">
+            Paths <span>3</span>
+          </button>
+        </div>
+        <button class="diagram-play">Pause animations</button>
+      </div>
+      <div class="diagram-legend" aria-label="Diagram key">
+        <span
+          ><i class="legend-camera" aria-hidden="true"></i>You · camera
+          wearer</span
+        >
+        <span
+          ><i class="legend-person" aria-hidden="true"></i>Other person</span
+        >
+        <span class="diagram-context">Top-down views</span>
+      </div>
+      <div
+        class="category-task-grid"
+        tabindex="0"
+        role="region"
+        aria-label="Task explanations and animated diagrams"
+      ></div>
+      <div class="category-footnote">
+        Schematic examples to explain each task. Not recorded predictions.
+      </div>
     </dialog>
     <div id="toast" class="toast" role="status"></div>
     <noscript

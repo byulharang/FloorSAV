@@ -125,18 +125,48 @@ const checks = [],
     ]) {
       const card = p.locator(".benchmark-cards article").nth(i),
         button = card.locator("button");
+      await p.mouse.move(0, 0);
+      await p.waitForTimeout(600); // Closing should not immediately reopen a hovered card.
+      await card.scrollIntoViewIfNeeded();
+      await p.waitForTimeout(150);
       await card.hover();
+      await p.locator("#category-dialog").waitFor({ state: "visible" });
       assert.equal(await button.getAttribute("aria-expanded"), "true");
-      assert.equal(await card.locator(".task-details li").count(), count);
-      await button.focus();
+      assert.equal(
+        await p.locator(".category-task .task-diagram").count(),
+        count,
+      );
+      assert.deepEqual(
+        await p.locator(".category-task h3").allTextContents(),
+        await card.locator(".task-details strong").allTextContents(),
+      );
+      const bounds = await p.locator("#category-dialog").boundingBox();
+      assert(Math.abs(bounds.x + bounds.width / 2 - 720) < 2);
+      await capture(p, "#category-dialog", "category-" + i);
       await p.keyboard.press("Escape");
+      await p.locator("#category-dialog").waitFor({ state: "hidden" });
+      await p.waitForFunction(
+        () => !document.querySelector('.task-expand[aria-expanded="true"]'),
+      );
       assert.equal(await button.getAttribute("aria-expanded"), "false");
+      await button.focus();
       await p.keyboard.press("Enter");
-      assert.equal(await button.getAttribute("aria-expanded"), "true");
+      await p.locator("#category-dialog").waitFor({ state: "visible" });
+      await p.keyboard.press("Tab");
+      assert(
+        await p.evaluate(() =>
+          document
+            .querySelector("#category-dialog")
+            .contains(document.activeElement),
+        ),
+      );
+      await p.locator(".category-close").click();
+      await p.waitForFunction(() =>
+        document.activeElement.matches(".task-expand"),
+      );
     }
-    await capture(p, ".benchmark-cards", "benchmark-expanded");
     checks.push(
-      "All nine task explanations available with pointer and keyboard",
+      "Nine task diagrams and original descriptions, centered hover expansion, keyboard entry, focus return and dismissal",
     );
     for (let i = 0; i < 5; i++) {
       await p.locator(`[data-render-step="${i}"]`).click();
@@ -301,7 +331,15 @@ const checks = [],
       await mobile.locator("#oracle-toggle").check();
       await capture(mobile, ".radar-panel", "radar-" + width);
       if (width < 760) await mobile.locator(".task-expand").first().tap();
-      else await mobile.locator(".benchmark-cards article").first().hover();
+      else {
+        await mobile
+          .locator(".benchmark-cards article")
+          .first()
+          .scrollIntoViewIfNeeded();
+        await mobile.waitForTimeout(150);
+        await mobile.locator(".benchmark-cards article").first().hover();
+      }
+      await mobile.locator("#category-dialog").waitFor({ state: "visible" });
       assert.equal(
         await mobile
           .locator(".task-expand")
@@ -309,6 +347,30 @@ const checks = [],
           .getAttribute("aria-expanded"),
         "true",
       );
+      for (let category = 0; category < 3; category++) {
+        const switcher = mobile.locator(
+          `.category-switch [data-category="${category}"]`,
+        );
+        if (width < 760) await switcher.tap();
+        else await switcher.click();
+        assert(
+          await mobile
+            .locator("#category-dialog")
+            .evaluate((el) => el.scrollWidth <= el.clientWidth),
+        );
+        assert(
+          await mobile
+            .locator(".category-task-grid")
+            .evaluate((el) => el.scrollWidth <= el.clientWidth),
+        );
+        await capture(
+          mobile,
+          "#category-dialog",
+          `category-${category}-${width}`,
+        );
+      }
+      if (width < 760) await mobile.locator(".category-close").tap();
+      else await mobile.locator(".category-close").click();
       if (width < 760) {
         await mobile.locator("#tab-viewpoint").click();
         await mobile.locator('[data-step="3"]').click();

@@ -6,6 +6,7 @@
   const formatTime = (t) =>
     `${String(Math.floor(Math.max(0, t) / 60)).padStart(2, "0")}:${String(Math.floor(Math.max(0, t) % 60)).padStart(2, "0")}`;
   const dialog = $("#figure-dialog");
+  const hasOpenDialog = () => Boolean($("dialog[open]"));
   let toastTimer;
   function toast(message) {
     $("#toast").textContent = message;
@@ -82,42 +83,6 @@
   $("#oracle-toggle").addEventListener("change", (e) =>
     $$(".oracle-column").forEach((cell) => (cell.hidden = !e.target.checked)),
   );
-  $$(".benchmark-cards article").forEach((card) => {
-    const button = card.querySelector(".task-expand"),
-      details = card.querySelector(".task-details");
-    let pinned = false,
-      hovering = false;
-    const setOpen = (open) => {
-      card.classList.toggle("expanded", open);
-      button.setAttribute("aria-expanded", String(open));
-      details.setAttribute("aria-hidden", String(!open));
-      button.querySelector("span").textContent = open ? "−" : "+";
-    };
-    card.addEventListener("pointerenter", (e) => {
-      if (e.pointerType === "mouse") {
-        hovering = true;
-        setOpen(true);
-      }
-    });
-    card.addEventListener("pointerleave", () => {
-      hovering = false;
-      if (!pinned && !card.contains(document.activeElement)) setOpen(false);
-    });
-    card.addEventListener("focusout", (e) => {
-      if (!card.contains(e.relatedTarget) && !pinned && !hovering)
-        setOpen(false);
-    });
-    button.addEventListener("click", () => {
-      pinned = !card.classList.contains("expanded");
-      setOpen(pinned);
-    });
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        pinned = false;
-        setOpen(false);
-      }
-    });
-  });
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       for (const e of entries)
@@ -253,7 +218,7 @@
               !this.userPaused &&
               !reduced.matches &&
               !document.hidden &&
-              !dialog.open
+              !hasOpenDialog()
             )
               this.play();
           } else this.pause();
@@ -524,7 +489,13 @@
     }
   }
   story.onVisibilityChange = (visible) => {
-    if (visible && tourActive && !holding && !document.hidden && !dialog.open)
+    if (
+      visible &&
+      tourActive &&
+      !holding &&
+      !document.hidden &&
+      !hasOpenDialog()
+    )
       story.play();
   };
   story.onPlayError = () => {
@@ -888,14 +859,26 @@
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) allPairs.forEach((p) => p.pause());
     else {
-      if (hero.visible && !hero.userPaused && !reduced.matches) hero.play();
+      if (
+        hero.visible &&
+        !hero.userPaused &&
+        !reduced.matches &&
+        !hasOpenDialog()
+      )
+        hero.play();
       story.onVisibilityChange(story.visible);
     }
   });
-  new MutationObserver(() => {
-    if (dialog.open) allPairs.forEach((p) => p.pause());
+  const modalObserver = new MutationObserver(() => {
+    if (hasOpenDialog()) allPairs.forEach((p) => p.pause());
     else story.onVisibilityChange(story.visible);
-  }).observe(dialog, { attributes: true, attributeFilter: ["open"] });
+  });
+  $$("dialog").forEach((modal) =>
+    modalObserver.observe(modal, {
+      attributes: true,
+      attributeFilter: ["open"],
+    }),
+  );
   reduced.addEventListener("change", () => {
     if (reduced.matches) {
       tourActive = false;
@@ -1345,7 +1328,7 @@
   function tick(now) {
     const dt = lastFrame ? Math.min(100, now - lastFrame) : 0;
     lastFrame = now;
-    if (!document.hidden && !dialog.open) {
+    if (!document.hidden && !hasOpenDialog()) {
       allPairs.forEach((p) => p.tick());
       updateTour(dt);
       if (renderVisible && renderPlaying) {

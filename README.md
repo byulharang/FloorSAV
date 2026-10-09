@@ -51,11 +51,11 @@ Scores use accuracy or AbsMRA on a 0–100 scale; higher is better. Category sco
 ## Citation
 
 ```bibtex
-@misc{kim2026floorsav,
-  title = {FloorSAV: Elucidating Spatial Audio-Visual Context with 2D Floormap for AV-LLMs},
-  author = {Kim, Kyeong-Rae and Kim, Sungnyun and Oh, Tae-Hyun},
-  year = {2026},
-  url = {https://byulharang.github.io/FloorSAV/}
+@article{kim2026floorsav,
+  title   = {{FloorSAV}: Elucidating Spatial Audio-Visual Context with {2D} Floormap for {AV-LLMs}},
+  author  = {Kim, Kyeong-Rae and Kim, Sungnyun and Oh, Tae-Hyun},
+  journal = {arXiv preprint arXiv:2610.11310},
+  year    = {2026}
 }
 ```
 

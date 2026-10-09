@@ -15,6 +15,7 @@
     toastTimer = setTimeout(() => $("#toast").classList.remove("show"), 2600);
   }
   function showFigure(key, title) {
+    dialog.dataset.figure = key;
     $("#dialog-image").src = `assets/figures/${key}.png`;
     $("#dialog-image").alt = title;
     $("#dialog-title").textContent = title;

@@ -832,6 +832,45 @@ td {
 .figure-links button {
   font-size: 15px;
 }
+/* Supplementary results stay compact; the FoV raster is never enlarged. */
+#results .release-note {
+  margin-top: 16px;
+  padding-bottom: 12px;
+}
+#results .release-note summary,
+#results .release-note p,
+#results .figure-links button {
+  font-size: 14px;
+}
+#results .release-note p {
+  max-width: 920px;
+  margin-top: 10px;
+  line-height: 1.65;
+}
+#results .figure-links {
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 14px;
+}
+#results .figure-links button {
+  min-height: 44px;
+}
+#figure-dialog[data-figure="visibility"] {
+  width: min(608px, 95vw);
+}
+#figure-dialog[data-figure="savvy-results"] {
+  width: min(1040px, 95vw);
+}
+#figure-dialog[data-figure="visibility"] #dialog-image {
+  display: block;
+  max-width: 560px;
+  margin-inline: auto;
+}
+#figure-dialog[data-figure="visibility"] .dialog-head h2,
+#figure-dialog[data-figure="savvy-results"] .dialog-head h2 {
+  font-size: 18px;
+  line-height: 1.4;
+}
 .render-description,
 .render-caption,
 .category-card p {

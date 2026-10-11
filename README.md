@@ -6,7 +6,7 @@
 
 KAIST · † Corresponding authors
 
-[**Project Page**](https://byulharang.github.io/FloorSAV/) · [**Paper (PDF)**](assets/figures/paper.pdf) · **arXiv: Coming soon** · [**SAVED-Bench**](benchmark/) · [**MIT License**](LICENSE) · [**BibTeX**](#citation)
+[**Project Page**](https://byulharang.github.io/FloorSAV/) · [**Paper (arXiv)**](https://arxiv.org/abs/2610.11310) · [**SAVED-Bench**](benchmark/) · [**MIT License**](LICENSE) · [**BibTeX**](#citation)
 
 FloorSAV gives audio-visual language models an explicit spatial reference: a **dynamic 2D floormap synchronized with egocentric video**. It brings geometry, camera motion, spatial audio, and object landmarks together for reasoning about viewpoints, places, and paths—without fine-tuning.
 

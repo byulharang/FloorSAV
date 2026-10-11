@@ -2,7 +2,7 @@
 
 The benchmark contains **1,988 questions from 55 scenes**, covering nine
 tasks in three categories. Results are the values reported in **Table 1** of
-the [accompanying paper](../assets/figures/paper.pdf) with Gemini-3.6-Flash.
+the [accompanying paper](https://arxiv.org/abs/2610.11310) with Gemini-3.6-Flash.
 
 | File | Contents |
 |---|---|
